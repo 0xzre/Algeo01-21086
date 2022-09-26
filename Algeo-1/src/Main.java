@@ -33,8 +33,9 @@ public class Main {
             System.out.println("2. Determinan");
             System.out.println("3. Matriks Balikan");
             System.out.println("4. Interpolasi Polinom");
-            System.out.println("5. Regresi linear berganda");
-            System.out.println("6. Keluar");
+            System.out.println("5. Interpolasi Bicubic");
+            System.out.println("6. Regresi linear berganda");
+            System.out.println("7. Keluar");
             System.out.println("--------------------------------");
             System.out.println("Masukkan pilihan menu Anda: ");
             pilihan = input.nextInt();
@@ -56,7 +57,7 @@ public class Main {
                     subMenuRLB();
                     break;
                 case 6:
-                    System.exit(0);
+                    penutup();
                 default:
                     System.out.println("Masukkan menu tidak valid, silahkan ulangi.");
                     MainMenu();
@@ -192,6 +193,14 @@ public class Main {
         System.out.println("Masukkan pilihan sumber Anda: ");
         sumber = input.nextInt();
         return sumber;
+    }
+
+    public static void penutup()
+    {
+        System.out.println("------------------------------------------------------");
+        System.out.println("Terima kasih telah menggunakan kalkulator matriks kami");
+        System.out.println("------------------------------------------------------");
+        System.exit(0);
     }
 
 }
