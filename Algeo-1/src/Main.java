@@ -146,7 +146,7 @@ public class Main {
                     break;
                 case 2:
                     System.out.println("--------------------------------");
-                    System.out.println("             Masukan            ");
+                    System.out.println("             Sumber             ");
                     System.out.println("    2. Masukan dari file .txt   ");
                     System.out.println("--------------------------------");
                     System.out.println("Masukkan nama file (.txt) dalam folder test: ");
@@ -163,17 +163,219 @@ public class Main {
             System.out.println("--------------------------------");
             System.out.println("Matriks yang dibaca: ");
             mat.displayMatrix();
-            
+
+
+
 
 
 
         }
     }
 
-    public static void subMenuDet(){}
-    public static void subMenuInv(){}
-    public static void subMenuInter(){}
-    public static void subMenuRLB(){}
+    public static void subMenuDet(){
+        try{
+            int metode, sumber,ukuran;
+            double res =0;
+            String namaFile = null;
+            Matrix mat = new Matrix(0,0);
+            Scanner input = new Scanner(System.in);
+
+            System.out.println("--------------------------------");
+            System.out.println("              Menu              ");
+            System.out.println("          2.Determinan          ");
+            System.out.println("--------------------------------");
+            System.out.println("         Pilihan Metode:        ");
+            System.out.println("1. Metode Eliminasi Gauss");
+            System.out.println("2. Metode Eliminasi Gauss-Jordan");
+            System.out.println("3. Kembali ke Menu Utama");
+            System.out.println("--------------------------------");
+            System.out.println("Masukkan pilihan metode Anda: ");
+            metode =  input.nextInt();
+
+            switch(metode){
+                case 1:
+                    System.out.println("--------------------------------");
+                    System.out.println("             Metode             ");
+                    System.out.println("    1. Metode Eliminasi Gauss   ");
+                    System.out.println("--------------------------------");
+                    sumber = pilihanMasukan(1);
+                    break;
+                case 2:
+                    System.out.println("--------------------------------");
+                    System.out.println("             Metode             ");
+                    System.out.println("2. Metode Eliminasi Gauss-Jordan");
+                    System.out.println("--------------------------------");
+                    sumber = pilihanMasukan(1);
+                    break;
+                case 3:
+                    MainMenu();
+                default:
+                    System.out.println("Masukan metode tidak valid, silahkan ulangi");
+                    subMenuDet();
+            }
+
+            switch(sumber){
+                case 1:
+                    System.out.println("--------------------------------");
+                    System.out.println("             Sumber             ");
+                    System.out.println("       1. Masukan dari CLI      ");
+                    System.out.println("--------------------------------");
+                    System.out.println("Masukkan ukuran matriks persegi (NxN) N: ");
+                    ukuran = input.nextInt();
+                    mat = new Matrix(ukuran,ukuran);
+                    System.out.println("Masukkan matriks: ");
+                    mat.readMatrixCLI();
+                    System.out.println("Matriks berhasil dibaca.");
+                    break;
+                case 2:
+                    System.out.println("--------------------------------");
+                    System.out.println("              Sumber            ");
+                    System.out.println("    2. Masukan dari file .txt   ");
+                    System.out.println("--------------------------------");
+                    System.out.println("Masukkan nama file (.txt) dalam folder test: ");
+                    namaFile = input.next();
+                    // FUNGSI BACA MATRIKS TXT
+                    System.out.println("Matriks (file:"+namaFile+".txt) berhasil dibaca.");
+                    break;
+                case 3:
+                    subMenuDet();
+                default:
+                    System.out.println("Masukan sumber tidak valid, silahkan ulangi.");
+                    subMenuDet();
+            }
+            System.out.println("--------------------------------");
+            System.out.println("Matriks yang dibaca: ");
+            mat.displayMatrix();
+        }
+    }
+    public static void subMenuInv(){
+        try{
+            int metode, sumber, ukuran;
+            String namaFile = null;
+            Matrix mat = new Matrix(0,0);
+            Matrix inv = new Matrix(0,0);
+            Scanner input  = new Scanner(System.in);
+
+            System.out.println("--------------------------------");
+            System.out.println("              Menu              ");
+            System.out.println("       3. Matriks Balikan       ");
+            System.out.println("--------------------------------");
+            System.out.println("         Pilihan Metode:        ");
+            System.out.println("1. Metode Eliminasi Gauss");
+            System.out.println("2. Metode Eliminasi Gauss-Jordan");
+            System.out.println("3. Kembali ke Menu Utama");
+            System.out.println("--------------------------------");
+            System.out.println("Masukkan pilihan metode Anda: ");
+            metode =  input.nextInt();
+
+            switch(metode){
+                case 1:
+                    System.out.println("--------------------------------");
+                    System.out.println("             Metode             ");
+                    System.out.println("    1. Metode Eliminasi Gauss   ");
+                    System.out.println("--------------------------------");
+                    sumber = pilihanMasukan(1);
+                    break;
+                case 2:
+                    System.out.println("--------------------------------");
+                    System.out.println("             Metode             ");
+                    System.out.println("2. Metode Eliminasi Gauss-Jordan");
+                    System.out.println("--------------------------------");
+                    sumber = pilihanMasukan(1);
+                    break;
+                case 3:
+                    MainMenu();
+                default:
+                    System.out.println("Masukan metode tidak valid, silahkan ulangi");
+                    subMenuInv();
+            }
+
+            switch(sumber){
+                case 1:
+                    System.out.println("--------------------------------");
+                    System.out.println("             Sumber             ");
+                    System.out.println("       1. Masukan dari CLI      ");
+                    System.out.println("--------------------------------");
+                    System.out.println("Masukkan ukuran matriks persegi (NxN) N: ");
+                    ukuran = input.nextInt();
+                    mat = new Matrix(ukuran,ukuran);
+                    System.out.println("Masukkan matriks: ");
+                    mat.readMatrixCLI();
+                    System.out.println("Matriks berhasil dibaca.");
+                    break;
+                case 2:
+                    System.out.println("--------------------------------");
+                    System.out.println("              Sumber            ");
+                    System.out.println("    2. Masukan dari file .txt   ");
+                    System.out.println("--------------------------------");
+                    System.out.println("Masukkan nama file (.txt) dalam folder test: ");
+                    namaFile = input.next();
+                    // FUNGSI BACA MATRIKS TXT
+                    System.out.println("Matriks (file:"+namaFile+".txt) berhasil dibaca.");
+                    break;
+                case 3:
+                    subMenuInv();
+                default:
+                    System.out.println("Masukan sumber tidak valid, silahkan ulangi.");
+                    subMenuInv();
+            }
+            System.out.println("--------------------------------");
+            System.out.println("Matriks yang dibaca: ");
+            mat.displayMatrix();
+        }
+    }
+    public static void subMenuInter(){
+        try{
+            int sumber;
+            String namaFile = null;
+            Matrix mat = new Matrix(0,0);
+            Scanner input = new Scanner(System.in);
+
+            System.out.println("--------------------------------");
+            System.out.println("              Menu              ");
+            System.out.println("     4. Interpolasi Polinom     ");
+            System.out.println("--------------------------------");
+            sumber = pilihanMasukan(0);
+
+            switch(sumber){
+                case 1:
+                    System.out.println("--------------------------------");
+                    System.out.println("             Sumber             ");
+                    System.out.println("       1. Masukan dari CLI      ");
+                    System.out.println("--------------------------------");
+                    // MEMINTA MASUKAN TITIK DAN CREATE TITIK
+                    break;
+                case 2:
+                    System.out.println("--------------------------------");
+                    System.out.println("              Sumber            ");
+                    System.out.println("    2. Masukan dari file .txt   ");
+                    System.out.println("--------------------------------");
+                    System.out.println("Masukkan nama file (.txt) dalam folder test: ");
+                    namaFile = input.next();
+                    // FUNGSI BACA MATRIKS TXT
+                    System.out.println("Matriks (file:"+namaFile+".txt) berhasil dibaca.");
+                    // NILAI TITIK
+                    break;
+                default:
+                    System.out.println("Masukan sumber tidak valid, silahkan ulangi.");
+                    subMenuInter();
+            }
+        }
+    }
+    public static void subMenuRLB(){
+        try{
+            int sumber;
+            String namaFile = null;
+            Matrix mat = new Matrix(0,0);
+            Scanner input = new Scanner(System.in);
+
+            System.out.println("--------------------------------");
+            System.out.println("              Menu              ");
+            System.out.println("     4. Interpolasi Polinom     ");
+            System.out.println("--------------------------------");
+            sumber = pilihanMasukan(0);
+        }
+    }
     public static int pilihanMasukan(int jenis){
         int sumber;
         Scanner input = new Scanner(System.in);
