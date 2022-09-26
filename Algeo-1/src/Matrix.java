@@ -1,8 +1,5 @@
-
-
-import java.util.Scanner;
-
-
+import java.util.*;
+import java.io.*;
 
 public class Matrix {
 
@@ -37,6 +34,47 @@ public class Matrix {
         }
     }
 
+    public void readMatrixFILE(String FileName){
+        try{
+            int i,j;
+            int nRows=0, nCols=0;
+            String dir = "../test/" + FileName;
+            File file = new File(dir);
+            Scanner input = new Scanner(file);
+
+            while(input.hasNextLine()){
+                nRows += 1;
+                input.nextLine();
+            }
+            input.close();
+
+            input = new Scanner(file);
+            Scanner num = new Scanner(input.nextLine());
+
+            while(num.hasNextDouble()){
+                nCols += 1;
+                num.nextDouble();
+            }
+            num.close();
+            input.close();
+
+            input = new Scanner(file);
+
+            this.rows = nRows;
+            this.cols = nCols;
+
+            matrix = new double[nRows][nCols];
+
+            for(i=0; i<nRows; i++){
+                for(j=0; j<nCols; j++){
+                    this.matrix[i][j] = input.nextDouble();
+                }
+            }
+            input.close();
+        }catch(FileNotFoundException e){
+            System.out.println("File tidak ditemukan.");
+        }
+    }
     // public void readMatrixTXT(String file){
     // }
 
@@ -487,9 +525,6 @@ public class Matrix {
         }
         return true;
     }
-
-
-    public void
 
 }
 
