@@ -142,7 +142,7 @@ public class Main {
                     System.out.println("--------------------------------");
                     System.out.println("Masukkan nama file (.txt) dalam folder test: ");
                     namaFile = input.next();
-                    // FUNGSI BACA MATRIKS TXT
+                    mat.readMatrixFILE(namaFile);
                     System.out.println("Matriks (file:"+namaFile+") berhasil dibaca.");
                     break;
                 case 3:
@@ -229,7 +229,7 @@ public class Main {
                     System.out.println("--------------------------------");
                     System.out.println("Masukkan nama file (.txt) dalam folder test: ");
                     namaFile = input.next();
-                    // FUNGSI BACA MATRIKS TXT
+                    mat.readMatrixFILE(namaFile);
                     System.out.println("Matriks (file:"+namaFile+".txt) berhasil dibaca.");
                     break;
                 case 3:
@@ -309,7 +309,7 @@ public class Main {
                     System.out.println("--------------------------------");
                     System.out.println("Masukkan nama file (.txt) dalam folder test: ");
                     namaFile = input.next();
-                    // FUNGSI BACA MATRIKS TXT
+                    mat.readMatrixFILE(namaFile);
                     System.out.println("Matriks (file:"+namaFile+".txt) berhasil dibaca.");
                     break;
                 case 3:
@@ -354,7 +354,7 @@ public class Main {
                     System.out.println("--------------------------------");
                     System.out.println("Masukkan nama file (.txt) dalam folder test: ");
                     namaFile = input.next();
-                    // FUNGSI BACA MATRIKS TXT
+                    mat.readMatrixFILE(namaFile);
                     System.out.println("Matriks (file:"+namaFile+".txt) berhasil dibaca.");
                     // NILAI TITIK
                     break;
@@ -395,7 +395,7 @@ public class Main {
                     System.out.println("--------------------------------");
                     System.out.println("Masukkan nama file (.txt) dalam folder test: ");
                     namaFile = input.next();
-                    // FUNGSI BACA MATRIKS TXT
+                    mat.readMatrixFILE(namaFile);
                     System.out.println("Matriks (file:"+namaFile+".txt) berhasil dibaca.");
                     // NILAI TITIK
                     break;
@@ -420,6 +420,30 @@ public class Main {
             System.out.println("   5. Regresi Linear Berganda   ");
             System.out.println("--------------------------------");
             sumber = pilihanMasukan(0);
+
+            switch(sumber){
+                case 1:
+                    System.out.println("--------------------------------");
+                    System.out.println("             Sumber             ");
+                    System.out.println("       1. Masukan dari CLI      ");
+                    System.out.println("--------------------------------");
+                    // MEMINTA MASUKAN TITIK DAN CREATE TITIK
+                    break;
+                case 2:
+                    System.out.println("--------------------------------");
+                    System.out.println("              Sumber            ");
+                    System.out.println("    2. Masukan dari file .txt   ");
+                    System.out.println("--------------------------------");
+                    System.out.println("Masukkan nama file (.txt) dalam folder test: ");
+                    namaFile = input.next();
+                    mat.readMatrixFILE(namaFile);
+                    System.out.println("Matriks (file:"+namaFile+".txt) berhasil dibaca.");
+                    // NILAI TITIK
+                    break;
+                default:
+                    System.out.println("Masukan sumber tidak valid, silahkan ulangi.");
+                    subMenuRLB();
+            }
         }catch (Exception e){
             System.out.println("Masukkan menu tidak valid, silahkan ulangi.");
             subMenuRLB();
