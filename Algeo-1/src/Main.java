@@ -24,7 +24,7 @@ public class Main {
             int pilihan; // variabel masukan pilihan menu dari user
             Scanner input = new Scanner(System.in);
             System.out.println("--------------------------------");
-            System.out.println("   KAKEAN CANGKEM DIISI MENGKO  ");
+            System.out.println("          TUBES ALGEO-01        ");
             System.out.println("        KELOMPOK SERINGAI       ");
             System.out.println("--------------------------------");
             System.out.println("           Menu Utama           ");
@@ -51,12 +51,15 @@ public class Main {
                     subMenuInv();
                     break;
                 case 4:
-                    subMenuInter();
+                    subMenuInterPol();
                     break;
                 case 5:
-                    subMenuRLB();
+                    subMenuInterBic();
                     break;
                 case 6:
+                    subMenuRLB();
+                    break;
+                case 7:
                     penutup();
                 default:
                     System.out.println("Masukkan menu tidak valid, silahkan ulangi.");
@@ -142,7 +145,7 @@ public class Main {
                     nCols = input.nextInt();
                     mat = new Matrix(nRows,nCols);
                     System.out.println("Masukkan matriks: ");
-                    mat.readMatrixCLI();
+                    mat.readMatrixCLI(nRows,nCols);
                     System.out.println("Matriks berhasil dibaca.");
                     break;
                 case 2:
@@ -170,12 +173,16 @@ public class Main {
 
 
 
+        }catch (Exception e){
+            System.out.println("Masukkan menu tidak valid, silahkan ulangi.");
+            subMenuSPL();
         }
     }
 
     public static void subMenuDet(){
         try{
-            int metode, sumber,ukuran;
+            int metode,ukuran;
+            int sumber =0;
             double res =0;
             String namaFile = null;
             Matrix mat = new Matrix(0,0);
@@ -225,7 +232,7 @@ public class Main {
                     ukuran = input.nextInt();
                     mat = new Matrix(ukuran,ukuran);
                     System.out.println("Masukkan matriks: ");
-                    mat.readMatrixCLI();
+                    mat.readMatrixCLI(ukuran,ukuran);
                     System.out.println("Matriks berhasil dibaca.");
                     break;
                 case 2:
@@ -247,11 +254,15 @@ public class Main {
             System.out.println("--------------------------------");
             System.out.println("Matriks yang dibaca: ");
             mat.displayMatrix();
+        }catch (Exception e){
+            System.out.println("Masukkan menu tidak valid, silahkan ulangi.");
+            subMenuDet();
         }
     }
     public static void subMenuInv(){
         try{
-            int metode, sumber, ukuran;
+            int metode, ukuran;
+            int sumber=0;
             String namaFile = null;
             Matrix mat = new Matrix(0,0);
             Matrix inv = new Matrix(0,0);
@@ -301,7 +312,7 @@ public class Main {
                     ukuran = input.nextInt();
                     mat = new Matrix(ukuran,ukuran);
                     System.out.println("Masukkan matriks: ");
-                    mat.readMatrixCLI();
+                    mat.readMatrixCLI(ukuran,ukuran);
                     System.out.println("Matriks berhasil dibaca.");
                     break;
                 case 2:
@@ -323,9 +334,12 @@ public class Main {
             System.out.println("--------------------------------");
             System.out.println("Matriks yang dibaca: ");
             mat.displayMatrix();
+        }catch (Exception e){
+            System.out.println("Masukkan menu tidak valid, silahkan ulangi.");
+            subMenuInv();
         }
     }
-    public static void subMenuInter(){
+    public static void subMenuInterPol(){
         try{
             int sumber;
             String namaFile = null;
@@ -359,8 +373,52 @@ public class Main {
                     break;
                 default:
                     System.out.println("Masukan sumber tidak valid, silahkan ulangi.");
-                    subMenuInter();
+                    subMenuInterPol();
             }
+        }catch (Exception e){
+            System.out.println("Masukkan menu tidak valid, silahkan ulangi.");
+            subMenuInterPol();
+        }
+    }
+    public static void subMenuInterBic(){
+        try{
+            int sumber;
+            String namaFile = null;
+            Matrix mat = new Matrix(0,0);
+            Scanner input = new Scanner(System.in);
+
+            System.out.println("--------------------------------");
+            System.out.println("              Menu              ");
+            System.out.println("     5. Interpolasi Bicubic     ");
+            System.out.println("--------------------------------");
+            sumber = pilihanMasukan(0);
+
+            switch(sumber){
+                case 1:
+                    System.out.println("--------------------------------");
+                    System.out.println("             Sumber             ");
+                    System.out.println("       1. Masukan dari CLI      ");
+                    System.out.println("--------------------------------");
+                    // MEMINTA MASUKAN TITIK DAN CREATE TITIK
+                    break;
+                case 2:
+                    System.out.println("--------------------------------");
+                    System.out.println("              Sumber            ");
+                    System.out.println("    2. Masukan dari file .txt   ");
+                    System.out.println("--------------------------------");
+                    System.out.println("Masukkan nama file (.txt) dalam folder test: ");
+                    namaFile = input.next();
+                    // FUNGSI BACA MATRIKS TXT
+                    System.out.println("Matriks (file:"+namaFile+".txt) berhasil dibaca.");
+                    // NILAI TITIK
+                    break;
+                default:
+                    System.out.println("Masukan sumber tidak valid, silahkan ulangi.");
+                    subMenuInterBic();
+            }
+        }catch (Exception e){
+            System.out.println("Masukkan menu tidak valid, silahkan ulangi.");
+            subMenuInterBic();
         }
     }
     public static void subMenuRLB(){
@@ -372,9 +430,12 @@ public class Main {
 
             System.out.println("--------------------------------");
             System.out.println("              Menu              ");
-            System.out.println("     4. Interpolasi Polinom     ");
+            System.out.println("   5. Regresi Linear Berganda   ");
             System.out.println("--------------------------------");
             sumber = pilihanMasukan(0);
+        }catch (Exception e){
+            System.out.println("Masukkan menu tidak valid, silahkan ulangi.");
+            subMenuRLB();
         }
     }
     public static int pilihanMasukan(int jenis){
