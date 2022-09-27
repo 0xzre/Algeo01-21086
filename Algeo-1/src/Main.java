@@ -176,6 +176,7 @@ public class Main {
             int metode,ukuran;
             int sumber =0;
             double res =0;
+            char simpan =0;
             String namaFile = null;
             Matrix mat = new Matrix(0,0);
             Scanner input = new Scanner(System.in);
@@ -186,7 +187,7 @@ public class Main {
             System.out.println("--------------------------------");
             System.out.println("         Pilihan Metode:        ");
             System.out.println("1. Metode Eliminasi Gauss");
-            System.out.println("2. Metode Eliminasi Gauss-Jordan");
+            System.out.println("2. Metode Ekspansi Kofaktor");
             System.out.println("3. Kembali ke Menu Utama");
             System.out.println("--------------------------------");
             System.out.println("Masukkan pilihan metode Anda: ");
@@ -203,7 +204,7 @@ public class Main {
                 case 2:
                     System.out.println("--------------------------------");
                     System.out.println("             Metode             ");
-                    System.out.println("2. Metode Eliminasi Gauss-Jordan");
+                    System.out.println("   2. Metode Ekspansi Kofaktor  ");
                     System.out.println("--------------------------------");
                     sumber = pilihanMasukan(1);
                     break;
@@ -248,7 +249,55 @@ public class Main {
             mat.displayMatrix();
 
             // OPERASI DETERMINAN TARUH DISINI
+            if(metode==1 && (sumber==1 || sumber==2)){
+                // MENCARI NILAI DET DENGAN ELIMINASI GAUSS
+                System.out.println("--------------------------------");
+                System.out.println("Dengan metode Eliminasi Gauss,  ");
+                System.out.println("diperoleh nilai determinan:     ");
 
+
+                // MENYIMPAN FILE
+                System.out.println("Hasil ingin disimpan? (y/n):    ");
+                simpan = input.next().charAt(0);
+            }
+            else if(metode==2 && (sumber==1 || sumber==2)){
+                //MENCARI NILAI DET DENGAN EKSPANSI KOFAKTOR
+                System.out.println("--------------------------------");
+                System.out.println("Dengan metode Ekspansi Kofaktor,");
+                System.out.println("diperoleh nilai determinan:     ");
+                res = mat.determinanKofaktor();
+                System.out.println(res);
+                System.out.println("--------------------------------");
+                // MENYIMPAN FILE
+                System.out.println("Hasil ingin disimpan? (y/n):    ");
+                simpan = input.next().charAt(0);
+            }
+
+            if(simpan == 'y'){
+                int i,j;
+                System.out.println("Nama output file (*.txt):       ");
+                namaFile = input.next();
+                BufferedWriter output = new BufferedWriter(new FileWriter("../test/output"+namaFile));
+                for(i=0; i<mat.rows; i++){
+                    String string = "";
+                    for(j=0; j<mat.cols; j++){
+                        if(j!=0){
+                            string += " ";
+                        }
+                        string += Double.toString(mat.matrix[i][j]);
+                    }
+                    string += "\n";
+                    output.write(string);
+                }
+                if (metode == 1){
+                    output.write("Dengan menggunakan Metode Eliminasi Gauss, diperoleh nilai determinan matriks: " + res +"\n");
+                }
+                else if (metode == 2){
+                    output.write("Dengan menggunakan Metode Ekspansi Kofaktor, diperoleh nilai determinan matriks: " + res + "\n");
+                }
+                output.close();
+                System.out.println("File " +namaFile+ " berhasil disimpan.");
+            }
             System.out.println("--------------------------------");
             System.out.println("       Operasi Determinan       ");
             System.out.println("             SELESAI            ");
@@ -264,10 +313,11 @@ public class Main {
     public static void subMenuInv(){
         try{
             int metode, ukuran;
-            int sumber=0;
+            int sumber =0;
+            char simpan =0;
             String namaFile = null;
             Matrix mat = new Matrix(0,0);
-            Matrix inv = new Matrix(0,0);
+            Matrix res = new Matrix(0,0);
             Scanner input  = new Scanner(System.in);
 
             System.out.println("--------------------------------");
@@ -276,7 +326,7 @@ public class Main {
             System.out.println("--------------------------------");
             System.out.println("         Pilihan Metode:        ");
             System.out.println("1. Metode Eliminasi Gauss");
-            System.out.println("2. Metode Eliminasi Gauss-Jordan");
+            System.out.println("2. Metode Ekspansi Kofaktor");
             System.out.println("3. Kembali ke Menu Utama");
             System.out.println("--------------------------------");
             System.out.println("Masukkan pilihan metode Anda: ");
@@ -293,7 +343,7 @@ public class Main {
                 case 2:
                     System.out.println("--------------------------------");
                     System.out.println("             Metode             ");
-                    System.out.println("2. Metode Eliminasi Gauss-Jordan");
+                    System.out.println("   2. Metode Ekspansi Kofaktor  ");
                     System.out.println("--------------------------------");
                     sumber = pilihanMasukan(1);
                     break;
@@ -338,7 +388,63 @@ public class Main {
             mat.displayMatrix();
 
             // OPERASI MATRIKS BALIKAN TARUH DISINI
+            if(metode==1 && (sumber==1 || sumber==2)){
+                // MENCARI MATRIKS BALIKAN DENGAN ELIMINASI GAUSS
+                System.out.println("--------------------------------");
+                System.out.println("Dengan metode Eliminasi Gauss,  ");
+                System.out.println("diperoleh nilai determinan:     ");
 
+
+                // MENYIMPAN FILE
+                System.out.println("Hasil ingin disimpan? (y/n):    ");
+                simpan = input.next().charAt(0);
+            }
+            else if(metode==2 && (sumber==1 || sumber==2)){
+                //MENCARI MATRIKS BALIKAN DENGAN EKSPANSI KOFAKTOR
+                if(mat.determinanKofaktor() == 0){
+                    System.out.println("Oleh karena determinan matriks = 0, maka");
+                    System.out.println("matriks tidak memiliki balikan");
+                    System.out.println("--------------------------------");
+                }
+                else{
+                    System.out.println("--------------------------------");
+                    System.out.println("Dengan metode Ekspansi Kofaktor,");
+                    System.out.println("diperoleh matriks balikannya:   ");
+                    res = mat;
+                    res.invers();
+                    res.displayMatrix();
+                    System.out.println("--------------------------------");
+                }
+                // MENYIMPAN FILE
+                System.out.println("Hasil ingin disimpan? (y/n):    ");
+                simpan = input.next().charAt(0);
+            }
+
+            if(simpan == 'y'){
+                int i,j;
+                System.out.println("Nama output file (*.txt):       ");
+                namaFile = input.next();
+                BufferedWriter output = new BufferedWriter(new FileWriter("../test/output"+namaFile));
+                for(i=0; i<mat.rows; i++){
+                    String string = "";
+                    for(j=0; j<mat.cols; j++){
+                        if(j!=0){
+                            string += " ";
+                        }
+                        string += Double.toString(mat.matrix[i][j]);
+                    }
+                    string += "\n";
+                    output.write(string);
+                }
+                if (metode == 1){
+                    output.write("Dengan menggunakan Metode Eliminasi Gauss, diperoleh matriks balikannya: " + res +"\n");
+                }
+                else if (metode == 2){
+                    output.write("Dengan menggunakan Metode Ekspansi Kofaktor, diperoleh matriks balikannya: " + res + "\n");
+                }
+                output.close();
+                System.out.println("File " +namaFile+ " berhasil disimpan.");
+            }
             System.out.println("--------------------------------");
             System.out.println("     Operasi Matriks Balikan    ");
             System.out.println("             SELESAI            ");
