@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.util.*;
 import java.io.*;
 
@@ -156,9 +157,12 @@ public class Main {
             mat.displayMatrix();
 
 
-
-
-
+            System.out.println("--------------------------------");
+            System.out.println(" Operasi Sistem Persamaan Linear");
+            System.out.println("             SELESAI            ");
+            System.out.println("--------------------------------");
+            System.out.println("      Kembali ke Menu Utama     ");
+            MainMenu();
 
         }catch (Exception e){
             System.out.println("Masukkan menu tidak valid, silahkan ulangi.");
@@ -241,6 +245,16 @@ public class Main {
             System.out.println("--------------------------------");
             System.out.println("Matriks yang dibaca: ");
             mat.displayMatrix();
+
+
+
+            System.out.println("--------------------------------");
+            System.out.println("       Operasi Determinan       ");
+            System.out.println("             SELESAI            ");
+            System.out.println("--------------------------------");
+            System.out.println("      Kembali ke Menu Utama     ");
+            MainMenu();
+
         }catch (Exception e){
             System.out.println("Masukkan menu tidak valid, silahkan ulangi.");
             subMenuDet();
@@ -321,6 +335,16 @@ public class Main {
             System.out.println("--------------------------------");
             System.out.println("Matriks yang dibaca: ");
             mat.displayMatrix();
+
+
+
+            System.out.println("--------------------------------");
+            System.out.println("     Operasi Matriks Balikan    ");
+            System.out.println("             SELESAI            ");
+            System.out.println("--------------------------------");
+            System.out.println("      Kembali ke Menu Utama     ");
+            MainMenu();
+
         }catch (Exception e){
             System.out.println("Masukkan menu tidak valid, silahkan ulangi.");
             subMenuInv();
@@ -362,6 +386,15 @@ public class Main {
                     System.out.println("Masukan sumber tidak valid, silahkan ulangi.");
                     subMenuInterPol();
             }
+
+
+            System.out.println("--------------------------------");
+            System.out.println("   Operasi Interpolasi Polinom  ");
+            System.out.println("             SELESAI            ");
+            System.out.println("--------------------------------");
+            System.out.println("      Kembali ke Menu Utama     ");
+            MainMenu();
+
         }catch (Exception e){
             System.out.println("Masukkan menu tidak valid, silahkan ulangi.");
             subMenuInterPol();
@@ -403,6 +436,14 @@ public class Main {
                     System.out.println("Masukan sumber tidak valid, silahkan ulangi.");
                     subMenuInterBic();
             }
+
+            System.out.println("--------------------------------");
+            System.out.println("   Operasi Interpolasi Bicubic  ");
+            System.out.println("             SELESAI            ");
+            System.out.println("--------------------------------");
+            System.out.println("      Kembali ke Menu Utama     ");
+            MainMenu();
+
         }catch (Exception e){
             System.out.println("Masukkan menu tidak valid, silahkan ulangi.");
             subMenuInterBic();
@@ -444,6 +485,14 @@ public class Main {
                     System.out.println("Masukan sumber tidak valid, silahkan ulangi.");
                     subMenuRLB();
             }
+
+            System.out.println("--------------------------------");
+            System.out.println(" Operasi Regresi Linear Berganda");
+            System.out.println("             SELESAI            ");
+            System.out.println("--------------------------------");
+            System.out.println("      Kembali ke Menu Utama     ");
+            MainMenu();
+
         }catch (Exception e){
             System.out.println("Masukkan menu tidak valid, silahkan ulangi.");
             subMenuRLB();
@@ -471,9 +520,11 @@ public class Main {
 
     public static void penutup()
     {
-        System.out.println("------------------------------------------------------");
-        System.out.println("Terima kasih telah menggunakan kalkulator matriks kami");
-        System.out.println("------------------------------------------------------");
+        System.out.println("--------------------------------");
+        System.out.println("          Terima Kasih          ");
+        System.out.println("        telah menggunakan       ");
+        System.out.println("     Kalkulator Matriks Kami    ");
+        System.out.println("--------------------------------");
         System.exit(0);
     }
 
