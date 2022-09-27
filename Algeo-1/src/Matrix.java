@@ -243,6 +243,10 @@ public class Matrix {
         }
     }
 
+    boolean isSquare(){
+        return (this.rows == this.cols);
+    }
+
 
     
 
@@ -705,6 +709,28 @@ public class Matrix {
             }
         }
         return output; // mengembalikan String output
+    }
+
+    String multiplyInvers(double M[][]){
+        // MENGALIKAN MATRIKS M DENGAN MATRIKS
+        int i,j;
+        double res;
+        String string = "";
+
+        this.invers();
+        for(i=0; i<this.rows; i++){
+            res = 0;
+            for(j=0; j<this.cols; j++){
+                res += this.matrix[i][j] * M[j][0];
+            }
+            if(i!=0){
+                string += ",X" + (i+1) + "=" + (res) + " "; // ,X2=* ,X3=*
+            }
+            else{
+                string += "X" + (i+1) + "=" + (res) + " "; // X1=*
+            }
+        }
+        return string;
     }
 
 }

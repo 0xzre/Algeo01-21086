@@ -61,8 +61,9 @@ public class Main {
 
     public static void subMenuSPL(){
         try{
-            int i,j,metode,nRows,nCols;
+            int i,j,metode,nRows=0,nCols=0;
             int sumber =0;
+            char simpan =0;
             String res = "";
             double b[][];
             String namaFile = null;
@@ -157,6 +158,159 @@ public class Main {
             mat.displayMatrix();
 
             // OPERASI SPL TARUH DISINI
+
+            // KHUSUS MATRIKS BALIKAN DAN CRAMER
+            if((metode == 3 || metode ==4) && sumber == 2){
+                matA = new Matrix(mat.rows,mat.cols);
+                matB = new double[mat.rows][1];
+                for(i=0; i<mat.rows; i++){
+                    for(j=0; j<mat.cols; j++){
+                        if(j==mat.cols-1){
+                            matB[i][0] = mat.matrix[i][j];
+                        }
+                        else{
+                            matA.matrix[i][j] = mat.matrix[i][j];
+                        }
+                    }
+                }
+            }
+
+            if(metode == 1){
+                // MENCARI SOLUSI SPL DENGAN ELIMINASI GAUSS
+                System.out.println("--------------------------------");
+                System.out.println("Dengan metode Eliminasi Gauss,  ");
+                System.out.println("diperoleh solusi SPL:     ");
+                // PANGGIL FUNGSI GAUSS
+            }
+            else if(metode == 2){
+                // MENCARI SOLUSI SPL DENGAN ELIMINASI GAUSS JORDAN
+                System.out.println("--------------------------------");
+                System.out.println("Dengan metode Eliminasi Gauss-Jordan,");
+                System.out.println("diperoleh nilai determinan:     ");
+                // PANGGIL FUNGSI GAUSS-JORDAN
+            }
+            else if(metode == 3){
+                // MENCARI SOLUSI SPL DENGAN MATRIKS BALIKAN
+                System.out.println("--------------------------------");
+                if(sumber==1){
+                    if(!mat.isSquare()){
+                        System.out.println("Oleh karena matriks bukan persegi, maka");
+                        System.out.println("Metode Matriks Balikan tidak dapat diterapkan");
+                    }
+                    else{
+                        if(mat.determinanKofaktor() == 0){
+                            System.out.println("Oleh karena determinan matriks = 0, maka");
+                            System.out.println("Metode Matriks Balikan tidak dapat diterapkan");
+                        }
+                        else{
+                            System.out.println("Masukan Matriks B: ");
+                            b = new double[nRows][1];
+                            for(i=0; i<nRows; i++){
+                                b[i][0] = input.nextInt();
+                            }
+                            System.out.println("Dengan metode Matriks Balikan,");
+                            System.out.println("diperoleh solusi SPL:     ");
+                            res = mat.multiplyInvers(b);
+                        }
+                    }
+                }
+                else if (sumber == 2) {
+                    if(!mat.isSquare()){
+                        System.out.println("Oleh karena matriks bukan persegi, maka");
+                        System.out.println("Metode Matriks Balikan tidak dapat diterapkan");
+                    }
+                    else{
+                        if(mat.determinanKofaktor() == 0){
+                            System.out.println("Oleh karena determinan matriks = 0, maka");
+                            System.out.println("Metode Matriks Balikan tidak dapat diterapkan");
+                        }
+                        else{
+                            System.out.println("Dengan metode Matriks Balikan,");
+                            System.out.println("diperoleh solusi SPL:     ");
+                            res = matA.multiplyInvers(matB);
+                        }
+                    }
+                }
+                System.out.println(res);
+                System.out.println("\n");
+                System.out.println("--------------------------------");
+                // MENYIMPAN FILE
+                System.out.println("Hasil ingin disimpan? (y/n):    ");
+                simpan = input.next().charAt(0);
+            }else if(metode==4){
+                // MENYELESAIKAN SPL DENGAN METODE CRAMER
+                System.out.println("--------------------------------");
+                if(sumber==1){
+                    if(!mat.isSquare()){
+                        System.out.println("Oleh karena matriks bukan persegi, maka");
+                        System.out.println("Metode Kaidah Cramer tidak dapat diterapkan");
+                    }
+                    else{
+                        if(mat.determinanKofaktor() == 0){
+                            System.out.println("Oleh karena determinan matriks = 0, maka");
+                            System.out.println("Metode Kaidah Cramer tidak dapat diterapkan");
+                        }
+                        else{
+                            System.out.println("Masukan Matriks B: ");
+                            b = new double[nRows][1];
+                            for(i=0; i<nRows; i++){
+                                b[i][0] = input.nextInt();
+                            }
+                            System.out.println("Dengan metode Kaidah Cramer,");
+                            System.out.println("diperoleh solusi SPL:     ");
+                            res = mat.Cramer(b);
+                        }
+                    }
+                }
+                else if (sumber == 2) {
+                    if(!mat.isSquare()){
+                        System.out.println("Oleh karena matriks bukan persegi, maka");
+                        System.out.println("Metode Kaidah Cramer tidak dapat diterapkan");
+                    }
+                    else{
+                        if(mat.determinanKofaktor() == 0){
+                            System.out.println("Oleh karena determinan matriks = 0, maka");
+                            System.out.println("Metode Kaidah Cramer tidak dapat diterapkan");
+                        }
+                        else{
+                            System.out.println("Dengan metode Kaidah Cramer,");
+                            System.out.println("diperoleh solusi SPL:     ");
+                            res = matA.Cramer(matB);
+                        }
+                    }
+                }
+                System.out.println(res);
+                System.out.println("\n");
+                System.out.println("--------------------------------");
+                // MENYIMPAN FILE
+                System.out.println("Hasil ingin disimpan? (y/n):    ");
+                simpan = input.next().charAt(0);
+            }
+
+            if(simpan == 'y'){
+                System.out.println("Nama output file (*.txt):       ");
+                namaFile = input.next();
+                BufferedWriter output = new BufferedWriter(new FileWriter("../test/output"+namaFile));
+                for(i=0; i<mat.rows; i++){
+                    String string = "";
+                    for(j=0; j<mat.cols; j++){
+                        if(j!=0){
+                            string += " ";
+                        }
+                        string += Double.toString(mat.matrix[i][j]);
+                    }
+                    string += "\n";
+                    output.write(string);
+                }
+                if (metode == 1){
+                    output.write("Dengan menggunakan Metode Eliminasi Gauss, diperoleh nilai determinan matriks: " + res +"\n");
+                }
+                else if (metode == 2){
+                    output.write("Dengan menggunakan Metode Ekspansi Kofaktor, diperoleh nilai determinan matriks: " + res + "\n");
+                }
+                output.close();
+                System.out.println("File " +namaFile+ " berhasil disimpan.");
+            }
 
             System.out.println("--------------------------------");
             System.out.println(" Operasi Sistem Persamaan Linear");
