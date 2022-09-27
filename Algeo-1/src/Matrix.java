@@ -323,6 +323,93 @@ public class Matrix {
         displayMatrix();
     }
 
+    HashMap<String, String> toParametrik(){
+        int i,j;
+        HashMap<String, String> solusiParametrik = new HashMap<>();
+        char variabel = 's';
+        for(j=this.cols-2; j>=0; j--){
+            boolean rowZero = true;
+            for(i=this.rows-1; i>=0; i--){
+                if(this.matrix[i][j] != 0){
+                    rowZero = false;
+                    break;
+                }
+            }
+            if(rowZero || (this.matrix[i][j] != 1)){
+                solusiParametrik.put("X"+(j+1), variabel+"");
+                if(variabel == 'z'){
+                    variabel -= 25;
+                }
+                else{
+                    variabel++;
+                }
+            }
+        }
+
+        int countRowsNotZero = 0;
+        i = 0;
+        j = 0;
+        boolean zero = true;
+
+        while(i<this.rows){
+            zero = true;
+            while(zero && j<this.cols){
+                if(this.matrix[i][j] != 0){
+                    countRowsNotZero++;
+                    zero = false;
+                }
+                j++;
+            }
+            i++;
+        }
+
+        for(i=0; i<countRowsNotZero; i++){
+            j=0;
+            while(this.matrix[i][j] != 1){
+                j++;
+            }
+
+            solusiParametrik.put("X"+(j+1), "");
+
+            if(j != this.cols-2){
+                for(int k=j+1; k<this.cols; k++){
+                    if(solusiParametrik.get("X"+(j+1)) != null && solusiParametrik.get("X" + (j+1)).equals("")){
+                        if(k != this.cols-1){
+                            if(this.matrix[i][k] > 0){
+                                solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + "-" + String.format("%.2f", this.matrix[i][k]) + solusiParametrik.get("X"+(k+1)));
+                            }
+                            else if (this.matrix[i][k] < 0) {
+                                solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + String.format("%.2f", (-1)*this.matrix[i][k]) + solusiParametrik.get("X"+(k+1)));
+                            }
+                        }else{
+                            if(this.matrix[i][k] > 0 || this.matrix[i][k] < 0){
+                                solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + String.format("%/2f", this.matrix[i][k]));
+                            }
+                        }
+                    }else{
+                        if(k != this.cols-1){
+                            if(this.matrix[i][k] > 0){
+                                solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + "-" + String.format("%.2f", this.matrix[i][k]) + solusiParametrik.get("X" + (k+1)));
+                            }
+                            else if (this.matrix[i][k] < 0) {
+                                solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + "+" + String.format("%.2f", (-1)*this.matrix[i][k] + solusiParametrik.get("X" + (k+1))));
+                            }
+                        }else{
+                            if(this.matrix[i][k] > 0){
+                                solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + "+" + String.format("%.2f", this.matrix[i][k]));
+                            }else if(this.matrix[i][k] < 0){
+                                solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + " " + String.format("%.2f", this.matrix[i][k]));
+                            }
+                        }
+                    }
+                }
+            }else{
+                solusiParametrik.replace("X" + (j+1), "" + String.format("%.2f", this.matrix[i][this.cols-1]));
+            }
+        }
+        return solusiParametrik;
+    }
+
 
     /*  Operasi OBE */
 

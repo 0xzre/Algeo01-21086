@@ -17,12 +17,12 @@ public class Main {
             System.out.println("--------------------------------");
             System.out.println("           Menu Utama           ");
             System.out.println("--------------------------------");
-            System.out.println("1. Sistem Persamaan Linear(SPL) ");
+            System.out.println("1. Sistem Persamaan Linier(SPL) ");
             System.out.println("2. Determinan");
             System.out.println("3. Matriks Balikan");
             System.out.println("4. Interpolasi Polinom");
             System.out.println("5. Interpolasi Bicubic");
-            System.out.println("6. Regresi linear berganda");
+            System.out.println("6. Regresi Linier berganda");
             System.out.println("7. Keluar");
             System.out.println("--------------------------------");
             System.out.println("Masukkan pilihan menu Anda:     ");
@@ -74,7 +74,7 @@ public class Main {
 
             System.out.println("--------------------------------");
             System.out.println("              Menu              ");
-            System.out.println(" 1.Sistem Persamaan Linear(SPL) ");
+            System.out.println(" 1.Sistem Persamaan Linier(SPL) ");
             System.out.println("--------------------------------");
             System.out.println("         Pilihan Metode:        ");
             System.out.println("1. Metode Eliminasi Gauss");
@@ -216,12 +216,12 @@ public class Main {
                     }
                 }
                 else if (sumber == 2) {
-                    if(!mat.isSquare()){
+                    if(!matA.isSquare()){
                         System.out.println("Oleh karena matriks bukan persegi, maka");
                         System.out.println("Metode Matriks Balikan tidak dapat diterapkan");
                     }
                     else{
-                        if(mat.determinanKofaktor() == 0){
+                        if(matA.determinanKofaktor() == 0){
                             System.out.println("Oleh karena determinan matriks = 0, maka");
                             System.out.println("Metode Matriks Balikan tidak dapat diterapkan");
                         }
@@ -266,12 +266,12 @@ public class Main {
                     }
                 }
                 else if (sumber == 2) {
-                    if(!mat.isSquare()){
+                    if(!matA.isSquare()){
                         System.out.println("Oleh karena matriks bukan persegi, maka");
                         System.out.println("Metode Kaidah Cramer tidak dapat diterapkan");
                     }
                     else{
-                        if(mat.determinanKofaktor() == 0){
+                        if(matA.determinanKofaktor() == 0){
                             System.out.println("Oleh karena determinan matriks = 0, maka");
                             System.out.println("Metode Kaidah Cramer tidak dapat diterapkan");
                         }
@@ -317,7 +317,7 @@ public class Main {
             }
 
             System.out.println("--------------------------------");
-            System.out.println(" Operasi Sistem Persamaan Linear");
+            System.out.println(" Operasi Sistem Persamaan Linier");
             System.out.println("             SELESAI            ");
             System.out.println("      Kembali ke Menu Utama     ");
             System.out.println("--------------------------------");
@@ -728,7 +728,7 @@ public class Main {
 
             System.out.println("--------------------------------");
             System.out.println("              Menu              ");
-            System.out.println("   5. Regresi Linear Berganda   ");
+            System.out.println("   5. Regresi Linier Berganda   ");
             System.out.println("--------------------------------");
             sumber = pilihanMasukan(0);
 
@@ -755,10 +755,10 @@ public class Main {
                     subMenuRLB();
             }
 
-            // OPERASI REGRESI LINEAR BERGANDA TARUH DISINI
+            // OPERASI REGRESI LINIER BERGANDA TARUH DISINI
 
             System.out.println("--------------------------------");
-            System.out.println(" Operasi Regresi Linear Berganda");
+            System.out.println(" Operasi Regresi Linier Berganda");
             System.out.println("             SELESAI            ");
             System.out.println("      Kembali ke Menu Utama     ");
             System.out.println("--------------------------------");
