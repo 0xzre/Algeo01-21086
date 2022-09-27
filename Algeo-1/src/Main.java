@@ -156,12 +156,13 @@ public class Main {
             System.out.println("Matriks yang dibaca: ");
             mat.displayMatrix();
 
+            // OPERASI SPL TARUH DISINI
 
             System.out.println("--------------------------------");
             System.out.println(" Operasi Sistem Persamaan Linear");
             System.out.println("             SELESAI            ");
-            System.out.println("--------------------------------");
             System.out.println("      Kembali ke Menu Utama     ");
+            System.out.println("--------------------------------");
             MainMenu();
 
         }catch (Exception e){
@@ -246,13 +247,13 @@ public class Main {
             System.out.println("Matriks yang dibaca: ");
             mat.displayMatrix();
 
-
+            // OPERASI DETERMINAN TARUH DISINI
 
             System.out.println("--------------------------------");
             System.out.println("       Operasi Determinan       ");
             System.out.println("             SELESAI            ");
-            System.out.println("--------------------------------");
             System.out.println("      Kembali ke Menu Utama     ");
+            System.out.println("--------------------------------");
             MainMenu();
 
         }catch (Exception e){
@@ -336,13 +337,13 @@ public class Main {
             System.out.println("Matriks yang dibaca: ");
             mat.displayMatrix();
 
-
+            // OPERASI MATRIKS BALIKAN TARUH DISINI
 
             System.out.println("--------------------------------");
             System.out.println("     Operasi Matriks Balikan    ");
             System.out.println("             SELESAI            ");
-            System.out.println("--------------------------------");
             System.out.println("      Kembali ke Menu Utama     ");
+            System.out.println("--------------------------------");
             MainMenu();
 
         }catch (Exception e){
@@ -387,12 +388,13 @@ public class Main {
                     subMenuInterPol();
             }
 
+            // OPERASI INTERPOLASI POLINOM TARUH DISINI
 
             System.out.println("--------------------------------");
             System.out.println("   Operasi Interpolasi Polinom  ");
             System.out.println("             SELESAI            ");
-            System.out.println("--------------------------------");
             System.out.println("      Kembali ke Menu Utama     ");
+            System.out.println("--------------------------------");
             MainMenu();
 
         }catch (Exception e){
@@ -437,11 +439,13 @@ public class Main {
                     subMenuInterBic();
             }
 
+            // OPERASI INTERPOLASI BICUBIC TARUH DISINI
+
             System.out.println("--------------------------------");
             System.out.println("   Operasi Interpolasi Bicubic  ");
             System.out.println("             SELESAI            ");
-            System.out.println("--------------------------------");
             System.out.println("      Kembali ke Menu Utama     ");
+            System.out.println("--------------------------------");
             MainMenu();
 
         }catch (Exception e){
@@ -486,11 +490,13 @@ public class Main {
                     subMenuRLB();
             }
 
+            // OPERASI REGRESI LINEAR BERGANDA TARUH DISINI
+
             System.out.println("--------------------------------");
             System.out.println(" Operasi Regresi Linear Berganda");
             System.out.println("             SELESAI            ");
-            System.out.println("--------------------------------");
             System.out.println("      Kembali ke Menu Utama     ");
+            System.out.println("--------------------------------");
             MainMenu();
 
         }catch (Exception e){
@@ -501,7 +507,6 @@ public class Main {
     public static int pilihanMasukan(int jenis){
         int sumber;
         Scanner input = new Scanner(System.in);
-        System.out.println("--------------------------------");
         System.out.println("         Pilihan Sumber:        ");
         System.out.println("--------------------------------");
         System.out.println("1. Masukan dari CLI");
