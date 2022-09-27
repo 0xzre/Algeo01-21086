@@ -1,6 +1,6 @@
-# Algeo01-13521086 🧮🔥
-<a href='https://www.java.com/en/' target="_blank"><img alt='eclipse' src='https://img.shields.io/badge/JAVA-100000?style=flat&logo=eclipse&logoColor=white&labelColor=black&color=A91100'/></a>  <a href='https://github.com/semifinal-com/Algeo01-13521086' target="_blank"><img alt='GitHub' src='https://img.shields.io/badge/GITHUB-100000?style=flat&logo=GitHub&logoColor=white&labelColor=black&color=1100B6'/></a>  <a href='https://line.me/en/' target="_blank"><img alt='line' src='https://img.shields.io/badge/LINE-100000?style=flat&logo=line&logoColor=white&labelColor=black&color=00A62C'/></a>
-
+# 🧮🔥 Algeo01-13521086 🧮🔥
+<a href='https://www.java.com/en/' target="_blank"><img alt='oracle' src='https://img.shields.io/badge/JAVA_| Language-100000?style=flat&logo=oracle&logoColor=FFFFFF&labelColor=6C6C6C&color=A90000'/></a>  <a href='https://github.com/semifinal-com/Algeo01-13521086' target="_blank"><img alt='github' src='https://img.shields.io/badge/GITHUB_| VersionControlSystem-100000?style=flat&logo=github&logoColor=FFFFFF&labelColor=6C6C6C&color=1D00A0'/></a>
+<a href='https://line.me/en/' target="_blank"><img alt='line' src='https://img.shields.io/badge/LINE_| Communication-100000?style=flat&logo=line&logoColor=FFFFFF&labelColor=6C6C6C&color=0F9300'/></a>
 ## Sistem Persamaan Linear, Determinan ,dan Aplikasinya 
 Program ini dibuat untuk memenuhi **Tugas Besar Mata Kuliah IF2123 Aljabar Linier dan Geometri** yang ke-1 pada Semester I Tahun Akademik 2022/2023.
 ## Deskripsi Program
