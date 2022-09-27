@@ -1,6 +1,32 @@
 
 
-public class Sandbox {
+public class solusiparametrik {
+  public static void solusi() {
+
+    int nRows, nCols, i, j;
+    nRows = 3;
+    nCols = 4;
+    i = nRows - 1;
+    j = nCols - 1;
+    Matrix matrix = new Matrix(nRows, nCols);
+    matrix.readMatrixCLI(nRows, nCols);
+    matrix.gaussJordan();
+
+
+    if(matrix.matrix[i][j - 1] == 1)
+    {
+        System.out.println("solusi spl unik");
+    }
+    else if((matrix.matrix[i][j - 1] == 0) && matrix.matrix[i][j] != 0)
+    {
+        System.out.println("tidak memiliki solusi");
+    }
+    else if((matrix.matrix[i][j - 1] == 0) && matrix.matrix[i][j] == 0)
+    {
+        System.out.println("solusi spl banyak");
+    }
+
+    }
   public static void main(String[] args) {
     int nRows, nCols;
     nRows = 4;
