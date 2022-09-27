@@ -17,7 +17,7 @@ public class Main {
             System.out.println("--------------------------------");
             System.out.println("           Menu Utama           ");
             System.out.println("--------------------------------");
-            System.out.println("1. Sistem Persamaan Linear(SPL)");
+            System.out.println("1. Sistem Persamaan Linear(SPL) ");
             System.out.println("2. Determinan");
             System.out.println("3. Matriks Balikan");
             System.out.println("4. Interpolasi Polinom");
@@ -25,7 +25,7 @@ public class Main {
             System.out.println("6. Regresi linear berganda");
             System.out.println("7. Keluar");
             System.out.println("--------------------------------");
-            System.out.println("Masukkan pilihan menu Anda: ");
+            System.out.println("Masukkan pilihan menu Anda:     ");
             pilihan = input.nextInt();
 
             switch(pilihan){
@@ -145,7 +145,6 @@ public class Main {
                     System.out.println("Masukkan nama file (.txt) dalam folder test: ");
                     namaFile = input.next();
                     mat.readMatrixFILE(namaFile);
-                    System.out.println("Matriks (file:"+namaFile+") berhasil dibaca.");
                     break;
                 case 3:
                     subMenuSPL();
@@ -211,6 +210,8 @@ public class Main {
                             System.out.println("Dengan metode Matriks Balikan,");
                             System.out.println("diperoleh solusi SPL:     ");
                             res = mat.multiplyInvers(b);
+                            System.out.println(res);
+                            System.out.println("--------------------------------");
                         }
                     }
                 }
@@ -228,15 +229,15 @@ public class Main {
                             System.out.println("Dengan metode Matriks Balikan,");
                             System.out.println("diperoleh solusi SPL:     ");
                             res = matA.multiplyInvers(matB);
+                            System.out.println(res);
+                            System.out.println("--------------------------------");
                         }
                     }
                 }
-                System.out.println(res);
-                System.out.println("\n");
-                System.out.println("--------------------------------");
                 // MENYIMPAN FILE
                 System.out.println("Hasil ingin disimpan? (y/n):    ");
                 simpan = input.next().charAt(0);
+                System.out.println("--------------------------------");
             }else if(metode==4){
                 // MENYELESAIKAN SPL DENGAN METODE CRAMER
                 System.out.println("--------------------------------");
@@ -259,6 +260,8 @@ public class Main {
                             System.out.println("Dengan metode Kaidah Cramer,");
                             System.out.println("diperoleh solusi SPL:     ");
                             res = mat.Cramer(b);
+                            System.out.println(res);
+                            System.out.println("--------------------------------");
                         }
                     }
                 }
@@ -276,21 +279,21 @@ public class Main {
                             System.out.println("Dengan metode Kaidah Cramer,");
                             System.out.println("diperoleh solusi SPL:     ");
                             res = matA.Cramer(matB);
+                            System.out.println(res);
+                            System.out.println("--------------------------------");
                         }
                     }
                 }
-                System.out.println(res);
-                System.out.println("\n");
-                System.out.println("--------------------------------");
                 // MENYIMPAN FILE
                 System.out.println("Hasil ingin disimpan? (y/n):    ");
                 simpan = input.next().charAt(0);
+                System.out.println("--------------------------------");
             }
 
             if(simpan == 'y'){
                 System.out.println("Nama output file (*.txt):       ");
                 namaFile = input.next();
-                BufferedWriter output = new BufferedWriter(new FileWriter("../test/output"+namaFile));
+                BufferedWriter output = new BufferedWriter(new FileWriter("../test/output/"+namaFile));
                 for(i=0; i<mat.rows; i++){
                     String string = "";
                     for(j=0; j<mat.cols; j++){
@@ -309,7 +312,8 @@ public class Main {
                     output.write("Dengan menggunakan Metode Ekspansi Kofaktor, diperoleh nilai determinan matriks: " + res + "\n");
                 }
                 output.close();
-                System.out.println("File " +namaFile+ " berhasil disimpan.");
+                System.out.println("--------------------------------");
+                System.out.println("File " +namaFile+ ".txt berhasil disimpan.");
             }
 
             System.out.println("--------------------------------");
@@ -390,7 +394,6 @@ public class Main {
                     System.out.println("Masukkan nama file (.txt) dalam folder test: ");
                     namaFile = input.next();
                     mat.readMatrixFILE(namaFile);
-                    System.out.println("Matriks (file:"+namaFile+".txt) berhasil dibaca.");
                     break;
                 case 3:
                     subMenuDet();
@@ -413,6 +416,7 @@ public class Main {
                 // MENYIMPAN FILE
                 System.out.println("Hasil ingin disimpan? (y/n):    ");
                 simpan = input.next().charAt(0);
+                System.out.println("--------------------------------");
             }
             else if(metode==2 && (sumber==1 || sumber==2)){
                 //MENCARI NILAI DET DENGAN EKSPANSI KOFAKTOR
@@ -425,13 +429,14 @@ public class Main {
                 // MENYIMPAN FILE
                 System.out.println("Hasil ingin disimpan? (y/n):    ");
                 simpan = input.next().charAt(0);
+                System.out.println("--------------------------------");
             }
 
             if(simpan == 'y'){
                 int i,j;
                 System.out.println("Nama output file (*.txt):       ");
                 namaFile = input.next();
-                BufferedWriter output = new BufferedWriter(new FileWriter("../test/output"+namaFile));
+                BufferedWriter output = new BufferedWriter(new FileWriter("../test/output/"+namaFile));
                 for(i=0; i<mat.rows; i++){
                     String string = "";
                     for(j=0; j<mat.cols; j++){
@@ -444,13 +449,14 @@ public class Main {
                     output.write(string);
                 }
                 if (metode == 1){
-                    output.write("Dengan menggunakan Metode Eliminasi Gauss, diperoleh nilai determinan matriks: " + res +"\n");
+                    output.write("Dengan menggunakan Metode Eliminasi Gauss, diperoleh nilai determinan matriks: " + res + "\n");
                 }
                 else if (metode == 2){
                     output.write("Dengan menggunakan Metode Ekspansi Kofaktor, diperoleh nilai determinan matriks: " + res + "\n");
                 }
                 output.close();
-                System.out.println("File " +namaFile+ " berhasil disimpan.");
+                System.out.println("--------------------------------");
+                System.out.println("File " +namaFile+ ".txt berhasil disimpan.");
             }
             System.out.println("--------------------------------");
             System.out.println("       Operasi Determinan       ");
@@ -529,7 +535,6 @@ public class Main {
                     System.out.println("Masukkan nama file (.txt) dalam folder test: ");
                     namaFile = input.next();
                     mat.readMatrixFILE(namaFile);
-                    System.out.println("Matriks (file:"+namaFile+".txt) berhasil dibaca.");
                     break;
                 case 3:
                     subMenuInv();
@@ -552,6 +557,7 @@ public class Main {
                 // MENYIMPAN FILE
                 System.out.println("Hasil ingin disimpan? (y/n):    ");
                 simpan = input.next().charAt(0);
+                System.out.println("--------------------------------");
             }
             else if(metode==2 && (sumber==1 || sumber==2)){
                 //MENCARI MATRIKS BALIKAN DENGAN EKSPANSI KOFAKTOR
@@ -572,13 +578,14 @@ public class Main {
                 // MENYIMPAN FILE
                 System.out.println("Hasil ingin disimpan? (y/n):    ");
                 simpan = input.next().charAt(0);
+                System.out.println("--------------------------------");
             }
 
             if(simpan == 'y'){
                 int i,j;
                 System.out.println("Nama output file (*.txt):       ");
                 namaFile = input.next();
-                BufferedWriter output = new BufferedWriter(new FileWriter("../test/output"+namaFile));
+                BufferedWriter output = new BufferedWriter(new FileWriter("../test/output/"+namaFile));
                 for(i=0; i<mat.rows; i++){
                     String string = "";
                     for(j=0; j<mat.cols; j++){
@@ -597,6 +604,7 @@ public class Main {
                     output.write("Dengan menggunakan Metode Ekspansi Kofaktor, diperoleh matriks balikannya: " + res + "\n");
                 }
                 output.close();
+                System.out.println("--------------------------------");
                 System.out.println("File " +namaFile+ " berhasil disimpan.");
             }
             System.out.println("--------------------------------");
@@ -640,7 +648,6 @@ public class Main {
                     System.out.println("Masukkan nama file (.txt) dalam folder test: ");
                     namaFile = input.next();
                     mat.readMatrixFILE(namaFile);
-                    System.out.println("Matriks (file:"+namaFile+".txt) berhasil dibaca.");
                     // NILAI TITIK
                     break;
                 default:
@@ -691,7 +698,6 @@ public class Main {
                     System.out.println("Masukkan nama file (.txt) dalam folder test: ");
                     namaFile = input.next();
                     mat.readMatrixFILE(namaFile);
-                    System.out.println("Matriks (file:"+namaFile+".txt) berhasil dibaca.");
                     // NILAI TITIK
                     break;
                 default:
@@ -742,7 +748,6 @@ public class Main {
                     System.out.println("Masukkan nama file (.txt) dalam folder test: ");
                     namaFile = input.next();
                     mat.readMatrixFILE(namaFile);
-                    System.out.println("Matriks (file:"+namaFile+".txt) berhasil dibaca.");
                     // NILAI TITIK
                     break;
                 default:
