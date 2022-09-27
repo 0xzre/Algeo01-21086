@@ -1,9 +1,24 @@
 import java.sql.SQLOutput;
 import java.util.*;
 import java.io.*;
+import java.lang.*;
 
 public class Main {
     public static void main(String[] args) {
+        String art = """
+                ███████╗███████╗██████╗ ██╗███╗   ██╗ ██████╗  █████╗ ██╗
+                ██╔════╝██╔════╝██╔══██╗██║████╗  ██║██╔════╝ ██╔══██╗██║
+                ███████╗█████╗  ██████╔╝██║██╔██╗ ██║██║  ███╗███████║██║
+                ╚════██║██╔══╝  ██╔══██╗██║██║╚██╗██║██║   ██║██╔══██║██║
+                ███████║███████╗██║  ██║██║██║ ╚████║╚██████╔╝██║  ██║██║
+                ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝╚═╝
+                """;
+        for(int i=0; i<art.length(); i++){
+            System.out.print(art.charAt(i));
+            try{
+                Thread.sleep(1);
+            }catch(InterruptedException e){};
+        }
         MainMenu();
     }
 
