@@ -204,22 +204,26 @@ public class Main {
                                 pengali = mat.matrix[j][mat.firstNonZeroInRow(i)]/mat.matrix[i][mat.firstNonZeroInRow(i)];
                                 mat.addMultiplyRow(j, i, (-1)*pengali);
                                 // System.out.printf("\nKurangi baris ke-%d dengan %f kali baris ke-%d\n", (j+1), pengali , (i+1));
-                                mat.displayMatrix();
-                                System.out.println();
-
+                                // mat.displayMatrix();
+                                // System.out.println();
                             }
                         }
                     }
                 }
 
-                
-                
                 System.out.println("---------------------------------------------------------");
                 System.out.println("Dengan metode Eliminasi Gauss, diperoleh solusi SPL:  ");
                 // PANGGIL FUNGSI GAUSS
                 for(i = 0; i < mat.rows; i++){
                     System.out.printf("X%d = %f\n",i+1,mat.matrix[i][mat.cols-1]);
                 }
+
+                // RES DIGUNAKAN UNTUK MENYIMPAN HASIL SOLUSI SPL
+                System.out.println(res);
+                System.out.println("---------------------------------------------------------");
+                System.out.println("Hasil ingin disimpan? (y/n):    ");
+                simpan = input.next().charAt(0);
+                System.out.println("---------------------------------------------------------");
             }
             else if(metode == 2 && (sumber == 1 || sumber ==2)){
                 // MENCARI SOLUSI SPL DENGAN ELIMINASI GAUSS JORDAN
@@ -234,6 +238,13 @@ public class Main {
                 for(i = 0; i < mat.rows; i++){
                     System.out.printf("X%d = %f\n",i+1,mat.matrix[i][mat.cols-1]);
                 }
+
+                // RES DIGUNAKAN UNTUK MENYIMPAN HASIL SOLUSI SPL
+                System.out.println(res);
+                System.out.println("---------------------------------------------------------");
+                System.out.println("Hasil ingin disimpan? (y/n):    ");
+                simpan = input.next().charAt(0);
+                System.out.println("---------------------------------------------------------");
             }
             else if(metode == 3){
                 // MENCARI SOLUSI SPL DENGAN MATRIKS BALIKAN
@@ -673,6 +684,7 @@ public class Main {
     public static void subMenuInterPol(){
         try{
             int sumber;
+            char simpan =0;
             String namaFile = null;
             Matrix mat = new Matrix(0,0);
             Scanner input = new Scanner(System.in);
@@ -742,19 +754,27 @@ public class Main {
                 solusiInterpolasi[i] = m.matrix[i][m.cols-1];
             }
 
-            System.out.printf("\nSolusi SPL f(x) = ");
+            System.out.printf("\nSolusi SPL f(x) =");
 
-            System.out.printf("%f ", solusiInterpolasi[0]);
             
-            if (n >= 2){
-                System.out.printf("+ %fx ", solusiInterpolasi[1]);
-            }
+            for(i = n-1; i >= 0; i--){
 
-            if ( n >= 3){
-                for(i = 2; i < n; i++){
-                    System.out.printf(" + %fx^%d ", solusiInterpolasi[i],i);
+                if(i == 0){
+                    System.out.printf(" %f", solusiInterpolasi[0]);
                 }
+
+                else if(i == 1){
+                    System.out.printf(" %fx +", solusiInterpolasi[1]);
+                }
+
+                else{
+                    System.out.printf(" %fx^%d +", solusiInterpolasi[i],i);
+                }
+
+                
+                
             }
+            
             System.out.println();
 
             System.out.printf("Masukan nilai x yang akan ditaksir : ");
@@ -767,6 +787,54 @@ public class Main {
             }
 
             System.out.printf("\nHasil interpolasi f(%f) = %f\n", xTaksir, sum);
+            // MENYIMPAN FILE
+            System.out.println("Hasil ingin disimpan? (y/n):    ");
+            simpan = input.next().charAt(0);
+            System.out.println("---------------------------------------------------------");
+
+            if(simpan == 'y'){
+                System.out.println("Nama output file (*.txt):       ");
+                namaFile = input.next();
+                BufferedWriter output = new BufferedWriter(new FileWriter("../test/output/"+namaFile));
+                for(i=0; i<mat.rows; i++){
+                    String string = "";
+                    for(j=0; j<mat.cols; j++){
+                        if(j!=0){
+                            string += " ";
+                        }
+                        string += Double.toString(mat.matrix[i][j]);
+                    }
+                    string += "\n";
+                    output.write(string);
+                }
+
+                String strong = "";
+                System.out.printf("f(x) =");
+
+            
+                for(i = n-1; i >= 0; i--){
+
+                    if(i == 0){
+                        strong += " " + Double.toString(solusiInterpolasi[0]) ;
+                    }
+
+                    else if(i == 1){
+                        strong += " "+ Double.toString(solusiInterpolasi[1]) + "x +";
+                    }
+
+                    else{
+                        strong += " " + Double.toString(solusiInterpolasi[i]) + "x^" + Integer.toString(i) +" +";
+                    }
+
+                    
+                    
+                }
+
+
+                output.write(strong/* TULIS DISINI BOSSS OUTPUT INTERPOLASI NYA*/);
+            output.close();
+            System.out.println("---------------------------------------------------------");
+            System.out.println("File " +namaFile+ " berhasil disimpan.");
 
             System.out.println("---------------------------------------------------------");
             System.out.println("                Operasi Interpolasi Polinom              ");
@@ -774,7 +842,7 @@ public class Main {
             System.out.println("                   Kembali ke Menu Utama                 ");
             System.out.println("---------------------------------------------------------");
             MainMenu();
-
+            }
         }catch (Exception e){
             System.out.println("Masukkan menu tidak valid, silahkan ulangi.");
             subMenuInterPol();
@@ -783,6 +851,7 @@ public class Main {
     public static void subMenuInterBic(){
         try{
             int sumber;
+            char simpan =0;
             String namaFile = null;
             Matrix mat = new Matrix(0,0);
             Scanner input = new Scanner(System.in);
@@ -869,32 +938,60 @@ public class Main {
             }
 
             System.out.printf("\nMaka f(%f,%f) = %f",u,v,sum);
-                            
+
+            // MENYIMPAN FILE
+            System.out.println("Hasil ingin disimpan? (y/n):    ");
+            simpan = input.next().charAt(0);
+            System.out.println("---------------------------------------------------------");
+
+            if(simpan == 'y'){
+                System.out.println("Nama output file (*.txt):       ");
+                namaFile = input.next();
+                BufferedWriter output = new BufferedWriter(new FileWriter("../test/output/"+namaFile));
+                for(i=0; i<mat.rows; i++){
+                    String string = "";
+                    for(j=0; j<mat.cols; j++){
+                        if(j!=0){
+                            string += " ";
+                        }
+                        string += Double.toString(mat.matrix[i][j]);
+                    }
+                    string += "\n";
+                    output.write(string);
+                }
+
+                String strong = "";
+                strong += ("f(" + Double.toString(u) +","+ Double.toString(v) + ") = " + Double.toString(sum));
 
 
-
+                output.write(strong/* TULIS DISINI BOSSS OUTPUT bicubb NYA*/);
+            output.close();
+            System.out.println("---------------------------------------------------------");
+            System.out.println("File " +namaFile+ " berhasil disimpan.");                      
             System.out.println("---------------------------------------------------------");
             System.out.println("               Operasi Interpolasi Bicubic               ");
             System.out.println("                         SELESAI                         ");
             System.out.println("                  Kembali ke Menu Utama                  ");
             System.out.println("---------------------------------------------------------");
             MainMenu();
+            }
 
         }catch (Exception e){
             System.out.println("Masukkan menu tidak valid, silahkan ulangi.");
             subMenuInterBic();
         }
     }
-    public static void subMenuRLB(){
-        try{
-            int sumber,i,j,k;
+    public static void subMenuRLB() {
+        try {
+            int sumber, i, j, k;
             String namaFile = null;
-            Matrix mat = new Matrix(0,0);
+            Matrix mat = new Matrix(0, 0);
             Scanner input = new Scanner(System.in);
             Matrix x = new Matrix(0, 0);
             Matrix y = new Matrix(0, 0);
             double[] xTaksir = new double[1];
-            int peubahX =0,nSampel=0;
+            int peubahX = 0, nSampel = 0;
+            char simpan =' ';
 
             System.out.println("---------------------------------------------------------");
             System.out.println("                          Menu                           ");
@@ -902,7 +999,7 @@ public class Main {
             System.out.println("---------------------------------------------------------");
             sumber = pilihanMasukan(0);
 
-            switch(sumber){
+            switch (sumber) {
                 case 1:
                     System.out.println("---------------------------------------------------------");
                     System.out.println("                          Sumber                         ");
@@ -914,41 +1011,38 @@ public class Main {
                     System.out.printf("\nMasukkan banyak varibel x : ");
                     peubahX = input.nextInt();
 
-                    x = new Matrix(nSampel, peubahX+1);
+                    x = new Matrix(nSampel, peubahX + 1);
                     y = new Matrix(nSampel, 1);
-                    xTaksir = new double[peubahX+1];
-                    
-                    
-                    for( i = 0; i < nSampel; i++){
-                        for( j = 0; j < peubahX+2; j++){
-                            if(j == 0){
+                    xTaksir = new double[peubahX + 1];
+
+
+                    for (i = 0; i < nSampel; i++) {
+                        for (j = 0; j < peubahX + 2; j++) {
+                            if (j == 0) {
                                 x.matrix[i][0] = 1;
-                            }
-                            else{
-                                if(j == peubahX+1){
-                                    System.out.printf("Masukkan nilai y untuk sampel %d : ", i+1);
+                            } else {
+                                if (j == peubahX + 1) {
+                                    System.out.printf("Masukkan nilai y untuk sampel %d : ", i + 1);
                                     y.matrix[i][0] = input.nextDouble();
-                                }
-                                else{
-                                    System.out.printf("Masukkan nilai X%d untuk sampel %d : ", j,i+1);
+                                } else {
+                                    System.out.printf("Masukkan nilai X%d untuk sampel %d : ", j, i + 1);
                                     x.matrix[i][j] = input.nextDouble();
                                 }
-                                
+
                             }
-                            
+
                         }
                     }
 
                     System.out.println("\nMasukkan nilai-nilai X yang akan ditaksir...\n");
-                    for( i = 0; i < peubahX+1; i++){
-                        if( i == 0 ){
+                    for (i = 0; i < peubahX + 1; i++) {
+                        if (i == 0) {
                             xTaksir[0] = 1;
-                        }
-                        else{
-                            System.out.printf("Nilai X%d : ",i);
+                        } else {
+                            System.out.printf("Nilai X%d : ", i);
                             xTaksir[i] = input.nextDouble();
                         }
-                        
+
                     }
                     break;
                 case 2:
@@ -967,67 +1061,115 @@ public class Main {
             }
 
             // OPERASI REGRESI LINIER BERGANDA TARUH DISINI        
-          
-            Matrix yNEE = new Matrix(peubahX+1, 1);
-            Matrix matRLB = new Matrix(peubahX+1, peubahX+1);
+
+            Matrix yNEE = new Matrix(peubahX + 1, 1);
+            Matrix matRLB = new Matrix(peubahX + 1, peubahX + 1);
             double yTaksir = 0;
 
-            
-                
-            for( i = 0; i < peubahX+1; i++){
-                for( j = 0; j < peubahX+1; j++){
+
+            for (i = 0; i < peubahX + 1; i++) {
+                for (j = 0; j < peubahX + 1; j++) {
                     matRLB.matrix[i][j] = 0;
-                    
-                    for(k = 0; k < nSampel; k++){
+
+                    for (k = 0; k < nSampel; k++) {
                         matRLB.matrix[i][j] += x.matrix[k][i] * x.matrix[k][j];
                     }
                 }
             }
 
-            
 
             matRLB.inverseOBE();
             /* Sudah didapatkan inverse di matRLB */
 
             /* Membuat sisi kanan NEE */
-            for(i = 0; i< peubahX+1; i++){
+            for (i = 0; i < peubahX + 1; i++) {
                 yNEE.matrix[i][0] = 0;
-                for(j = 0; j < nSampel; j++){
-                    yNEE.matrix[i][0] += x.matrix[j][i]*y.matrix[j][0];
+                for (j = 0; j < nSampel; j++) {
+                    yNEE.matrix[i][0] += x.matrix[j][i] * y.matrix[j][0];
                 }
             }
 
             Matrix solusi = matRLB.multiplyMatrix(matRLB, yNEE);
 
-            System.out.println("Maka didapatkan nilai koefisien B (beta)..\n");
+            System.out.println("Maka didapatkan persamaan..\n");
+            System.out.printf("f(x) =");
 
-            for(i = 0; i < peubahX+1; i++){
-                System.out.printf("B%d = %f\n", i, solusi.matrix[i][0]);
+            for (i = 0; i < peubahX + 1; i++) {
+                if( i == 0){
+                    System.out.printf(" %f +", solusi.matrix[i][0]);
+                }
+                else{
+                    System.out.printf(" %fX%d", solusi.matrix[i][0], i);
+                }
+                
             }
             System.out.println();
-            
-            for(i = 0; i < peubahX+1; i++){
-                yTaksir += xTaksir[i]*solusi.matrix[i][0];
+
+            for (i = 0; i < peubahX + 1; i++) {
+                yTaksir += xTaksir[i] * solusi.matrix[i][0];
             }
 
             System.out.printf("y =");
-            for(i = 0; i < peubahX+1; i++ ){
-                System.out.printf(" %f x %f", solusi.matrix[i][0],xTaksir[i]);
-                if(i != peubahX){
+            for (i = 0; i < peubahX + 1; i++) {
+                System.out.printf(" %f x %f", solusi.matrix[i][0], xTaksir[i]);
+                if (i != peubahX) {
                     System.out.printf(" +");
                 }
             }
             System.out.printf(" = %f", yTaksir);
+
+            // MENYIMPAN FILE
+            System.out.println("Hasil ingin disimpan? (y/n):    ");
+            simpan = input.next().charAt(0);
+            System.out.println("---------------------------------------------------------");
+
+            if(simpan == 'y'){
+                System.out.println("Nama output file (*.txt):       ");
+                namaFile = input.next();
+                BufferedWriter output = new BufferedWriter(new FileWriter("../test/output/"+namaFile));
+                for(i=0; i<mat.rows; i++){
+                    String string = "";
+                    for(j=0; j<mat.cols; j++){
+                        if(j!=0){
+                            string += " ";
+                        }
+                        string += Double.toString(mat.matrix[i][j]);
+                    }
+                    string += "\n";
+                    output.write(string);
+                }
+
+                String strong = "";
+                strong += ("f(x) = ");
+
+                strong += Double.toString(solusi.matrix[0][0]) + " ";
                 
-             
+                if (peubahX+1 >= 2){
+                    strong += "+ " + Double.toString(solusi.matrix[1][0]) + "x1 " ;
+                }
+
+                if ( peubahX+1 >= 3){
+                    for(i = 2; i < peubahX+1; i++){
+                        strong += " + " + Double.toString(solusi.matrix[i][0]) + "x"+ Integer.toString(i)+ " " ;
+                    }
+                }
+
+                strong += "\nf(Xk) = " + Double.toString(yTaksir); 
+
+
+                output.write(strong/* TULIS DISINI BOSSS OUTPUT INTERPOLASI NYA*/);
+            output.close();
+            System.out.println("---------------------------------------------------------");
+            System.out.println("File " +namaFile+ " berhasil disimpan.");
             System.out.println("---------------------------------------------------------");
             System.out.println("             Operasi Regresi Linier Berganda             ");
             System.out.println("                         SELESAI                         ");
             System.out.println("                  Kembali ke Menu Utama                  ");
             System.out.println("---------------------------------------------------------");
             MainMenu();
+            }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Masukkan menu tidak valid, silahkan ulangi.");
             subMenuRLB();
         }

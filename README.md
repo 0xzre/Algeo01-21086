@@ -10,7 +10,7 @@ Penjelasan singkat mengenai folder/file:
 - `Algeo-1` folder utama yang berisi folder-folder lain<br>
 	- `bin` berisi Java bytecode **(*.class)**
 	- `src` berisi Java source code **(*.java)**
-	- `test` berisi File **(*.txt)** masukan/data uji
+	- `test/input` berisi File **(*.txt)** masukan/data uji
 	- `test/output` berisi File **(*.txt)** penyimpanan hasil operasi
 - `README.md` file Markdown sebagai deskripsi program keseluruhan
 - `Tubes1-Algeo-2022.pdf` file spesifikasi TuBes Algeo01

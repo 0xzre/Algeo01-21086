@@ -311,8 +311,8 @@ public class Matrix {
 
     public void gaussJordan(){
         gauss();
-
-        System.out.println("Penyulihan Jordan");
+        System.out.println();
+        // System.out.println("Penyulihan Jordan");
 
         int i,notZero,j;
         double pengali;
