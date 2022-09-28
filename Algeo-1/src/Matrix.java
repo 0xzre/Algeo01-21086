@@ -266,7 +266,34 @@ public class Matrix {
     
 
     /* PRIMITIF UNTUK GAUSS */
-    
+
+    int jumlahSolusi(){
+        int i = 0;
+        int jumlahSolusi;
+        boolean nolPojok = true;
+        boolean nolSebelahPojok = true;
+        if((this.matrix[this.rows-1][this.cols-1]) != 0.0d){
+            nolPojok = false;
+        }
+
+        while((i<this.rows-1) && nolSebelahPojok){
+            if((this.matrix[this.rows-1][i])  != 0.0d){
+                nolSebelahPojok = false;
+            }
+            i++;
+        }
+
+        if(nolPojok && nolSebelahPojok){
+            jumlahSolusi = 2; // SOLUSI TAK HINGGA
+        }else if(nolPojok && !nolPojok){
+            jumlahSolusi = 0; // SOLUSI TAK ADA
+        }else{
+            jumlahSolusi = 1; // SOLUSI UNIK
+        }
+
+        return jumlahSolusi;
+
+    }
 
     public void gauss(){
         
@@ -309,6 +336,12 @@ public class Matrix {
         
     }
 
+    public static HashMap<String, String> preSolusiGauss(Matrix mat){
+        mat.gauss();
+
+        return solusiGaussJordan(mat);
+    }
+
     public void gaussJordan(){
         gauss();
         System.out.println();
@@ -322,21 +355,51 @@ public class Matrix {
                     if(this.matrix[j][firstNonZeroInRow(i)] != 0){
                         pengali = this.matrix[j][firstNonZeroInRow(i)]/this.matrix[i][firstNonZeroInRow(i)];
                         addMultiplyRow(j, i, (-1)*pengali);
-                        // System.out.printf("\nKurangi baris ke-%d dengan %f kali baris ke-%d\n", (j+1), pengali , (i+1));
-                        // displayMatrix();
-                        // System.out.println();
+                         System.out.printf("\nKurangi baris ke-%d dengan %f kali baris ke-%d\n", (j+1), pengali , (i+1));
+                         displayMatrix();
+                         System.out.println();
 
                     }
                 }
             }
         }
-
-        
-
-        System.out.println("Hasil Gauss-Jordan:\n");
-        displayMatrix();
+//        System.out.println("Hasil Gauss-Jordan:\n");
+//        displayMatrix();
     }
 
+    public static HashMap<String, String> solusiGaussJordan(Matrix m){
+        int jumlahSolusi;
+        HashMap<String, String> solusi = new HashMap<>();
+
+        m.gaussJordan();
+        jumlahSolusi = m.jumlahSolusi();
+
+        if(jumlahSolusi == 0){
+            return solusi;
+        }else if(jumlahSolusi == 1){
+            for(int i= m.rows-1; i>=0; i--){
+                double elemen = m.matrix[i][m.cols-1];
+                String string = String.format("%.2f", elemen);
+                solusi.put("X" + (i+1), string);
+            }
+            return solusi;
+        }else{
+            solusi = m.toParametrik();
+            return solusi;
+        }
+    }
+
+    public static String displaySolusiGauss(HashMap<String, String> solusi){
+        String string = new String();
+        if(solusi.isEmpty()){
+            string = "SPL tidak memiliki solusi";
+        }else{
+            for(int i = 0; i< solusi.size(); i++){
+                string = string.concat("X"+(i+1)+"="+solusi.get("X"+(i+1))+" ");
+            }
+        }
+        return string;
+    }
     HashMap<String, String> toParametrik(){
         int i,j;
         HashMap<String, String> solusiParametrik = new HashMap<>();
@@ -397,7 +460,7 @@ public class Matrix {
                             }
                         }else{
                             if(this.matrix[i][k] > 0 || this.matrix[i][k] < 0){
-                                solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + String.format("%/2f", this.matrix[i][k]));
+                                solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + String.format("%.2f", this.matrix[i][k]));
                             }
                         }
                     }else{
@@ -508,9 +571,9 @@ public class Matrix {
                     if(this.matrix[i][colNotZero] != 0){
                         pengali = this.matrix[i][colNotZero] / this.matrix[a][colNotZero];
                         addMultiplyRow(i,a, (-1)*pengali);
-                        // System.out.printf("\nKurangi baris ke-%d dengan %f kali baris ke-%d\n", (i+1), pengali , (colNotZero+1));
-                        // displayMatrix();
-                        // System.out.println();
+                         System.out.printf("\nKurangi baris ke-%d dengan %f kali baris ke-%d\n", (i+1), pengali , (colNotZero+1));
+                         displayMatrix();
+                         System.out.println();
                     }
     
                     

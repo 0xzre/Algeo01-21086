@@ -217,9 +217,12 @@ public class Main {
                 for(i = 0; i < mat.rows; i++){
                     System.out.printf("X%d = %f\n",i+1,mat.matrix[i][mat.cols-1]);
                 }
+                HashMap<String, String> solusi = new HashMap<>();
+                solusi = Matrix.preSolusiGauss(mat);
+                System.out.println(Matrix.displaySolusiGauss(solusi));
 
                 // RES DIGUNAKAN UNTUK MENYIMPAN HASIL SOLUSI SPL
-                System.out.println(res);
+//                System.out.println(res);
                 System.out.println("---------------------------------------------------------");
                 System.out.println("Hasil ingin disimpan? (y/n):    ");
                 simpan = input.next().charAt(0);
@@ -238,9 +241,12 @@ public class Main {
                 for(i = 0; i < mat.rows; i++){
                     System.out.printf("X%d = %f\n",i+1,mat.matrix[i][mat.cols-1]);
                 }
+                HashMap<String, String> solusi = new HashMap<>();
+                solusi = Matrix.preSolusiGauss(mat);
+                System.out.println(Matrix.displaySolusiGauss(solusi));
 
                 // RES DIGUNAKAN UNTUK MENYIMPAN HASIL SOLUSI SPL
-                System.out.println(res);
+//                System.out.println(res);
                 System.out.println("---------------------------------------------------------");
                 System.out.println("Hasil ingin disimpan? (y/n):    ");
                 simpan = input.next().charAt(0);
