@@ -206,20 +206,24 @@ public class Main {
                                 // System.out.printf("\nKurangi baris ke-%d dengan %f kali baris ke-%d\n", (j+1), pengali , (i+1));
                                 mat.displayMatrix();
                                 System.out.println();
-
                             }
                         }
                     }
                 }
 
-                
-                
                 System.out.println("---------------------------------------------------------");
                 System.out.println("Dengan metode Eliminasi Gauss, diperoleh solusi SPL:  ");
                 // PANGGIL FUNGSI GAUSS
                 for(i = 0; i < mat.rows; i++){
                     System.out.printf("X%d = %f\n",i+1,mat.matrix[i][mat.cols-1]);
                 }
+
+                // RES DIGUNAKAN UNTUK MENYIMPAN HASIL SOLUSI SPL
+                System.out.println(res);
+                System.out.println("---------------------------------------------------------");
+                System.out.println("Hasil ingin disimpan? (y/n):    ");
+                simpan = input.next().charAt(0);
+                System.out.println("---------------------------------------------------------");
             }
             else if(metode == 2 && (sumber == 1 || sumber ==2)){
                 // MENCARI SOLUSI SPL DENGAN ELIMINASI GAUSS JORDAN
@@ -234,6 +238,13 @@ public class Main {
                 for(i = 0; i < mat.rows; i++){
                     System.out.printf("X%d = %f\n",i+1,mat.matrix[i][mat.cols-1]);
                 }
+
+                // RES DIGUNAKAN UNTUK MENYIMPAN HASIL SOLUSI SPL
+                System.out.println(res);
+                System.out.println("---------------------------------------------------------");
+                System.out.println("Hasil ingin disimpan? (y/n):    ");
+                simpan = input.next().charAt(0);
+                System.out.println("---------------------------------------------------------");
             }
             else if(metode == 3){
                 // MENCARI SOLUSI SPL DENGAN MATRIKS BALIKAN
