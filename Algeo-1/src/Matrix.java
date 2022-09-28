@@ -38,7 +38,7 @@ public class Matrix {
         try{
             int i,j;
             int nRows=0, nCols=0;
-            String dir = "../test/" + FileName;
+            String dir = "../test/input/" + FileName;
             File file = new File(dir);
             Scanner input = new Scanner(file);
 
