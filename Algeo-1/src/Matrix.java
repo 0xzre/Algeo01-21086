@@ -1,4 +1,5 @@
-  import java.util.Scanner;
+import java.util.*;
+import java.io.*;
 
 public class Matrix {
 
@@ -33,6 +34,48 @@ public class Matrix {
         }
     }
 
+    public void readMatrixFILE(String FileName){
+        try{
+            int i,j;
+            int nRows=0, nCols=0;
+            String dir = "../test/" + FileName;
+            File file = new File(dir);
+            Scanner input = new Scanner(file);
+
+            while(input.hasNextLine()){
+                nRows += 1;
+                input.nextLine();
+            }
+            input.close();
+
+            input = new Scanner(file);
+            Scanner num = new Scanner(input.nextLine());
+
+            while(num.hasNextDouble()){
+                nCols += 1;
+                num.nextDouble();
+            }
+            num.close();
+            input.close();
+
+            input = new Scanner(file);
+
+            this.rows = nRows;
+            this.cols = nCols;
+
+            matrix = new double[nRows][nCols];
+
+            for(i=0; i<nRows; i++){
+                for(j=0; j<nCols; j++){
+                    this.matrix[i][j] = input.nextDouble();
+                }
+            }
+            input.close();
+            System.out.println("Matriks (file:"+FileName+".txt) berhasil dibaca.");
+        }catch(FileNotFoundException e){
+            System.out.println("File tidak ditemukan.");
+        }
+    }
     // public void readMatrixTXT(String file){
     // }
 
@@ -175,6 +218,50 @@ public class Matrix {
         return cek;
     }
 
+    public void reduceMatrix(double M[][], int i, int j){
+        int k,l,m,n;
+        double T[][];
+        T = new double[this.rows][this.cols];
+        k=0;
+        m=0;
+        while(m<this.rows){
+            if(k == i){
+                m+=1;
+            }
+            if(m != this.rows){
+                for(l=0; l<this.cols; l++){
+                    T[k][l] = this.matrix[m][l];
+                }
+            }
+            k += 1;
+            m += 1;
+        }
+
+        l=0;
+        n=0;
+        while(n<this.cols){
+            if(l==j){
+                n+=1;
+            }
+            if(n != this.cols){
+                for(k=0; k<this.rows; k++){
+                    T[k][l] = T[k][n];
+                }
+            }
+            l+=1;
+            n+=1;
+        }
+        for(i=0; i<this.cols-1; i++){
+            for(j=0; j<this.cols-1; j++){
+                M[i][j] = T[i][j];
+            }
+        }
+    }
+
+    boolean isSquare(){
+        return (this.rows == this.cols);
+    }
+
 
     
 
@@ -248,6 +335,93 @@ public class Matrix {
 
         System.out.println("Hasil Gauss-Jordan:\n");
         displayMatrix();
+    }
+
+    HashMap<String, String> toParametrik(){
+        int i,j;
+        HashMap<String, String> solusiParametrik = new HashMap<>();
+        char variabel = 's';
+        for(j=this.cols-2; j>=0; j--){
+            boolean rowZero = true;
+            for(i=this.rows-1; i>=0; i--){
+                if(this.matrix[i][j] != 0){
+                    rowZero = false;
+                    break;
+                }
+            }
+            if(rowZero || (this.matrix[i][j] != 1)){
+                solusiParametrik.put("X"+(j+1), variabel+"");
+                if(variabel == 'z'){
+                    variabel -= 25;
+                }
+                else{
+                    variabel++;
+                }
+            }
+        }
+
+        int countRowsNotZero = 0;
+        i = 0;
+        j = 0;
+        boolean zero = true;
+
+        while(i<this.rows){
+            zero = true;
+            while(zero && j<this.cols){
+                if(this.matrix[i][j] != 0){
+                    countRowsNotZero++;
+                    zero = false;
+                }
+                j++;
+            }
+            i++;
+        }
+
+        for(i=0; i<countRowsNotZero; i++){
+            j=0;
+            while(this.matrix[i][j] != 1){
+                j++;
+            }
+
+            solusiParametrik.put("X"+(j+1), "");
+
+            if(j != this.cols-2){
+                for(int k=j+1; k<this.cols; k++){
+                    if(solusiParametrik.get("X"+(j+1)) != null && solusiParametrik.get("X" + (j+1)).equals("")){
+                        if(k != this.cols-1){
+                            if(this.matrix[i][k] > 0){
+                                solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + "-" + String.format("%.2f", this.matrix[i][k]) + solusiParametrik.get("X"+(k+1)));
+                            }
+                            else if (this.matrix[i][k] < 0) {
+                                solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + String.format("%.2f", (-1)*this.matrix[i][k]) + solusiParametrik.get("X"+(k+1)));
+                            }
+                        }else{
+                            if(this.matrix[i][k] > 0 || this.matrix[i][k] < 0){
+                                solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + String.format("%/2f", this.matrix[i][k]));
+                            }
+                        }
+                    }else{
+                        if(k != this.cols-1){
+                            if(this.matrix[i][k] > 0){
+                                solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + "-" + String.format("%.2f", this.matrix[i][k]) + solusiParametrik.get("X" + (k+1)));
+                            }
+                            else if (this.matrix[i][k] < 0) {
+                                solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + "+" + String.format("%.2f", (-1)*this.matrix[i][k] + solusiParametrik.get("X" + (k+1))));
+                            }
+                        }else{
+                            if(this.matrix[i][k] > 0){
+                                solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + "+" + String.format("%.2f", this.matrix[i][k]));
+                            }else if(this.matrix[i][k] < 0){
+                                solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + " " + String.format("%.2f", this.matrix[i][k]));
+                            }
+                        }
+                    }
+                }
+            }else{
+                solusiParametrik.replace("X" + (j+1), "" + String.format("%.2f", this.matrix[i][this.cols-1]));
+            }
+        }
+        return solusiParametrik;
     }
 
 
@@ -671,6 +845,178 @@ public class Matrix {
             System.out.printf("Determinan matriks :%.2f\n", det);
 
         }
+    }
+    // FUNGSI KOFAKTOR DAN CRAMER
+    void kofaktor(){
+        int i,j;
+        double temp;
+        double[][] mNew;
+        mNew = new double[this.rows-1][this.cols-1];
+        Matrix m1 = new Matrix((this.rows-1),(this.cols-1));
+        Matrix m2 = new Matrix((this.rows),(this.cols));
+
+        if((this.rows == 2) && (this.cols ==2)){
+            temp = this.matrix[0][0];
+            this.matrix[0][0] = this.matrix[1][1];
+            this.matrix[1][1] = temp;
+            temp = this.matrix[0][1];
+            this.matrix[0][1] = -(this.matrix[1][0]);
+            this.matrix[1][0] = -(temp);
+        }else{
+            for(i=0; i<this.rows; i++){
+                for(j=0; j<this.cols; j++){
+                    this.reduceMatrix(mNew,i,j);
+                    m1.copyMatrixInverse(mNew);
+                    m2.matrix[i][j] = m1.determinanKofaktor();
+
+                    if((i+j)%2 != 0){
+                        m2.matrix[i][j] = -(m2.matrix[i][j]);
+                    }
+                }
+            }
+            for(i=0; i<this.rows; i++){
+                for(j=0; j<this.cols; j++){
+                    this.matrix[i][j] = m2.matrix[i][j];
+                }
+            }
+        }
+    }
+    public double determinanKofaktor(){
+        double det=0;
+        int i,j,k,x,y;
+        Matrix matrixNew = new Matrix((this.rows-1),(this.cols-1));
+        if(this.rows==2 && this.cols==2){ //BASIS
+            det = ((this.matrix[0][0]*this.matrix[1][1])-(this.matrix[0][1]*this.matrix[1][0]));
+            return det;
+        }else{
+            for(i=0; i<this.cols; i++){
+                if(this.matrix[0][i] != 0){
+                    y=0;
+                    for(j=0; j<this.rows; j++){
+                        x=0;
+                        for(k=0; k<this.cols; k++){
+                            if(k!=i){ //Membuat matrikskofaktor
+                                matrixNew.matrix[y][x] = this.matrix[j][k];
+                                x++;
+                            }
+                        }
+                        if(j!=0){
+                            y++;
+                        }
+                    }
+                    if(i%2==0){
+                        det += this.matrix[0][i] * matrixNew.determinanKofaktor();
+                    }else{
+                        det -= this.matrix[0][i] * matrixNew.determinanKofaktor();
+                    }
+                }
+            }
+            return det;
+        }
+    }
+
+
+    void transpose(){
+        int i,j;
+        double[][] mNew;
+        mNew = new double[this.rows][this.cols];
+        for(i=0; i<this.rows; i++){
+            for(j=0; j<this.cols; j++){
+                mNew[j][i] = this.matrix[i][j];
+            }
+        }
+        for(i=0; i<this.rows; i++){
+            for(j=0; j<this.cols; j++){
+                this.matrix[i][j] = mNew[i][j];
+            }
+        }
+    }
+
+    void adjoin(){
+        this.kofaktor();
+        this.transpose();
+    }
+
+    void copyMatrixInverse(double M[][]){
+        int i,j;
+        for(i=0; i<this.rows; i++){
+            for(j=0; j<this.cols; j++){
+                this.matrix[i][j] = M[i][j];
+            }
+        }
+    }
+
+    void invers(){
+        int i,j;
+        double[][] mNew;
+        mNew = new double[this.rows][this.cols];
+        double det = this.determinanKofaktor();
+        if(det !=0){
+            this.adjoin();
+            for(i=0; i<this.rows; i++){
+                for(j=0; j<this.cols; j++){
+                    mNew[i][j] = this.matrix[i][j]/det;
+                }
+            }
+            this.copyMatrixInverse(mNew);
+        }
+    }
+
+    String Cramer(double m[][]){
+        int i, j;
+        double mNew[][] = new double[this.rows][this.cols];
+        double det1 = this.determinanKofaktor();
+        double det2, res;
+        String output = "";
+
+        for(i=0; i<this.rows; i++){
+            for(j=0; j<this.cols; j++){
+                mNew[i][j] = this.matrix[i][j]; // membuat matriks baru hasil copy matrix asli
+            }
+        }
+
+        if(det1 != 0){
+            for(j=0; j<this.cols; j++){
+                for(i=0; i<this.rows; i++){
+                    this.matrix[i][j] = m[i][0]; // mengganti nilai dari tiap kolom matriks asli dengan nilai matriks masukan
+                }
+                det2 = this.determinanKofaktor();
+                res = det2/det1; // X(N) = detKolomN/detMatriks
+                if(j!=0){
+                    output += ",X" + (j+1) + "=" + (res) + " "; // ,X2=* ,X3=*
+                }
+                else{
+                    output += "X" + (j+1) + "=" + (res) + " "; // X1=*
+                }
+
+                for(i=0; i<this.rows; i++){
+                    this.matrix[i][j] = mNew[i][j]; // menukar nilai matriks asli yang telah diubah per kolomnya menjadi nilai semula
+                }
+            }
+        }
+        return output; // mengembalikan String output
+    }
+
+    String multiplyInvers(double M[][]){
+        // MENGALIKAN MATRIKS M DENGAN MATRIKS
+        int i,j;
+        double res;
+        String string = "";
+
+        this.invers();
+        for(i=0; i<this.rows; i++){
+            res = 0;
+            for(j=0; j<this.cols; j++){
+                res += this.matrix[i][j] * M[j][0];
+            }
+            if(i!=0){
+                string += ",X" + (i+1) + "=" + (res) + " "; // ,X2=* ,X3=*
+            }
+            else{
+                string += "X" + (i+1) + "=" + (res) + " "; // X1=*
+            }
+        }
+        return string;
     }
 
 }

@@ -1,21 +1,24 @@
-
-
 import java.sql.SQLOutput;
-import java.util.Scanner;
-import java.util.Arrays;
-import java.lang.Math;
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.io.IOException;
+import java.util.*;
+import java.io.*;
+import java.lang.*;
 
 public class Main {
     public static void main(String[] args) {
-//        Matrix m = new Matrix(3,3);
-//        m.readMatrixCLI(m.rows,m.cols);
-//        System.out.println("\nTerbentuk Matriks :");
-//        m.displayMatrix();
-//        System.out.println("");
-//        m.inverseOBE();
+        String art = """
+                ███████╗███████╗██████╗ ██╗███╗   ██╗ ██████╗  █████╗ ██╗
+                ██╔════╝██╔════╝██╔══██╗██║████╗  ██║██╔════╝ ██╔══██╗██║
+                ███████╗█████╗  ██████╔╝██║██╔██╗ ██║██║  ███╗███████║██║
+                ╚════██║██╔══╝  ██╔══██╗██║██║╚██╗██║██║   ██║██╔══██║██║
+                ███████║███████╗██║  ██║██║██║ ╚████║╚██████╔╝██║  ██║██║
+                ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝╚═╝
+                """;
+        for(int i=0; i<art.length(); i++){
+            System.out.print(art.charAt(i));
+            try{
+                Thread.sleep(2);
+            }catch(InterruptedException e){};
+        }
         MainMenu();
     }
 
@@ -23,21 +26,21 @@ public class Main {
         try{
             int pilihan; // variabel masukan pilihan menu dari user
             Scanner input = new Scanner(System.in);
-            System.out.println("--------------------------------");
-            System.out.println("          TUBES ALGEO-01        ");
-            System.out.println("        KELOMPOK SERINGAI       ");
-            System.out.println("--------------------------------");
-            System.out.println("           Menu Utama           ");
-            System.out.println("--------------------------------");
-            System.out.println("1. Sistem Persamaan Linear(SPL)");
+            System.out.println("---------------------------------------------------------");
+            System.out.println("                      TUBES ALGEO-01                     ");
+            System.out.println("                     KELOMPOK SERINGAI                   ");
+            System.out.println("---------------------------------------------------------");
+            System.out.println("                        Menu Utama                       ");
+            System.out.println("---------------------------------------------------------");
+            System.out.println("1. Sistem Persamaan Linier(SPL) ");
             System.out.println("2. Determinan");
             System.out.println("3. Matriks Balikan");
             System.out.println("4. Interpolasi Polinom");
             System.out.println("5. Interpolasi Bicubic");
-            System.out.println("6. Regresi linear berganda");
+            System.out.println("6. Regresi Linier berganda");
             System.out.println("7. Keluar");
-            System.out.println("--------------------------------");
-            System.out.println("Masukkan pilihan menu Anda: ");
+            System.out.println("---------------------------------------------------------");
+            System.out.println("Masukkan pilihan menu Anda:     ");
             pilihan = input.nextInt();
 
             switch(pilihan){
@@ -73,8 +76,10 @@ public class Main {
 
     public static void subMenuSPL(){
         try{
-            int i,j,metode,nRows,nCols;
+            int i,j,metode,nCols,akhir;
+            int nRows=0;
             int sumber =0;
+            char simpan =0;
             String res = "";
             double b[][];
             String namaFile = null;
@@ -83,58 +88,47 @@ public class Main {
             double[][] matB = new double[0][0];
             Scanner input = new Scanner(System.in);
 
-            System.out.println("--------------------------------");
-            System.out.println("              Menu              ");
-            System.out.println(" 1.Sistem Persamaan Linear(SPL) ");
-            System.out.println("--------------------------------");
-            System.out.println("         Pilihan Metode:        ");
+            System.out.println("---------------------------------------------------------");
+            System.out.println("                           Menu                          ");
+            System.out.println("              1.Sistem Persamaan Linier(SPL)             ");
+            System.out.println("---------------------------------------------------------");
+            System.out.println("                      Pilihan Metode:                    ");
             System.out.println("1. Metode Eliminasi Gauss");
             System.out.println("2. Metode Eliminasi Gauss-Jordan");
             System.out.println("3. Metode Matriks balikan");
             System.out.println("4. Kaidah Cramer");
             System.out.println("5. Kembali ke Menu Utama");
-            System.out.println("--------------------------------");
+            System.out.println("---------------------------------------------------------");
             System.out.println("Masukkan pilihan metode Anda: ");
             metode = input.nextInt();
 
             switch(metode){
                 case 1:
-                    System.out.println("--------------------------------");
-                    System.out.println("             Metode             ");
-                    System.out.println("    1. Metode Eliminasi Gauss   ");
-                    System.out.println("--------------------------------");
+                    System.out.println("---------------------------------------------------------");
+                    System.out.println("                          Metode                         ");
+                    System.out.println("                 1. Metode Eliminasi Gauss               ");
+                    System.out.println("---------------------------------------------------------");
                     sumber = pilihanMasukan(1);
-
-                    
-
                     break;
                 case 2:
-                    System.out.println("--------------------------------");
-                    System.out.println("             Metode             ");
-                    System.out.println("2. Metode Eliminasi Gauss-Jordan");
-                    System.out.println("--------------------------------");
+                    System.out.println("---------------------------------------------------------");
+                    System.out.println("                          Metode                         ");
+                    System.out.println("             2. Metode Eliminasi Gauss-Jordan            ");
+                    System.out.println("---------------------------------------------------------");
                     sumber = pilihanMasukan(1);
-
-                    
-
                     break;
                 case 3:
-                    System.out.println("--------------------------------");
-                    System.out.println("             Metode             ");
-                    System.out.println("    3. Metode Matriks Balikan   ");
-                    System.out.println("--------------------------------");
+                    System.out.println("---------------------------------------------------------");
+                    System.out.println("                          Metode                         ");
+                    System.out.println("                 3. Metode Matriks Balikan               ");
+                    System.out.println("---------------------------------------------------------");
                     sumber = pilihanMasukan(1);
-
-                    
-                    
-
-
                     break;
                 case 4:
-                    System.out.println("--------------------------------");
-                    System.out.println("             Metode             ");
-                    System.out.println("        4. Kaidah Cramer        ");
-                    System.out.println("--------------------------------");
+                    System.out.println("---------------------------------------------------------");
+                    System.out.println("                          Metode                         ");
+                    System.out.println("                     4. Kaidah Cramer                    ");
+                    System.out.println("---------------------------------------------------------");
                     sumber = pilihanMasukan(1);
                     break;
                 case 5:
@@ -146,10 +140,10 @@ public class Main {
 
             switch(sumber){
                 case 1:
-                    System.out.println("--------------------------------");
-                    System.out.println("             Sumber             ");
-                    System.out.println("       1. Masukan dari CLI      ");
-                    System.out.println("--------------------------------");
+                    System.out.println("---------------------------------------------------------");
+                    System.out.println("                          Sumber                         ");
+                    System.out.println("                    1. Masukan dari CLI                  ");
+                    System.out.println("---------------------------------------------------------");
                     System.out.println("Masukkan jumlah baris: ");
                     nRows = input.nextInt();
                     System.out.println("Masukkan jumlah kolom: ");
@@ -157,19 +151,16 @@ public class Main {
                     mat = new Matrix(nRows,nCols);
                     System.out.println("Masukkan matriks: ");
                     mat.readMatrixCLI(nRows,nCols);
-                    System.out.println("\nMatriks berhasil dibaca.");
-
-                    
+                    System.out.println("Matriks berhasil dibaca.");
                     break;
                 case 2:
-                    System.out.println("--------------------------------");
-                    System.out.println("             Sumber             ");
-                    System.out.println("    2. Masukan dari file .txt   ");
-                    System.out.println("--------------------------------");
+                    System.out.println("---------------------------------------------------------");
+                    System.out.println("                          Sumber                         ");
+                    System.out.println("                 2. Masukan dari file .txt               ");
+                    System.out.println("---------------------------------------------------------");
                     System.out.println("Masukkan nama file (.txt) dalam folder test: ");
                     namaFile = input.next();
-                    // FUNGSI BACA MATRIKS TXT
-                    System.out.println("Matriks (file:"+namaFile+") berhasil dibaca.");
+                    mat.readMatrixFILE(namaFile);
                     break;
                 case 3:
                     subMenuSPL();
@@ -177,12 +168,30 @@ public class Main {
                     System.out.println("Masukan sumber tidak valid, silahkan ulangi.");
                     subMenuSPL();
             }
-            System.out.println("--------------------------------");
+            System.out.println("---------------------------------------------------------");
             System.out.println("Matriks yang dibaca: ");
             mat.displayMatrix();
 
-            if(metode == 1){
-                
+            // OPERASI SPL TARUH DISINI
+
+            // KHUSUS MATRIKS BALIKAN DAN CRAMER
+            if((metode == 3 || metode ==4) && sumber == 2){
+                matA = new Matrix(mat.rows,mat.cols);
+                matB = new double[mat.rows][1];
+                for(i=0; i<mat.rows; i++){
+                    for(j=0; j<mat.cols; j++){
+                        if(j==mat.cols-1){
+                            matB[i][0] = mat.matrix[i][j];
+                        }
+                        else{
+                            matA.matrix[i][j] = mat.matrix[i][j];
+                        }
+                    }
+                }
+            }
+
+            if(metode == 1 && (sumber == 1 || sumber == 2)){
+                // MENCARI SOLUSI SPL DENGAN ELIMINASI GAUSS
                 System.out.println();
                 Matrix matTemp = mat;
                 matTemp.gauss();
@@ -203,37 +212,170 @@ public class Main {
                     }
                 }
 
-                System.out.println("Solusi dari SPL tersebut adalah...");
+                
+                
+                System.out.println("---------------------------------------------------------");
+                System.out.println("Dengan metode Eliminasi Gauss, diperoleh solusi SPL:  ");
+                // PANGGIL FUNGSI GAUSS
                 for(i = 0; i < mat.rows; i++){
                     System.out.printf("X%d = %f\n",i+1,mat.matrix[i][mat.cols-1]);
                 }
             }
+            else if(metode == 2 && (sumber == 1 || sumber ==2)){
+                // MENCARI SOLUSI SPL DENGAN ELIMINASI GAUSS JORDAN
 
-            else if(metode == 2){
-                
                 System.out.println();
                 mat.gaussJordan();
 
-                System.out.println("Solusi dari SPL tersebut adalah...");
+                System.out.println("---------------------------------------------------------");
+                System.out.println("Dengan metode Eliminasi Gauss-Jordan, diperoleh solusi SPL:  ");
+                
+                // PANGGIL FUNGSI GAUSS-JORDAN
                 for(i = 0; i < mat.rows; i++){
                     System.out.printf("X%d = %f\n",i+1,mat.matrix[i][mat.cols-1]);
                 }
-
             }
-
             else if(metode == 3){
-                
-                System.out.println();
-                mat.inverseSPL();
+                // MENCARI SOLUSI SPL DENGAN MATRIKS BALIKAN
+                System.out.println("---------------------------------------------------------");
+                if(sumber==1){
+                    if(!mat.isSquare()){
+                        System.out.println("Oleh karena matriks bukan persegi, maka");
+                        System.out.println("Metode Matriks Balikan tidak dapat diterapkan");
+                    }
+                    else{
+                        if(mat.determinanKofaktor() == 0){
+                            System.out.println("Oleh karena determinan matriks = 0, maka");
+                            System.out.println("Metode Matriks Balikan tidak dapat diterapkan");
+                        }
+                        else{
+                            System.out.println("Masukan Matriks B: ");
+                            b = new double[nRows][1];
+                            for(i=0; i<nRows; i++){
+                                b[i][0] = input.nextInt();
+                            }
+                            System.out.println("---------------------------------------------------------");
+                            System.out.println("Dengan metode Matriks Balikan,");
+                            System.out.println("diperoleh solusi SPL:     ");
+                            res = mat.multiplyInvers(b);
+                        }
+                    }
+                }
+                else if (sumber == 2) {
+                    if(!matA.isSquare()){
+                        System.out.println("Oleh karena matriks bukan persegi, maka");
+                        System.out.println("Metode Matriks Balikan tidak dapat diterapkan");
+                    }
+                    else{
+                        if(matA.determinanKofaktor() == 0){
+                            System.out.println("Oleh karena determinan matriks = 0, maka");
+                            System.out.println("Metode Matriks Balikan tidak dapat diterapkan");
+                        }
+                        else{
+                            System.out.println("Dengan metode Matriks Balikan,");
+                            System.out.println("diperoleh solusi SPL:     ");
+                            res = matA.multiplyInvers(matB);
+                        }
+                    }
+                }
+                // MENYIMPAN FILE
+                System.out.println(res);
+                System.out.println("---------------------------------------------------------");
+                System.out.println("Hasil ingin disimpan? (y/n):    ");
+                simpan = input.next().charAt(0);
+                System.out.println("---------------------------------------------------------");
+
+            }else if(metode==4){
+                // MENYELESAIKAN SPL DENGAN METODE CRAMER
+                System.out.println("---------------------------------------------------------");
+                if(sumber==1){
+                    if(!mat.isSquare()){
+                        System.out.println("Oleh karena matriks bukan persegi, maka");
+                        System.out.println("Metode Kaidah Cramer tidak dapat diterapkan");
+                    }
+                    else{
+                        if(mat.determinanKofaktor() == 0){
+                            System.out.println("Oleh karena determinan matriks = 0, maka");
+                            System.out.println("Metode Kaidah Cramer tidak dapat diterapkan");
+                        }
+                        else{
+                            System.out.println("Masukan Matriks B: ");
+                            b = new double[nRows][1];
+                            for(i=0; i<nRows; i++){
+                                b[i][0] = input.nextInt();
+                            }
+                            System.out.println("Dengan metode Kaidah Cramer,");
+                            System.out.println("diperoleh solusi SPL:     ");
+                            res = mat.Cramer(b);
+                        }
+                    }
+                }
+                else if (sumber == 2) {
+                    if(!matA.isSquare()){
+                        System.out.println("Oleh karena matriks bukan persegi, maka");
+                        System.out.println("Metode Kaidah Cramer tidak dapat diterapkan");
+                    }
+                    else{
+                        if(matA.determinanKofaktor() == 0){
+                            System.out.println("Oleh karena determinan matriks = 0, maka");
+                            System.out.println("Metode Kaidah Cramer tidak dapat diterapkan");
+                        }
+                        else{
+                            System.out.println("Dengan metode Kaidah Cramer,");
+                            System.out.println("diperoleh solusi SPL:     ");
+                            res = matA.Cramer(matB);
+                        }
+                    }
+                }
+                // MENYIMPAN FILE
+                System.out.println(res);
+                System.out.println("---------------------------------------------------------");
+                System.out.println("Hasil ingin disimpan? (y/n):    ");
+                simpan = input.next().charAt(0);
+                System.out.println("---------------------------------------------------------");
             }
 
-            
+            if(simpan == 'y'){
+                System.out.println("Nama output file (*.txt):       ");
+                namaFile = input.next();
+                BufferedWriter output = new BufferedWriter(new FileWriter("../test/output/"+namaFile));
+                for(i=0; i<mat.rows; i++){
+                    String string = "";
+                    for(j=0; j<mat.cols; j++){
+                        if(j!=0){
+                            string += " ";
+                        }
+                        string += Double.toString(mat.matrix[i][j]);
+                    }
+                    string += "\n";
+                    output.write(string);
+                }
+                if (metode == 1){
+                    output.write("Dengan menggunakan Metode Eliminasi Gauss, diperoleh solusi SPL-nya: " + res +"\n");
+                }
+                else if (metode == 2){
+                    output.write("Dengan menggunakan Metode Eliminasi Gauss Jordan, diperoleh solusi SPL-nya: " + res + "\n");
+                }
+                else if (metode == 3){
+                    output.write("Dengan menggunakan Metode Matriks Balikan, diperoleh solusi SPL-nya: " + res + "\n");
+                }
+                else if (metode == 4){
+                    output.write("Dengan menggunakan Metode Kaidah Cramer, diperoleh solusi SPL-nya: " + res + "\n");
+                }
+                output.close();
+                System.out.println("---------------------------------------------------------");
+                System.out.println("File " +namaFile+ " berhasil disimpan.");
+            }
 
-            subMenuSPL();
-
+            System.out.println("---------------------------------------------------------");
+            System.out.println("             Operasi Sistem Persamaan Linier             ");
+            System.out.println("                          SELESAI                        ");
+            System.out.println("                   Kembali ke Menu Utama                 ");
+            System.out.println("---------------------------------------------------------");
+            MainMenu();
 
         }catch (Exception e){
-            System.out.println("Masukkan menu tidak valid, silahkan ulangi.");
+            System.out.println("Masukan menu tidak valid, silahkan ulangi.");
             subMenuSPL();
         }
     }
@@ -243,45 +385,36 @@ public class Main {
             int metode,ukuran;
             int sumber =0;
             double res =0;
+            char simpan =0;
             String namaFile = null;
             Matrix mat = new Matrix(0,0);
             Scanner input = new Scanner(System.in);
 
-            System.out.println("--------------------------------");
-            System.out.println("              Menu              ");
-            System.out.println("          2.Determinan          ");
-            System.out.println("--------------------------------");
-            System.out.println("         Pilihan Metode:        ");
+            System.out.println("---------------------------------------------------------");
+            System.out.println("                           Menu                          ");
+            System.out.println("                       2.Determinan                      ");
+            System.out.println("---------------------------------------------------------");
+            System.out.println("                      Pilihan Metode:                    ");
             System.out.println("1. Metode Eliminasi Gauss");
-            System.out.println("2. Metode Eliminasi Gauss-Jordan");
+            System.out.println("2. Metode Ekspansi Kofaktor");
             System.out.println("3. Kembali ke Menu Utama");
-            System.out.println("--------------------------------");
+            System.out.println("---------------------------------------------------------");
             System.out.println("Masukkan pilihan metode Anda: ");
             metode =  input.nextInt();
 
-        
-        
-        
-
-
-
-        
-
-        
-
             switch(metode){
                 case 1:
-                    System.out.println("--------------------------------");
-                    System.out.println("             Metode             ");
-                    System.out.println("    1. Metode Eliminasi Gauss   ");
-                    System.out.println("--------------------------------");
+                    System.out.println("---------------------------------------------------------");
+                    System.out.println("                         Metode                          ");
+                    System.out.println("                1. Metode Eliminasi Gauss                ");
+                    System.out.println("---------------------------------------------------------");
                     sumber = pilihanMasukan(1);
                     break;
                 case 2:
-                    System.out.println("--------------------------------");
-                    System.out.println("             Metode             ");
-                    System.out.println("2. Metode Eliminasi Gauss-Jordan");
-                    System.out.println("--------------------------------");
+                    System.out.println("---------------------------------------------------------");
+                    System.out.println("                         Metode                          ");
+                    System.out.println("               2. Metode Ekspansi Kofaktor               ");
+                    System.out.println("---------------------------------------------------------");
                     sumber = pilihanMasukan(1);
                     break;
                 case 3:
@@ -293,10 +426,10 @@ public class Main {
 
             switch(sumber){
                 case 1:
-                    System.out.println("--------------------------------");
-                    System.out.println("             Sumber             ");
-                    System.out.println("       1. Masukan dari CLI      ");
-                    System.out.println("--------------------------------");
+                    System.out.println("---------------------------------------------------------");
+                    System.out.println("                         Sumber                          ");
+                    System.out.println("                   1. Masukan dari CLI                   ");
+                    System.out.println("---------------------------------------------------------");
                     System.out.println("Masukkan ukuran matriks persegi (NxN) N: ");
                     ukuran = input.nextInt();
                     mat = new Matrix(ukuran,ukuran);
@@ -305,14 +438,13 @@ public class Main {
                     System.out.println("Matriks berhasil dibaca.");
                     break;
                 case 2:
-                    System.out.println("--------------------------------");
-                    System.out.println("              Sumber            ");
-                    System.out.println("    2. Masukan dari file .txt   ");
-                    System.out.println("--------------------------------");
+                    System.out.println("---------------------------------------------------------");
+                    System.out.println("                           Sumber                        ");
+                    System.out.println("                2. Masukan dari file .txt                ");
+                    System.out.println("---------------------------------------------------------");
                     System.out.println("Masukkan nama file (.txt) dalam folder test: ");
                     namaFile = input.next();
-                    // FUNGSI BACA MATRIKS TXT
-                    System.out.println("Matriks (file:"+namaFile+".txt) berhasil dibaca.");
+                    mat.readMatrixFILE(namaFile);
                     break;
                 case 3:
                     subMenuDet();
@@ -320,9 +452,70 @@ public class Main {
                     System.out.println("Masukan sumber tidak valid, silahkan ulangi.");
                     subMenuDet();
             }
-            System.out.println("--------------------------------");
+            System.out.println("---------------------------------------------------------");
             System.out.println("Matriks yang dibaca: ");
             mat.displayMatrix();
+
+            // OPERASI DETERMINAN TARUH DISINI
+            if(metode==1 && (sumber==1 || sumber==2)){
+                // MENCARI NILAI DET DENGAN ELIMINASI GAUSS
+                System.out.println("---------------------------------------------------------");
+                System.out.println("Dengan metode Eliminasi Gauss,  ");
+                System.out.println("diperoleh nilai determinan:     ");
+
+
+                // MENYIMPAN FILE
+                System.out.println("Hasil ingin disimpan? (y/n):    ");
+                simpan = input.next().charAt(0);
+                System.out.println("---------------------------------------------------------");
+            }
+            else if(metode==2 && (sumber==1 || sumber==2)){
+                //MENCARI NILAI DET DENGAN EKSPANSI KOFAKTOR
+                System.out.println("---------------------------------------------------------");
+                System.out.println("Dengan metode Ekspansi Kofaktor,");
+                System.out.println("diperoleh nilai determinan:     ");
+                res = mat.determinanKofaktor();
+                System.out.println(res);
+                System.out.println("---------------------------------------------------------");
+                // MENYIMPAN FILE
+                System.out.println("Hasil ingin disimpan? (y/n):    ");
+                simpan = input.next().charAt(0);
+                System.out.println("---------------------------------------------------------");
+            }
+
+            if(simpan == 'y'){
+                int i,j;
+                System.out.println("Nama output file (*.txt):       ");
+                namaFile = input.next();
+                BufferedWriter output = new BufferedWriter(new FileWriter("../test/output/"+namaFile));
+                for(i=0; i<mat.rows; i++){
+                    String string = "";
+                    for(j=0; j<mat.cols; j++){
+                        if(j!=0){
+                            string += " ";
+                        }
+                        string += Double.toString(mat.matrix[i][j]);
+                    }
+                    string += "\n";
+                    output.write(string);
+                }
+                if (metode == 1){
+                    output.write("Dengan menggunakan Metode Eliminasi Gauss, diperoleh nilai determinan matriks: " + res + "\n");
+                }
+                else if (metode == 2){
+                    output.write("Dengan menggunakan Metode Ekspansi Kofaktor, diperoleh nilai determinan matriks: " + res + "\n");
+                }
+                output.close();
+                System.out.println("---------------------------------------------------------");
+                System.out.println("File " +namaFile+ " berhasil disimpan.");
+            }
+            System.out.println("---------------------------------------------------------");
+            System.out.println("                   Operasi Determinan                    ");
+            System.out.println("                         SELESAI                         ");
+            System.out.println("                  Kembali ke Menu Utama                  ");
+            System.out.println("---------------------------------------------------------");
+            MainMenu();
+
         }catch (Exception e){
             System.out.println("Masukkan menu tidak valid, silahkan ulangi.");
             subMenuDet();
@@ -331,37 +524,38 @@ public class Main {
     public static void subMenuInv(){
         try{
             int metode, ukuran;
-            int sumber=0;
+            int sumber =0;
+            char simpan =0;
             String namaFile = null;
             Matrix mat = new Matrix(0,0);
-            Matrix inv = new Matrix(0,0);
+            Matrix res = new Matrix(0,0);
             Scanner input  = new Scanner(System.in);
 
-            System.out.println("--------------------------------");
-            System.out.println("              Menu              ");
-            System.out.println("       3. Matriks Balikan       ");
-            System.out.println("--------------------------------");
-            System.out.println("         Pilihan Metode:        ");
+            System.out.println("---------------------------------------------------------");
+            System.out.println("                           Menu                          ");
+            System.out.println("                    3. Matriks Balikan                   ");
+            System.out.println("---------------------------------------------------------");
+            System.out.println("                      Pilihan Metode:                    ");
             System.out.println("1. Metode Eliminasi Gauss");
-            System.out.println("2. Metode Eliminasi Gauss-Jordan");
+            System.out.println("2. Metode Ekspansi Kofaktor");
             System.out.println("3. Kembali ke Menu Utama");
-            System.out.println("--------------------------------");
+            System.out.println("---------------------------------------------------------");
             System.out.println("Masukkan pilihan metode Anda: ");
             metode =  input.nextInt();
 
             switch(metode){
                 case 1:
-                    System.out.println("--------------------------------");
-                    System.out.println("             Metode             ");
-                    System.out.println("    1. Metode Eliminasi Gauss   ");
-                    System.out.println("--------------------------------");
+                    System.out.println("---------------------------------------------------------");
+                    System.out.println("                          Metode                         ");
+                    System.out.println("                1. Metode Eliminasi Gauss                ");
+                    System.out.println("---------------------------------------------------------");
                     sumber = pilihanMasukan(1);
                     break;
                 case 2:
-                    System.out.println("--------------------------------");
-                    System.out.println("             Metode             ");
-                    System.out.println("2. Metode Eliminasi Gauss-Jordan");
-                    System.out.println("--------------------------------");
+                    System.out.println("---------------------------------------------------------");
+                    System.out.println("                          Metode                         ");
+                    System.out.println("               2. Metode Ekspansi Kofaktor               ");
+                    System.out.println("---------------------------------------------------------");
                     sumber = pilihanMasukan(1);
                     break;
                 case 3:
@@ -373,10 +567,10 @@ public class Main {
 
             switch(sumber){
                 case 1:
-                    System.out.println("--------------------------------");
-                    System.out.println("             Sumber             ");
-                    System.out.println("       1. Masukan dari CLI      ");
-                    System.out.println("--------------------------------");
+                    System.out.println("---------------------------------------------------------");
+                    System.out.println("                          Sumber                         ");
+                    System.out.println("                    1. Masukan dari CLI                  ");
+                    System.out.println("---------------------------------------------------------");
                     System.out.println("Masukkan ukuran matriks persegi (NxN) N: ");
                     ukuran = input.nextInt();
                     mat = new Matrix(ukuran,ukuran);
@@ -385,14 +579,13 @@ public class Main {
                     System.out.println("Matriks berhasil dibaca.");
                     break;
                 case 2:
-                    System.out.println("--------------------------------");
-                    System.out.println("              Sumber            ");
-                    System.out.println("    2. Masukan dari file .txt   ");
-                    System.out.println("--------------------------------");
+                    System.out.println("---------------------------------------------------------");
+                    System.out.println("                           Sumber                        ");
+                    System.out.println("                 2. Masukan dari file .txt               ");
+                    System.out.println("---------------------------------------------------------");
                     System.out.println("Masukkan nama file (.txt) dalam folder test: ");
                     namaFile = input.next();
-                    // FUNGSI BACA MATRIKS TXT
-                    System.out.println("Matriks (file:"+namaFile+".txt) berhasil dibaca.");
+                    mat.readMatrixFILE(namaFile);
                     break;
                 case 3:
                     subMenuInv();
@@ -400,14 +593,82 @@ public class Main {
                     System.out.println("Masukan sumber tidak valid, silahkan ulangi.");
                     subMenuInv();
             }
-            System.out.println("--------------------------------");
+            System.out.println("---------------------------------------------------------");
             System.out.println("Matriks yang dibaca: ");
             mat.displayMatrix();
+
+            // OPERASI MATRIKS BALIKAN TARUH DISINI
+            if(metode==1 && (sumber==1 || sumber==2)){
+                // MENCARI MATRIKS BALIKAN DENGAN ELIMINASI GAUSS
+                System.out.println("---------------------------------------------------------");
+                System.out.println("Dengan metode Eliminasi Gauss,  ");
+                System.out.println("diperoleh nilai determinan:     ");
+
+
+                // MENYIMPAN FILE
+                System.out.println("Hasil ingin disimpan? (y/n):    ");
+                simpan = input.next().charAt(0);
+                System.out.println("---------------------------------------------------------");
+            }
+            else if(metode==2 && (sumber==1 || sumber==2)){
+                //MENCARI MATRIKS BALIKAN DENGAN EKSPANSI KOFAKTOR
+                if(mat.determinanKofaktor() == 0){
+                    System.out.println("Oleh karena determinan matriks = 0, maka");
+                    System.out.println("matriks tidak memiliki balikan");
+                    System.out.println("---------------------------------------------------------");
+                }
+                else{
+                    System.out.println("---------------------------------------------------------");
+                    System.out.println("Dengan metode Ekspansi Kofaktor,");
+                    System.out.println("diperoleh matriks balikannya:   ");
+                    res = mat;
+                    res.invers();
+                    res.displayMatrix();
+                    System.out.println("---------------------------------------------------------");
+                }
+                // MENYIMPAN FILE
+                System.out.println("Hasil ingin disimpan? (y/n):    ");
+                simpan = input.next().charAt(0);
+                System.out.println("---------------------------------------------------------");
+            }
+
+            if(simpan == 'y'){
+                int i,j;
+                System.out.println("Nama output file (*.txt):       ");
+                namaFile = input.next();
+                BufferedWriter output = new BufferedWriter(new FileWriter("../test/output/"+namaFile));
+                for(i=0; i<mat.rows; i++){
+                    String string = "";
+                    for(j=0; j<mat.cols; j++){
+                        if(j!=0){
+                            string += " ";
+                        }
+                        string += Double.toString(mat.matrix[i][j]);
+                    }
+                    string += "\n";
+                    output.write(string);
+                }
+                if (metode == 1){
+                    output.write("Dengan menggunakan Metode Eliminasi Gauss, diperoleh matriks balikannya: " + res +"\n");
+                }
+                else if (metode == 2){
+                    output.write("Dengan menggunakan Metode Ekspansi Kofaktor, diperoleh matriks balikannya: " + res + "\n");
+                }
+                output.close();
+                System.out.println("---------------------------------------------------------");
+                System.out.println("File " +namaFile+ " berhasil disimpan.");
+            }
+            System.out.println("---------------------------------------------------------");
+            System.out.println("                  Operasi Matriks Balikan                ");
+            System.out.println("                         SELESAI                         ");
+            System.out.println("                   Kembali ke Menu Utama                 ");
+            System.out.println("---------------------------------------------------------");
+            MainMenu();
+
         }catch (Exception e){
             System.out.println("Masukkan menu tidak valid, silahkan ulangi.");
             subMenuInv();
         }
-
     }
     public static void subMenuInterPol(){
         try{
@@ -419,33 +680,28 @@ public class Main {
             
             int n;
 
-            System.out.println("--------------------------------");
-            System.out.println("              Menu              ");
-            System.out.println("     4. Interpolasi Polinom     ");
-            System.out.println("--------------------------------");
+            System.out.println("---------------------------------------------------------");
+            System.out.println("                           Menu                          ");
+            System.out.println("                  4. Interpolasi Polinom                 ");
+            System.out.println("---------------------------------------------------------");
             sumber = pilihanMasukan(0);
 
             switch(sumber){
                 case 1:
-                    System.out.println("--------------------------------");
-                    System.out.println("             Sumber             ");
-                    System.out.println("       1. Masukan dari CLI      ");
-                    System.out.println("--------------------------------");
+                    System.out.println("---------------------------------------------------------");
+                    System.out.println("                          Sumber                         ");
+                    System.out.println("                    1. Masukan dari CLI                  ");
+                    System.out.println("---------------------------------------------------------");
                     // MEMINTA MASUKAN TITIK DAN CREATE TITIK
-                    
-                    
-                    
-                    
                     break;
                 case 2:
-                    System.out.println("--------------------------------");
-                    System.out.println("              Sumber            ");
-                    System.out.println("    2. Masukan dari file .txt   ");
-                    System.out.println("--------------------------------");
+                    System.out.println("---------------------------------------------------------");
+                    System.out.println("                           Sumber                        ");
+                    System.out.println("                 2. Masukan dari file .txt               ");
+                    System.out.println("---------------------------------------------------------");
                     System.out.println("Masukkan nama file (.txt) dalam folder test: ");
                     namaFile = input.next();
-                    // FUNGSI BACA MATRIKS TXT
-                    System.out.println("Matriks (file:"+namaFile+".txt) berhasil dibaca.");
+                    mat.readMatrixFILE(namaFile);
                     // NILAI TITIK
                     break;
                 default:
@@ -453,6 +709,7 @@ public class Main {
                     subMenuInterPol();
             }
 
+            // OPERASI INTERPOLASI POLINOM TARUH DISINI
                 /* Interpolasi di main asyik */
             System.out.printf("Masukkan banyaknya titik sampel (X,Y) = ");
             n = input.nextInt();
@@ -507,6 +764,14 @@ public class Main {
             }
 
             System.out.printf("\nHasil interpolasi f(%f) = %f\n", xTaksir, sum);
+
+            System.out.println("---------------------------------------------------------");
+            System.out.println("                Operasi Interpolasi Polinom              ");
+            System.out.println("                          SELESAI                        ");
+            System.out.println("                   Kembali ke Menu Utama                 ");
+            System.out.println("---------------------------------------------------------");
+            MainMenu();
+
         }catch (Exception e){
             System.out.println("Masukkan menu tidak valid, silahkan ulangi.");
             subMenuInterPol();
@@ -519,29 +784,28 @@ public class Main {
             Matrix mat = new Matrix(0,0);
             Scanner input = new Scanner(System.in);
 
-            System.out.println("--------------------------------");
-            System.out.println("              Menu              ");
-            System.out.println("     5. Interpolasi Bicubic     ");
-            System.out.println("--------------------------------");
+            System.out.println("---------------------------------------------------------");
+            System.out.println("                           Menu                          ");
+            System.out.println("                  5. Interpolasi Bicubic                 ");
+            System.out.println("---------------------------------------------------------");
             sumber = pilihanMasukan(0);
 
             switch(sumber){
                 case 1:
-                    System.out.println("--------------------------------");
-                    System.out.println("             Sumber             ");
-                    System.out.println("       1. Masukan dari CLI      ");
-                    System.out.println("--------------------------------");
+                    System.out.println("---------------------------------------------------------");
+                    System.out.println("                          Sumber                         ");
+                    System.out.println("                    1. Masukan dari CLI                  ");
+                    System.out.println("---------------------------------------------------------");
                     // MEMINTA MASUKAN TITIK DAN CREATE TITIK
                     break;
                 case 2:
-                    System.out.println("--------------------------------");
-                    System.out.println("              Sumber            ");
-                    System.out.println("    2. Masukan dari file .txt   ");
-                    System.out.println("--------------------------------");
+                    System.out.println("---------------------------------------------------------");
+                    System.out.println("                           Sumber                        ");
+                    System.out.println("                2. Masukan dari file .txt                ");
+                    System.out.println("---------------------------------------------------------");
                     System.out.println("Masukkan nama file (.txt) dalam folder test: ");
                     namaFile = input.next();
-                    // FUNGSI BACA MATRIKS TXT
-                    System.out.println("Matriks (file:"+namaFile+".txt) berhasil dibaca.");
+                    mat.readMatrixFILE(namaFile);
                     // NILAI TITIK
                     break;
                 default:
@@ -549,6 +813,7 @@ public class Main {
                     subMenuInterBic();
             }
 
+            // OPERASI INTERPOLASI BICUBIC TARUH DISINI
                 /* Bicubic  */
             Matrix m = new Matrix(4, 4);
             Matrix matX = new Matrix(16, 16);
@@ -578,7 +843,6 @@ public class Main {
                     }
                 }
             }
-            
             Matrix matXAkhir = matX.extendMatrix(0, 1);
 
             for(i = 0 ; i < 4; i++){
@@ -602,7 +866,17 @@ public class Main {
             }
 
             System.out.printf("\nMaka f(%f,%f) = %f",u,v,sum);
-            
+                            
+
+
+
+            System.out.println("---------------------------------------------------------");
+            System.out.println("               Operasi Interpolasi Bicubic               ");
+            System.out.println("                         SELESAI                         ");
+            System.out.println("                  Kembali ke Menu Utama                  ");
+            System.out.println("---------------------------------------------------------");
+            MainMenu();
+
         }catch (Exception e){
             System.out.println("Masukkan menu tidak valid, silahkan ulangi.");
             subMenuInterBic();
@@ -610,123 +884,146 @@ public class Main {
     }
     public static void subMenuRLB(){
         try{
-            int sumber;
+            int sumber,i,j,k;
             String namaFile = null;
             Matrix mat = new Matrix(0,0);
             Scanner input = new Scanner(System.in);
+            Matrix x = new Matrix(0, 0);
+            Matrix y = new Matrix(0, 0);
+            double[] xTaksir = new double[1];
+            int peubahX =0,nSampel=0;
 
-            System.out.println("--------------------------------");
-            System.out.println("              Menu              ");
-            System.out.println("   5. Regresi Linear Berganda   ");
-            System.out.println("--------------------------------");
+            System.out.println("---------------------------------------------------------");
+            System.out.println("                          Menu                           ");
+            System.out.println("               5. Regresi Linier Berganda                ");
+            System.out.println("---------------------------------------------------------");
             sumber = pilihanMasukan(0);
 
-            if( sumber == 1){
-                /* Input CLI RLB */
-                int peubahX,nSampel;
-                System.out.printf("Masukkan banyak peubah x : ");
-                peubahX = input.nextInt();
-                System.out.printf("Masukkan jumlah sampel :");
-                nSampel = input.nextInt();
+            switch(sumber){
+                case 1:
+                    System.out.println("---------------------------------------------------------");
+                    System.out.println("                          Sumber                         ");
+                    System.out.println("                    1. Masukan dari CLI                  ");
+                    System.out.println("---------------------------------------------------------");
+                    // MEMINTA MASUKAN TITIK DAN CREATE TITIK
+                    System.out.printf("\nMasukkan banyak sampel n : ");
+                    nSampel = input.nextInt();
+                    System.out.printf("\nMasukkan banyak varibel x : ");
+                    peubahX = input.nextInt();
 
-                Matrix x = new Matrix(nSampel, peubahX+1);
-                double[] xTaksir = new double[peubahX+1];
-                Matrix y = new Matrix(nSampel, 1);
-                Matrix yNEE = new Matrix(peubahX+1, 1);
-                Matrix matRLB = new Matrix(peubahX+1, peubahX+1);
-                double yTaksir = 0;
-
-                int i,j,k;
-                for( i = 0; i < nSampel; i++){
-                    for( j = 0; j < peubahX+2; j++){
-                        if(j == 0){
-                            x.matrix[i][0] = 1;
-                        }
-                        else{
-                            if(j == peubahX+1){
-                                System.out.printf("Masukkan nilai y untuk sampel %d : ", i+1);
-                                y.matrix[i][0] = input.nextDouble();
+                    x = new Matrix(nSampel, peubahX+1);
+                    y = new Matrix(nSampel, 1);
+                    xTaksir = new double[peubahX+1];
+                    
+                    
+                    for( i = 0; i < nSampel; i++){
+                        for( j = 0; j < peubahX+2; j++){
+                            if(j == 0){
+                                x.matrix[i][0] = 1;
                             }
                             else{
-                                System.out.printf("Masukkan nilai X%d untuk sampel %d : ", j,i+1);
-                                x.matrix[i][j] = input.nextDouble();
+                                if(j == peubahX+1){
+                                    System.out.printf("Masukkan nilai y untuk sampel %d : ", i+1);
+                                    y.matrix[i][0] = input.nextDouble();
+                                }
+                                else{
+                                    System.out.printf("Masukkan nilai X%d untuk sampel %d : ", j,i+1);
+                                    x.matrix[i][j] = input.nextDouble();
+                                }
+                                
                             }
                             
                         }
-                        
                     }
-                }
 
-                System.out.println("\nMasukkan nilai-nilai X yang akan ditaksir...\n");
-                for( i = 0; i < peubahX+1; i++){
-                    if( i == 0 ){
-                        xTaksir[0] = 1;
-                    }
-                    else{
-                        System.out.printf("Nilai X%d : ",i);
-                        xTaksir[i] = input.nextDouble();
-                    }
-                    
-                }
-                    
-                for( i = 0; i < peubahX+1; i++){
-                    for( j = 0; j < peubahX+1; j++){
-                        matRLB.matrix[i][j] = 0;
-                        
-                        for(k = 0; k < nSampel; k++){
-                            matRLB.matrix[i][j] += x.matrix[k][i] * x.matrix[k][j];
+                    System.out.println("\nMasukkan nilai-nilai X yang akan ditaksir...\n");
+                    for( i = 0; i < peubahX+1; i++){
+                        if( i == 0 ){
+                            xTaksir[0] = 1;
                         }
+                        else{
+                            System.out.printf("Nilai X%d : ",i);
+                            xTaksir[i] = input.nextDouble();
+                        }
+                        
                     }
-                }
-
-                
-
-                matRLB.inverseOBE();
-                /* Sudah didapatkan inverse di matRLB */
-
-                /* Membuat sisi kanan NEE */
-                for(i = 0; i< peubahX+1; i++){
-                    yNEE.matrix[i][0] = 0;
-                    for(j = 0; j < nSampel; j++){
-                        yNEE.matrix[i][0] += x.matrix[j][i]*y.matrix[j][0];
-                    }
-                }
-
-                Matrix solusi = matRLB.multiplyMatrix(matRLB, yNEE);
-
-                System.out.println("Maka didapatkan nilai koefisien B (beta)..\n");
-
-                for(i = 0; i < peubahX+1; i++){
-                    System.out.printf("B%d = %f\n", i, solusi.matrix[i][0]);
-                }
-                System.out.println();
-                
-                for(i = 0; i < peubahX+1; i++){
-                    yTaksir += xTaksir[i]*solusi.matrix[i][0];
-                }
-
-                System.out.printf("y =");
-                for(i = 0; i < peubahX+1; i++ ){
-                    System.out.printf(" %f x %f", solusi.matrix[i][0],xTaksir[i]);
-                    if(i != peubahX){
-                        System.out.printf(" +");
-                    }
-                }
-                System.out.printf(" = %f", yTaksir);
-                
-                System.out.println("\nMasukkan 1 untuk menggunakan operasi ini lagi ----- Masukkan 2 untuk kembali ke Menu Utama\n");
-
-                int optionMenu = input.nextInt();
-                
-                if(optionMenu == 1){
+                    break;
+                case 2:
+                    System.out.println("---------------------------------------------------------");
+                    System.out.println("                           Sumber                        ");
+                    System.out.println("                 2. Masukan dari file .txt               ");
+                    System.out.println("---------------------------------------------------------");
+                    System.out.println("Masukkan nama file (.txt) dalam folder test: ");
+                    namaFile = input.next();
+                    mat.readMatrixFILE(namaFile);
+                    // NILAI TITIK
+                    break;
+                default:
+                    System.out.println("Masukan sumber tidak valid, silahkan ulangi.");
                     subMenuRLB();
-                }
-                else{
-                    MainMenu();
-                }
-
-
             }
+
+            // OPERASI REGRESI LINIER BERGANDA TARUH DISINI        
+          
+            Matrix yNEE = new Matrix(peubahX+1, 1);
+            Matrix matRLB = new Matrix(peubahX+1, peubahX+1);
+            double yTaksir = 0;
+
+            
+                
+            for( i = 0; i < peubahX+1; i++){
+                for( j = 0; j < peubahX+1; j++){
+                    matRLB.matrix[i][j] = 0;
+                    
+                    for(k = 0; k < nSampel; k++){
+                        matRLB.matrix[i][j] += x.matrix[k][i] * x.matrix[k][j];
+                    }
+                }
+            }
+
+            
+
+            matRLB.inverseOBE();
+            /* Sudah didapatkan inverse di matRLB */
+
+            /* Membuat sisi kanan NEE */
+            for(i = 0; i< peubahX+1; i++){
+                yNEE.matrix[i][0] = 0;
+                for(j = 0; j < nSampel; j++){
+                    yNEE.matrix[i][0] += x.matrix[j][i]*y.matrix[j][0];
+                }
+            }
+
+            Matrix solusi = matRLB.multiplyMatrix(matRLB, yNEE);
+
+            System.out.println("Maka didapatkan nilai koefisien B (beta)..\n");
+
+            for(i = 0; i < peubahX+1; i++){
+                System.out.printf("B%d = %f\n", i, solusi.matrix[i][0]);
+            }
+            System.out.println();
+            
+            for(i = 0; i < peubahX+1; i++){
+                yTaksir += xTaksir[i]*solusi.matrix[i][0];
+            }
+
+            System.out.printf("y =");
+            for(i = 0; i < peubahX+1; i++ ){
+                System.out.printf(" %f x %f", solusi.matrix[i][0],xTaksir[i]);
+                if(i != peubahX){
+                    System.out.printf(" +");
+                }
+            }
+            System.out.printf(" = %f", yTaksir);
+                
+             
+            System.out.println("---------------------------------------------------------");
+            System.out.println("             Operasi Regresi Linier Berganda             ");
+            System.out.println("                         SELESAI                         ");
+            System.out.println("                  Kembali ke Menu Utama                  ");
+            System.out.println("---------------------------------------------------------");
+            MainMenu();
+
         }catch (Exception e){
             System.out.println("Masukkan menu tidak valid, silahkan ulangi.");
             subMenuRLB();
@@ -735,9 +1032,8 @@ public class Main {
     public static int pilihanMasukan(int jenis){
         int sumber;
         Scanner input = new Scanner(System.in);
-        System.out.println("--------------------------------");
-        System.out.println("         Pilihan Sumber:        ");
-        System.out.println("--------------------------------");
+        System.out.println("                     Pilihan Sumber:                     ");
+        System.out.println("---------------------------------------------------------");
         System.out.println("1. Masukan dari CLI");
         System.out.println("2. Masukan dari file .txt");
         switch(jenis){
@@ -746,7 +1042,9 @@ public class Main {
             default:
                 break;
         }
-        System.out.println("--------------------------------");
+
+        System.out.println("---------------------------------------------------------");
+
         System.out.println("Masukkan pilihan sumber Anda: ");
         sumber = input.nextInt();
         return sumber;
@@ -754,9 +1052,11 @@ public class Main {
 
     public static void penutup()
     {
-        System.out.println("------------------------------------------------------");
-        System.out.println("Terima kasih telah menggunakan kalkulator matriks kami");
-        System.out.println("------------------------------------------------------");
+        System.out.println("---------------------------------------------------------");
+        System.out.println("                       Terima Kasih                      ");
+        System.out.println("                     telah menggunakan                   ");
+        System.out.println("                  Kalkulator Matriks Kami                ");
+        System.out.println("---------------------------------------------------------");
         System.exit(0);
     }
 
