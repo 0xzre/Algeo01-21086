@@ -796,7 +796,7 @@ public class Main {
                     string += "\n";
                     output.write(string);
                 }
-                output.write(// TULIS DISINI BOSSS OUTPUT INTERPOLASI NYA);
+                output.write(/* TULIS DISINI BOSSS OUTPUT INTERPOLASI NYA*/);
             output.close();
             System.out.println("---------------------------------------------------------");
             System.out.println("File " +namaFile+ " berhasil disimpan.");
