@@ -192,16 +192,48 @@ public class Main {
 
             if(metode == 1 && (sumber == 1 || sumber == 2)){
                 // MENCARI SOLUSI SPL DENGAN ELIMINASI GAUSS
+                System.out.println();
+                Matrix matTemp = mat;
+                matTemp.gauss();
+                                
+                double pengali;
+                for(i = mat.rows-1; i >= 0; i--){
+                    if(mat.firstNonZeroInRow(i) != -1 && mat.firstNonZeroInRow(i) != mat.cols-1){ //tidak boleh mbagi kolom augment paling kanan 
+                        for(j = i-1; j >= 0; j--){
+                            if(mat.matrix[j][mat.firstNonZeroInRow(i)] != 0){
+                                pengali = mat.matrix[j][mat.firstNonZeroInRow(i)]/mat.matrix[i][mat.firstNonZeroInRow(i)];
+                                mat.addMultiplyRow(j, i, (-1)*pengali);
+                                // System.out.printf("\nKurangi baris ke-%d dengan %f kali baris ke-%d\n", (j+1), pengali , (i+1));
+                                mat.displayMatrix();
+                                System.out.println();
+
+                            }
+                        }
+                    }
+                }
+
+                
+                
                 System.out.println("---------------------------------------------------------");
                 System.out.println("Dengan metode Eliminasi Gauss, diperoleh solusi SPL:  ");
                 // PANGGIL FUNGSI GAUSS
+                for(i = 0; i < mat.rows; i++){
+                    System.out.printf("X%d = %f\n",i+1,mat.matrix[i][mat.cols-1]);
+                }
             }
             else if(metode == 2 && (sumber == 1 || sumber ==2)){
                 // MENCARI SOLUSI SPL DENGAN ELIMINASI GAUSS JORDAN
+
+                System.out.println();
+                mat.gaussJordan();
+
                 System.out.println("---------------------------------------------------------");
-                System.out.println("Dengan metode Eliminasi Gauss-Jordan,");
-                System.out.println("diperoleh nilai determinan:     ");
+                System.out.println("Dengan metode Eliminasi Gauss-Jordan, diperoleh solusi SPL:  ");
+                
                 // PANGGIL FUNGSI GAUSS-JORDAN
+                for(i = 0; i < mat.rows; i++){
+                    System.out.printf("X%d = %f\n",i+1,mat.matrix[i][mat.cols-1]);
+                }
             }
             else if(metode == 3){
                 // MENCARI SOLUSI SPL DENGAN MATRIKS BALIKAN
@@ -644,6 +676,9 @@ public class Main {
             String namaFile = null;
             Matrix mat = new Matrix(0,0);
             Scanner input = new Scanner(System.in);
+            int i,j;
+            
+            int n;
 
             System.out.println("---------------------------------------------------------");
             System.out.println("                           Menu                          ");
@@ -675,6 +710,60 @@ public class Main {
             }
 
             // OPERASI INTERPOLASI POLINOM TARUH DISINI
+                /* Interpolasi di main asyik */
+            System.out.printf("Masukkan banyaknya titik sampel (X,Y) = ");
+            n = input.nextInt();
+            double[] solusiInterpolasi = new double[n];
+            Matrix xy = new Matrix(n, 2);
+                    for(i = 0; i < n; i++){
+                        System.out.printf("\nMasukkan X%d = ",i+1);
+                        xy.matrix[i][0] = input.nextDouble();
+                        System.out.printf("\nMasukkan Y%d = ",i+1);
+                        xy.matrix[i][1] = input.nextDouble();
+
+                    }
+            Matrix m = new Matrix(n, n+1);
+
+            for(i = 0; i < m.rows; i++){
+                for(j = 0; j < m.cols-1; j++){
+                    m.matrix[i][j] = Math.pow(xy.matrix[i][0], j);
+                }
+                m.matrix[i][m.cols-1] = xy.matrix[i][1];
+            }
+            System.out.printf("\nMatriks koefisien dari persamaan derajat %d :\n", n);
+            m.displayMatrix();
+
+            m.gaussJordan();
+
+            for(i = 0; i < n; i++){
+                solusiInterpolasi[i] = m.matrix[i][m.cols-1];
+            }
+
+            System.out.printf("\nSolusi SPL f(x) = ");
+
+            System.out.printf("%f ", solusiInterpolasi[0]);
+            
+            if (n >= 2){
+                System.out.printf("+ %fx ", solusiInterpolasi[1]);
+            }
+
+            if ( n >= 3){
+                for(i = 2; i < n; i++){
+                    System.out.printf(" + %fx^%d ", solusiInterpolasi[i],i);
+                }
+            }
+            System.out.println();
+
+            System.out.printf("Masukan nilai x yang akan ditaksir : ");
+            double xTaksir = input.nextDouble();
+            
+            double sum = 0;
+
+            for(i = 0; i < n ; i++){
+                sum += solusiInterpolasi[i] * Math.pow(xTaksir, i);
+            }
+
+            System.out.printf("\nHasil interpolasi f(%f) = %f\n", xTaksir, sum);
 
             System.out.println("---------------------------------------------------------");
             System.out.println("                Operasi Interpolasi Polinom              ");
@@ -725,6 +814,61 @@ public class Main {
             }
 
             // OPERASI INTERPOLASI BICUBIC TARUH DISINI
+                /* Bicubic  */
+            Matrix m = new Matrix(4, 4);
+            Matrix matX = new Matrix(16, 16);
+            Matrix a = new Matrix(4, 4);
+            int i,j,k,l;
+            double u,v,sum = 0;
+          
+            for(i = 0; i < 4; i++){
+                for(j = 0; j < 4; j++){
+                    System.out.printf("Masukkan nilai f(%d,%d) = ", (i-1), (j-1));
+                    m.matrix[i][j] = input.nextDouble();
+                }
+            }
+
+            System.out.println("\nUntuk mencari nilai f(a,b) dengan interpolasi...");
+            System.out.printf("Masukkan a = ");
+            u = input.nextDouble();
+            System.out.printf("Masukkan b = ");
+            v = input.nextDouble();
+
+            for(i = 0 ; i < 4; i++){
+                for(j = 0 ; j < 4; j++){
+                    for(k = 0; k < 4; k++){
+                        for(l = 0; l < 4; l++){
+                            matX.matrix[(i)*4 +(j)][(k)*4 +(l)] = Math.pow((j -1 ),l )*Math.pow(i -1, k);
+                        }
+                    }
+                }
+            }
+            Matrix matXAkhir = matX.extendMatrix(0, 1);
+
+            for(i = 0 ; i < 4; i++){
+                for(j = 0 ; j < 4; j++){
+                matXAkhir.matrix[i*4 + j][16] = m.matrix[i][j];
+                }
+            }
+
+            matXAkhir.gaussJordan();
+
+            for(i = 0 ; i < 4; i++){
+                for(j = 0 ; j < 4; j++){
+                a.matrix[j][i] = matXAkhir.matrix[i*4 + j][16];
+                }
+            }
+
+            for(i = 0 ; i < 4; i++){
+                for(j = 0 ; j < 4; j++){
+                    sum += a.matrix[j][i] * Math.pow(u, j) * Math.pow(v, i);
+                }
+            }
+
+            System.out.printf("\nMaka f(%f,%f) = %f",u,v,sum);
+                            
+
+
 
             System.out.println("---------------------------------------------------------");
             System.out.println("               Operasi Interpolasi Bicubic               ");
@@ -740,10 +884,14 @@ public class Main {
     }
     public static void subMenuRLB(){
         try{
-            int sumber;
+            int sumber,i,j,k;
             String namaFile = null;
             Matrix mat = new Matrix(0,0);
             Scanner input = new Scanner(System.in);
+            Matrix x = new Matrix(0, 0);
+            Matrix y = new Matrix(0, 0);
+            double[] xTaksir = new double[1];
+            int peubahX =0,nSampel=0;
 
             System.out.println("---------------------------------------------------------");
             System.out.println("                          Menu                           ");
@@ -758,6 +906,47 @@ public class Main {
                     System.out.println("                    1. Masukan dari CLI                  ");
                     System.out.println("---------------------------------------------------------");
                     // MEMINTA MASUKAN TITIK DAN CREATE TITIK
+                    System.out.printf("\nMasukkan banyak sampel n : ");
+                    nSampel = input.nextInt();
+                    System.out.printf("\nMasukkan banyak varibel x : ");
+                    peubahX = input.nextInt();
+
+                    x = new Matrix(nSampel, peubahX+1);
+                    y = new Matrix(nSampel, 1);
+                    xTaksir = new double[peubahX+1];
+                    
+                    
+                    for( i = 0; i < nSampel; i++){
+                        for( j = 0; j < peubahX+2; j++){
+                            if(j == 0){
+                                x.matrix[i][0] = 1;
+                            }
+                            else{
+                                if(j == peubahX+1){
+                                    System.out.printf("Masukkan nilai y untuk sampel %d : ", i+1);
+                                    y.matrix[i][0] = input.nextDouble();
+                                }
+                                else{
+                                    System.out.printf("Masukkan nilai X%d untuk sampel %d : ", j,i+1);
+                                    x.matrix[i][j] = input.nextDouble();
+                                }
+                                
+                            }
+                            
+                        }
+                    }
+
+                    System.out.println("\nMasukkan nilai-nilai X yang akan ditaksir...\n");
+                    for( i = 0; i < peubahX+1; i++){
+                        if( i == 0 ){
+                            xTaksir[0] = 1;
+                        }
+                        else{
+                            System.out.printf("Nilai X%d : ",i);
+                            xTaksir[i] = input.nextDouble();
+                        }
+                        
+                    }
                     break;
                 case 2:
                     System.out.println("---------------------------------------------------------");
@@ -774,8 +963,60 @@ public class Main {
                     subMenuRLB();
             }
 
-            // OPERASI REGRESI LINIER BERGANDA TARUH DISINI
+            // OPERASI REGRESI LINIER BERGANDA TARUH DISINI        
+          
+            Matrix yNEE = new Matrix(peubahX+1, 1);
+            Matrix matRLB = new Matrix(peubahX+1, peubahX+1);
+            double yTaksir = 0;
 
+            
+                
+            for( i = 0; i < peubahX+1; i++){
+                for( j = 0; j < peubahX+1; j++){
+                    matRLB.matrix[i][j] = 0;
+                    
+                    for(k = 0; k < nSampel; k++){
+                        matRLB.matrix[i][j] += x.matrix[k][i] * x.matrix[k][j];
+                    }
+                }
+            }
+
+            
+
+            matRLB.inverseOBE();
+            /* Sudah didapatkan inverse di matRLB */
+
+            /* Membuat sisi kanan NEE */
+            for(i = 0; i< peubahX+1; i++){
+                yNEE.matrix[i][0] = 0;
+                for(j = 0; j < nSampel; j++){
+                    yNEE.matrix[i][0] += x.matrix[j][i]*y.matrix[j][0];
+                }
+            }
+
+            Matrix solusi = matRLB.multiplyMatrix(matRLB, yNEE);
+
+            System.out.println("Maka didapatkan nilai koefisien B (beta)..\n");
+
+            for(i = 0; i < peubahX+1; i++){
+                System.out.printf("B%d = %f\n", i, solusi.matrix[i][0]);
+            }
+            System.out.println();
+            
+            for(i = 0; i < peubahX+1; i++){
+                yTaksir += xTaksir[i]*solusi.matrix[i][0];
+            }
+
+            System.out.printf("y =");
+            for(i = 0; i < peubahX+1; i++ ){
+                System.out.printf(" %f x %f", solusi.matrix[i][0],xTaksir[i]);
+                if(i != peubahX){
+                    System.out.printf(" +");
+                }
+            }
+            System.out.printf(" = %f", yTaksir);
+                
+             
             System.out.println("---------------------------------------------------------");
             System.out.println("             Operasi Regresi Linier Berganda             ");
             System.out.println("                         SELESAI                         ");
@@ -801,7 +1042,9 @@ public class Main {
             default:
                 break;
         }
+
         System.out.println("---------------------------------------------------------");
+
         System.out.println("Masukkan pilihan sumber Anda: ");
         sumber = input.nextInt();
         return sumber;
