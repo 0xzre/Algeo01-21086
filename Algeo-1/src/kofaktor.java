@@ -169,5 +169,40 @@ public class kofaktor {
                 this.copyMatrix();
             }
         }
+
+        public String Cramer(double m[][]){
+            int i, j;
+            double mNew[][] = new double[this.rows][this.cols];
+            double det1 = this.determinanKofaktor();
+            double det2, res;
+            String output = "";
+
+            for(i=0; i<this.rows; i++){
+                for(j=0; j<this.cols; j++){
+                    mNew[i][j] = this.matrix[i][j]; // membuat matriks baru hasil copy matrix asli
+                }
+            }
+
+            if(det1 != 0){
+                for(j=0; j<this.cols; j++){
+                    for(i=0; i<this.rows; i++){
+                        this.matrix[i][j] = m[i][0]; // mengganti nilai dari tiap kolom matriks asli dengan nilai matriks masukan
+                    }
+                    det2 = this.determinanKofaktor();
+                    res = det2/det1; // X(N) = detKolomN/detMatriks
+                    if(j!=0){
+                        output += ",X" + (j+1) + "=" + (res) + " "; // ,X2=* ,X3=*
+                    }
+                    else{
+                        output += "X" + (j+1) + "=" + (res) + " "; // X1=*
+                    }
+
+                    for(i=0; i<this.rows; i++){
+                        this.matrix[i][j] = mNew[i][j]; // menukar nilai matriks asli yang telah diubah per kolomnya menjadi nilai semula
+                    }
+                }
+            }
+            return output; // mengembalikan String output
+        }
     }
 }
