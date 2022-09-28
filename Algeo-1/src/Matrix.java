@@ -322,9 +322,9 @@ public class Matrix {
                     if(this.matrix[j][firstNonZeroInRow(i)] != 0){
                         pengali = this.matrix[j][firstNonZeroInRow(i)]/this.matrix[i][firstNonZeroInRow(i)];
                         addMultiplyRow(j, i, (-1)*pengali);
-                        System.out.printf("\nKurangi baris ke-%d dengan %f kali baris ke-%d\n", (j+1), pengali , (i+1));
-                        displayMatrix();
-                        System.out.println();
+                        // System.out.printf("\nKurangi baris ke-%d dengan %f kali baris ke-%d\n", (j+1), pengali , (i+1));
+                        // displayMatrix();
+                        // System.out.println();
 
                     }
                 }
@@ -456,9 +456,9 @@ public class Matrix {
             this.matrix[row][i] /= n;
         }
         corrZero();
-        System.out.printf("Bagi setiap elemen di baris ke-%d dengan %.2f\n", (row+1), n);
-        displayMatrix();
-        System.out.println();
+        // System.out.printf("Bagi setiap elemen di baris ke-%d dengan %.2f\n", (row+1), n);
+        // displayMatrix();
+        // System.out.println();
     }
 
     public Matrix multiplyMatrix(Matrix m1, Matrix m2){
@@ -508,9 +508,9 @@ public class Matrix {
                     if(this.matrix[i][colNotZero] != 0){
                         pengali = this.matrix[i][colNotZero] / this.matrix[a][colNotZero];
                         addMultiplyRow(i,a, (-1)*pengali);
-                        System.out.printf("\nKurangi baris ke-%d dengan %f kali baris ke-%d\n", (i+1), pengali , (colNotZero+1));
-                        displayMatrix();
-                        System.out.println();
+                        // System.out.printf("\nKurangi baris ke-%d dengan %f kali baris ke-%d\n", (i+1), pengali , (colNotZero+1));
+                        // displayMatrix();
+                        // System.out.println();
                     }
     
                     
@@ -524,7 +524,7 @@ public class Matrix {
                     
                     swapWithZeroRow(a, 0);;
                     
-                    displayMatrix();
+                    // displayMatrix();
                     OBE(a);
                 }
                 
@@ -607,8 +607,8 @@ public class Matrix {
             }
             
         if(init != i){ //Nampilinn kalo ada pertukaran aja
-            System.out.printf("Tukar baris ke-%d dengan baris ke-%d\n", (init+1),(i+1));
-            displayMatrix();
+            // System.out.printf("Tukar baris ke-%d dengan baris ke-%d\n", (init+1),(i+1));
+            // displayMatrix();
         }
         
         
@@ -638,7 +638,7 @@ public class Matrix {
             }
         }
         if (last != i){
-            System.out.printf("Tukar baris ke-%d dan baris ke-%d\n", i, last);
+            // System.out.printf("Tukar baris ke-%d dan baris ke-%d\n", i, last);
         }
         
     }
@@ -686,8 +686,8 @@ public class Matrix {
                         for(j = i+1; j < this.rows; j++){
                             if(!isZero(invMat.matrix[j][i], epsilon) ){
                                 invMat.swapRow(i, j);
-                                System.out.printf("\nBaris ke-%d ditukar dengan baris ke-%d\n", i,j);
-                                invMat.displayMatrix();
+                                // System.out.printf("\nBaris ke-%d ditukar dengan baris ke-%d\n", i,j);
+                                // invMat.displayMatrix();
                             }
                         }
                     }
@@ -766,9 +766,9 @@ public class Matrix {
                     if(this.matrix[i][colNotZero] != 0){
                         pengali = this.matrix[i][colNotZero] / this.matrix[a][colNotZero];
                         addMultiplyRow(i,a, (-1)*pengali);
-                        System.out.printf("\nKurangi baris ke-%d dengan %f kali baris ke-%d\n", (i+1), pengali , (colNotZero+1));
-                        displayMatrix();
-                        System.out.println();
+                        // System.out.printf("\nKurangi baris ke-%d dengan %f kali baris ke-%d\n", (i+1), pengali , (colNotZero+1));
+                        // displayMatrix();
+                        // System.out.println();
 
                         if(a == this.cols-1){
                             return evenSwap;
@@ -824,8 +824,8 @@ public class Matrix {
                         for(j = i+1; j < this.rows; j++){
                             if(!isZero(this.matrix[j][i], epsilon) ){
                                 this.swapRow(i, j);
-                                System.out.printf("\nBaris ke-%d ditukar dengan baris ke-%d\n", i,j);
-                                this.displayMatrix();
+                                // System.out.printf("\nBaris ke-%d ditukar dengan baris ke-%d\n", i,j);
+                                // this.displayMatrix();
                                 det *= -1;
                             }
                         }

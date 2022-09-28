@@ -677,8 +677,10 @@ public class Main {
             Matrix mat = new Matrix(0,0);
             Scanner input = new Scanner(System.in);
             int i,j;
+            double[] solusiInterpolasi = new double[1];
+            Matrix xy = new Matrix(0, 0);
             
-            int n;
+            int n= 0;
 
             System.out.println("---------------------------------------------------------");
             System.out.println("                           Menu                          ");
@@ -693,6 +695,17 @@ public class Main {
                     System.out.println("                    1. Masukan dari CLI                  ");
                     System.out.println("---------------------------------------------------------");
                     // MEMINTA MASUKAN TITIK DAN CREATE TITIK
+                    System.out.printf("Masukkan banyaknya titik sampel (X,Y) = ");
+                    n = input.nextInt();
+                    solusiInterpolasi = new double[n];
+                    xy = new Matrix(n, 2);
+                    for(i = 0; i < n; i++){
+                        System.out.printf("\nMasukkan X%d = ",i+1);
+                        xy.matrix[i][0] = input.nextDouble();
+                        System.out.printf("Masukkan Y%d = ",i+1);
+                        xy.matrix[i][1] = input.nextDouble();
+
+                    }
                     break;
                 case 2:
                     System.out.println("---------------------------------------------------------");
@@ -711,17 +724,7 @@ public class Main {
 
             // OPERASI INTERPOLASI POLINOM TARUH DISINI
                 /* Interpolasi di main asyik */
-            System.out.printf("Masukkan banyaknya titik sampel (X,Y) = ");
-            n = input.nextInt();
-            double[] solusiInterpolasi = new double[n];
-            Matrix xy = new Matrix(n, 2);
-                    for(i = 0; i < n; i++){
-                        System.out.printf("\nMasukkan X%d = ",i+1);
-                        xy.matrix[i][0] = input.nextDouble();
-                        System.out.printf("\nMasukkan Y%d = ",i+1);
-                        xy.matrix[i][1] = input.nextDouble();
-
-                    }
+            
             Matrix m = new Matrix(n, n+1);
 
             for(i = 0; i < m.rows; i++){
