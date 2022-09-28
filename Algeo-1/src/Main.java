@@ -479,7 +479,9 @@ public class Main {
                 System.out.println("---------------------------------------------------------");
                 System.out.println("Dengan metode Eliminasi Gauss,  ");
                 System.out.println("diperoleh nilai determinan:     ");
-
+                res = mat.determinanOBE();;
+                System.out.println(res);
+                System.out.println("---------------------------------------------------------");
 
                 // MENYIMPAN FILE
                 System.out.println("Hasil ingin disimpan? (y/n):    ");
@@ -499,6 +501,8 @@ public class Main {
                 simpan = input.next().charAt(0);
                 System.out.println("---------------------------------------------------------");
             }
+
+            
 
             if(simpan == 'y'){
                 int i,j;
@@ -617,15 +621,26 @@ public class Main {
             // OPERASI MATRIKS BALIKAN TARUH DISINI
             if(metode==1 && (sumber==1 || sumber==2)){
                 // MENCARI MATRIKS BALIKAN DENGAN ELIMINASI GAUSS
-                System.out.println("---------------------------------------------------------");
-                System.out.println("Dengan metode Eliminasi Gauss,  ");
-                System.out.println("diperoleh nilai determinan:     ");
+                if(mat.isZero(mat.inverseOBE(), mat.epsilon)){
+                    System.out.println("---------------------------------------------------------");
+                    System.out.println("Dengan metode Eliminasi Gauss,  ");
+                    System.out.println("diperoleh matriks balikan:     ");
+                    mat.displayMatrix();
+                    res = mat;
 
+                    System.out.println("---------------------------------------------------------");
+                    
+
+                }
+                else{
+                    System.out.println("determinan matriks adalah 0,\nmatriks tidak memiliki matriks balikan\n---------------------------------------------------------");
+                }
 
                 // MENYIMPAN FILE
                 System.out.println("Hasil ingin disimpan? (y/n):    ");
                 simpan = input.next().charAt(0);
                 System.out.println("---------------------------------------------------------");
+                
             }
             else if(metode==2 && (sumber==1 || sumber==2)){
                 //MENCARI MATRIKS BALIKAN DENGAN EKSPANSI KOFAKTOR

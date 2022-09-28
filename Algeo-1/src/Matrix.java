@@ -716,13 +716,10 @@ public class Matrix {
         return true;
     }
 
-    public void inverseOBE(){
+    public double inverseOBE(){
         /* Prekondisi matriks adalah persegi */
 
-        if(isAtLeastRowZero() || isAtLeastColZero()){
-            System.out.println("Salah satu baris atau kolom bernilai 0 semua, determinan : 0 , sehingga invers tidak terdefinisi\n");
-        }
-        else {
+        
             double det = 0;
             if(firstZeroInRow(0) == 0){
                 swapWithZeroRow(0, 0);
@@ -737,7 +734,7 @@ public class Matrix {
                 
             }
 
-            System.out.println("Metode Matriks Balikan OBE :");
+            // System.out.println("Metode Matriks Balikan OBE :");
             invMat.displayMatrix();
 
             invMat.gaussJordan();
@@ -768,11 +765,12 @@ public class Matrix {
                 }
             }
 
-            System.out.println("\nDidapatkan Matriks Balikan :");
-            this.displayMatrix();
+            // System.out.println("\nDidapatkan Matriks Balikan :");
+            // this.displayMatrix();
             
-
-            }
+            Matrix temp = this;
+            return temp.determinanOBE();
+            
             
     }
 
@@ -860,14 +858,14 @@ public class Matrix {
     }
 
 
-    public void determinanOBE(){
+    public double determinanOBE(){
         /* Prekondisi matriks persegi */
         int i,j;
         double det = 1;
         boolean evenSwap;
         
         if(this.isAtLeastColZero() || this.isAtLeastRowZero()){
-            System.out.println("Matriks memiliki nilai 0 sepanjang suatu baris atau kolom, maka determinan : 0");
+            return 0;
         }
 
         else{
@@ -908,6 +906,7 @@ public class Matrix {
             System.out.printf("Determinan matriks :%.2f\n", det);
 
         }
+        return det;
     }
     // FUNGSI KOFAKTOR DAN CRAMER
     void kofaktor(){
