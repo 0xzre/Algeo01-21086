@@ -665,7 +665,7 @@ public class Matrix {
         double[][] mNew;
         mNew = new double[this.rows-1][this.cols-1];
         Matrix m1 = new Matrix((this.rows-1),(this.cols-1));
-        Matrix m2 = new Matrix((this.rows-1),(this.cols-1));
+        Matrix m2 = new Matrix((this.rows),(this.cols));
 
         if((this.rows == 2) && (this.cols ==2)){
             temp = this.matrix[0][0];
@@ -678,7 +678,7 @@ public class Matrix {
             for(i=0; i<this.rows; i++){
                 for(j=0; j<this.cols; j++){
                     this.reduceMatrix(mNew,i,j);
-                    m1.copyMatrix();
+                    m1.copyMatrixInverse(mNew);
                     m2.matrix[i][j] = m1.determinanKofaktor();
 
                     if((i+j)%2 != 0){
@@ -728,7 +728,7 @@ public class Matrix {
     }
 
 
-    public void transpose(){
+    void transpose(){
         int i,j;
         double[][] mNew;
         mNew = new double[this.rows][this.cols];
@@ -749,18 +749,28 @@ public class Matrix {
         this.transpose();
     }
 
+    void copyMatrixInverse(double M[][]){
+        int i,j;
+        for(i=0; i<this.rows; i++){
+            for(j=0; j<this.cols; j++){
+                this.matrix[i][j] = M[i][j];
+            }
+        }
+    }
+
     void invers(){
         int i,j;
         double[][] mNew;
         mNew = new double[this.rows][this.cols];
-        if(this.determinanKofaktor()!=0){
+        double det = this.determinanKofaktor();
+        if(det !=0){
             this.adjoin();
             for(i=0; i<this.rows; i++){
                 for(j=0; j<this.cols; j++){
-                    mNew[i][j] = this.matrix[i][j]/this.determinanKofaktor();
+                    mNew[i][j] = this.matrix[i][j]/det;
                 }
             }
-            this.copyMatrix();
+            this.copyMatrixInverse(mNew);
         }
     }
 

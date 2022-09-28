@@ -16,7 +16,7 @@ public class Main {
         for(int i=0; i<art.length(); i++){
             System.out.print(art.charAt(i));
             try{
-                Thread.sleep(1);
+                Thread.sleep(2);
             }catch(InterruptedException e){};
         }
         MainMenu();
@@ -76,7 +76,8 @@ public class Main {
 
     public static void subMenuSPL(){
         try{
-            int i,j,metode,nRows=0,nCols=0;
+            int i,j,metode,nCols,akhir;
+            int nRows=0;
             int sumber =0;
             char simpan =0;
             String res = "";
@@ -189,13 +190,13 @@ public class Main {
                 }
             }
 
-            if(metode == 1){
+            if(metode == 1 && (sumber == 1 || sumber == 2)){
                 // MENCARI SOLUSI SPL DENGAN ELIMINASI GAUSS
                 System.out.println("---------------------------------------------------------");
                 System.out.println("Dengan metode Eliminasi Gauss, diperoleh solusi SPL:  ");
                 // PANGGIL FUNGSI GAUSS
             }
-            else if(metode == 2){
+            else if(metode == 2 && (sumber == 1 || sumber ==2)){
                 // MENCARI SOLUSI SPL DENGAN ELIMINASI GAUSS JORDAN
                 System.out.println("---------------------------------------------------------");
                 System.out.println("Dengan metode Eliminasi Gauss-Jordan,");
@@ -221,11 +222,10 @@ public class Main {
                             for(i=0; i<nRows; i++){
                                 b[i][0] = input.nextInt();
                             }
+                            System.out.println("---------------------------------------------------------");
                             System.out.println("Dengan metode Matriks Balikan,");
                             System.out.println("diperoleh solusi SPL:     ");
                             res = mat.multiplyInvers(b);
-                            System.out.println(res);
-                            System.out.println("---------------------------------------------------------");
                         }
                     }
                 }
@@ -243,15 +243,16 @@ public class Main {
                             System.out.println("Dengan metode Matriks Balikan,");
                             System.out.println("diperoleh solusi SPL:     ");
                             res = matA.multiplyInvers(matB);
-                            System.out.println(res);
-                            System.out.println("---------------------------------------------------------");
                         }
                     }
                 }
                 // MENYIMPAN FILE
+                System.out.println(res);
+                System.out.println("---------------------------------------------------------");
                 System.out.println("Hasil ingin disimpan? (y/n):    ");
                 simpan = input.next().charAt(0);
                 System.out.println("---------------------------------------------------------");
+
             }else if(metode==4){
                 // MENYELESAIKAN SPL DENGAN METODE CRAMER
                 System.out.println("---------------------------------------------------------");
@@ -274,8 +275,6 @@ public class Main {
                             System.out.println("Dengan metode Kaidah Cramer,");
                             System.out.println("diperoleh solusi SPL:     ");
                             res = mat.Cramer(b);
-                            System.out.println(res);
-                            System.out.println("---------------------------------------------------------");
                         }
                     }
                 }
@@ -293,12 +292,12 @@ public class Main {
                             System.out.println("Dengan metode Kaidah Cramer,");
                             System.out.println("diperoleh solusi SPL:     ");
                             res = matA.Cramer(matB);
-                            System.out.println(res);
-                            System.out.println("---------------------------------------------------------");
                         }
                     }
                 }
                 // MENYIMPAN FILE
+                System.out.println(res);
+                System.out.println("---------------------------------------------------------");
                 System.out.println("Hasil ingin disimpan? (y/n):    ");
                 simpan = input.next().charAt(0);
                 System.out.println("---------------------------------------------------------");
@@ -320,14 +319,20 @@ public class Main {
                     output.write(string);
                 }
                 if (metode == 1){
-                    output.write("Dengan menggunakan Metode Eliminasi Gauss, diperoleh nilai determinan matriks: " + res +"\n");
+                    output.write("Dengan menggunakan Metode Eliminasi Gauss, diperoleh solusi SPL-nya: " + res +"\n");
                 }
                 else if (metode == 2){
-                    output.write("Dengan menggunakan Metode Ekspansi Kofaktor, diperoleh nilai determinan matriks: " + res + "\n");
+                    output.write("Dengan menggunakan Metode Eliminasi Gauss Jordan, diperoleh solusi SPL-nya: " + res + "\n");
+                }
+                else if (metode == 3){
+                    output.write("Dengan menggunakan Metode Matriks Balikan, diperoleh solusi SPL-nya: " + res + "\n");
+                }
+                else if (metode == 4){
+                    output.write("Dengan menggunakan Metode Kaidah Cramer, diperoleh solusi SPL-nya: " + res + "\n");
                 }
                 output.close();
                 System.out.println("---------------------------------------------------------");
-                System.out.println("File " +namaFile+ ".txt berhasil disimpan.");
+                System.out.println("File " +namaFile+ " berhasil disimpan.");
             }
 
             System.out.println("---------------------------------------------------------");
@@ -338,7 +343,7 @@ public class Main {
             MainMenu();
 
         }catch (Exception e){
-            System.out.println("Masukkan menu tidak valid, silahkan ulangi.");
+            System.out.println("Masukan menu tidak valid, silahkan ulangi.");
             subMenuSPL();
         }
     }
@@ -470,7 +475,7 @@ public class Main {
                 }
                 output.close();
                 System.out.println("---------------------------------------------------------");
-                System.out.println("File " +namaFile+ ".txt berhasil disimpan.");
+                System.out.println("File " +namaFile+ " berhasil disimpan.");
             }
             System.out.println("---------------------------------------------------------");
             System.out.println("                   Operasi Determinan                    ");
