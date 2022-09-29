@@ -1018,5 +1018,9 @@ public class Matrix {
         return string;
     }
 
+    void scaleImage(){
+        
+    }
+
 }
 
