@@ -395,7 +395,7 @@ public class Matrix {
             string = "SPL tidak memiliki solusi";
         }else{
             for(int i = 0; i< solusi.size(); i++){
-                string = string.concat("X"+(i+1)+"="+solusi.get("X"+(i+1)+" "));
+                string = string.concat("X"+(i+1)+"="+solusi.get("X"+(i+1))+" ");
             }
         }
         return string;
@@ -451,7 +451,7 @@ public class Matrix {
 
             if(j != this.cols-2){
                 for(int k=j+1; k<this.cols; k++){
-                    if(solusiParametrik.get("X"+(j+1)) != null && solusiParametrik.get("X" + (j+1)).equals("")){
+                    if(solusiParametrik.get("X"+(j+1)) != null && solusiParametrik.get("X"+(j+1)).equals("")){
                         if(k != this.cols-1){
                             if(this.matrix[i][k] > 0){
                                 solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + "-" + String.format("%.2f", this.matrix[i][k]) + variabel + solusiParametrik.get("X"+(k+1)));
@@ -482,7 +482,7 @@ public class Matrix {
                     }
                 }
             }else{
-                solusiParametrik.replace("X" + (j+1), "" + String.format("%.2f", this.matrix[i][this.cols-1]));
+                solusiParametrik.replace("X" + (j+1), String.format("%.2f", this.matrix[i][this.cols-1]));
             }
         }
         return solusiParametrik;
