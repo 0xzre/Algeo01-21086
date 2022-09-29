@@ -902,7 +902,7 @@ public class Matrix {
                 det *= -1;
             }
 
-            System.out.printf("Determinan matriks :%.2f\n", det);
+//            System.out.printf("Determinan matriks :%.2f\n", det);
 
         }
         return det;

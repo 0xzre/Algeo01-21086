@@ -1,4 +1,0 @@
-1.0 4.0 7.0
-3.0 8.0 10.0
-12.0 3.0 6.0
-Dengan menggunakan Metode Kaidah Cramer, diperoleh solusi SPL-nya: X1=0.8032786885245902 ,X2=1.8852459016393444 ,X3=-1.0491803278688525 

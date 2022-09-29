@@ -655,6 +655,7 @@ public class Main {
                     System.out.println("diperoleh matriks balikannya:   ");
                     res = mat;
                     res.invers();
+                    res.corrZero();
                     res.displayMatrix();
                     System.out.println("---------------------------------------------------------");
                 }
@@ -857,13 +858,13 @@ public class Main {
             System.out.println("---------------------------------------------------------");
             System.out.println("File " +namaFile+ " berhasil disimpan.");
 
+            }
             System.out.println("---------------------------------------------------------");
             System.out.println("                Operasi Interpolasi Polinom              ");
             System.out.println("                          SELESAI                        ");
             System.out.println("                   Kembali ke Menu Utama                 ");
             System.out.println("---------------------------------------------------------");
             MainMenu();
-            }
         }catch (Exception e){
             System.out.println("Masukkan menu tidak valid, silahkan ulangi.");
             subMenuInterPol();
