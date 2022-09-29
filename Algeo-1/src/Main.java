@@ -731,14 +731,15 @@ public class Main {
                     // MEMINTA MASUKAN TITIK DAN CREATE TITIK
                     System.out.printf("Masukkan banyaknya titik sampel (X,Y) = ");
                     n = input.nextInt();
+                    System.out.println("---------------------------------------------------------");
                     solusiInterpolasi = new double[n];
                     xy = new Matrix(n, 2);
                     for(i = 0; i < n; i++){
-                        System.out.printf("\nMasukkan X%d = ",i+1);
+                        System.out.printf("Masukkan X%d = ",i+1);
                         xy.matrix[i][0] = input.nextDouble();
                         System.out.printf("Masukkan Y%d = ",i+1);
                         xy.matrix[i][1] = input.nextDouble();
-
+                        System.out.println("---------------------------------------------------------");
                     }
                     break;
                 case 2:
@@ -775,8 +776,8 @@ public class Main {
             for(i = 0; i < n; i++){
                 solusiInterpolasi[i] = m.matrix[i][m.cols-1];
             }
-
-            System.out.printf("\nSolusi SPL f(x) =");
+            System.out.println("---------------------------------------------------------");
+            System.out.printf("Solusi SPL f(x) =");
 
             
             for(i = n-1; i >= 0; i--){
@@ -798,7 +799,7 @@ public class Main {
             }
             
             System.out.println();
-
+            System.out.println("---------------------------------------------------------");
             System.out.printf("Masukan nilai x yang akan ditaksir : ");
             double xTaksir = input.nextDouble();
             
@@ -809,6 +810,7 @@ public class Main {
             }
 
             System.out.printf("\nHasil interpolasi f(%f) = %f\n", xTaksir, sum);
+            System.out.println("---------------------------------------------------------");
             // MENYIMPAN FILE
             System.out.println("Hasil ingin disimpan? (y/n):    ");
             simpan = input.next().charAt(0);
@@ -921,13 +923,14 @@ public class Main {
                     m.matrix[i][j] = input.nextDouble();
                 }
             }
+            System.out.println("---------------------------------------------------------");
 
-            System.out.println("\nUntuk mencari nilai f(a,b) dengan interpolasi...");
+            System.out.println("Untuk mencari nilai f(a,b) dengan interpolasi...");
             System.out.printf("Masukkan a = ");
             u = input.nextDouble();
             System.out.printf("Masukkan b = ");
             v = input.nextDouble();
-
+            System.out.println("---------------------------------------------------------");
             for(i = 0 ; i < 4; i++){
                 for(j = 0 ; j < 4; j++){
                     for(k = 0; k < 4; k++){
@@ -958,8 +961,9 @@ public class Main {
                     sum += a.matrix[j][i] * Math.pow(u, j) * Math.pow(v, i);
                 }
             }
-
-            System.out.printf("\nMaka f(%f,%f) = %f\n",u,v,sum);
+            System.out.println("---------------------------------------------------------");
+            System.out.printf("Maka f(%f,%f) = %f\n",u,v,sum);
+            System.out.println("---------------------------------------------------------");
 
             // MENYIMPAN FILE
             System.out.println("Hasil ingin disimpan? (y/n):    ");
@@ -1028,10 +1032,11 @@ public class Main {
                     System.out.println("                    1. Masukan dari CLI                  ");
                     System.out.println("---------------------------------------------------------");
                     // MEMINTA MASUKAN TITIK DAN CREATE TITIK
-                    System.out.printf("\nMasukkan banyak sampel n : ");
+                    System.out.printf("Masukkan banyak sampel n : ");
                     nSampel = input.nextInt();
-                    System.out.printf("\nMasukkan banyak varibel x : ");
+                    System.out.printf("Masukkan banyak varibel x : ");
                     peubahX = input.nextInt();
+                    System.out.println("---------------------------------------------------------");
 
                     x = new Matrix(nSampel, peubahX + 1);
                     y = new Matrix(nSampel, 1);
@@ -1054,9 +1059,9 @@ public class Main {
                             }
 
                         }
+                        System.out.println("---------------------------------------------------------");
                     }
-
-                    System.out.println("\nMasukkan nilai-nilai X yang akan ditaksir...\n");
+                    System.out.println("Masukkan nilai-nilai X yang akan ditaksir...\n");
                     for (i = 0; i < peubahX + 1; i++) {
                         if (i == 0) {
                             xTaksir[0] = 1;
@@ -1066,6 +1071,7 @@ public class Main {
                         }
 
                     }
+                    System.out.println("---------------------------------------------------------");
                     break;
                 case 2:
                     System.out.println("---------------------------------------------------------");
@@ -1112,7 +1118,7 @@ public class Main {
             }
 
             Matrix solusi = matRLB.multiplyMatrix(matRLB, yNEE);
-
+            System.out.println("---------------------------------------------------------");
             System.out.println("Maka didapatkan persamaan..\n");
             System.out.printf("f(x) =");
 
@@ -1125,7 +1131,7 @@ public class Main {
                 }
                 
             }
-            System.out.println();
+            System.out.println("\n");
 
             for (i = 0; i < peubahX + 1; i++) {
                 yTaksir += xTaksir[i] * solusi.matrix[i][0];
@@ -1138,8 +1144,8 @@ public class Main {
                     System.out.printf(" +");
                 }
             }
-            System.out.printf(" = %f", yTaksir);
-
+            System.out.printf(" = %f\n", yTaksir);
+            System.out.println("---------------------------------------------------------");
             // MENYIMPAN FILE
             System.out.println("Hasil ingin disimpan? (y/n):    ");
             simpan = input.next().charAt(0);
@@ -1183,13 +1189,13 @@ public class Main {
             output.close();
             System.out.println("---------------------------------------------------------");
             System.out.println("File " +namaFile+ " berhasil disimpan.");
+            }
             System.out.println("---------------------------------------------------------");
             System.out.println("             Operasi Regresi Linier Berganda             ");
             System.out.println("                         SELESAI                         ");
             System.out.println("                  Kembali ke Menu Utama                  ");
             System.out.println("---------------------------------------------------------");
             MainMenu();
-            }
 
         } catch (Exception e) {
             System.out.println("Masukkan menu tidak valid, silahkan ulangi.");
