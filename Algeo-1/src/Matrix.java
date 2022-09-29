@@ -71,7 +71,7 @@ public class Matrix {
                 }
             }
             input.close();
-            System.out.println("Matriks (file:"+FileName+".txt) berhasil dibaca.");
+            System.out.println("Matriks (file:"+FileName+") berhasil dibaca.");
         }catch(FileNotFoundException e){
             System.out.println("File tidak ditemukan.");
         }
