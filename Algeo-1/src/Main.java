@@ -959,7 +959,7 @@ public class Main {
                 }
             }
 
-            System.out.printf("\nMaka f(%f,%f) = %f",u,v,sum);
+            System.out.printf("\nMaka f(%f,%f) = %f\n",u,v,sum);
 
             // MENYIMPAN FILE
             System.out.println("Hasil ingin disimpan? (y/n):    ");
