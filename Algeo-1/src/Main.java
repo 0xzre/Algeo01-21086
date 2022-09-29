@@ -219,7 +219,9 @@ public class Main {
                 }
                 HashMap<String, String> solusi = new HashMap<>();
                 solusi = Matrix.preSolusiGauss(mat);
-                System.out.println(Matrix.displaySolusiGauss(solusi));
+                String displaySolusi;
+                displaySolusi = Matrix.displaySolusiGauss(solusi);
+                System.out.println(displaySolusi.replace("null",""));
 
                 // RES DIGUNAKAN UNTUK MENYIMPAN HASIL SOLUSI SPL
 //                System.out.println(res);
@@ -243,7 +245,9 @@ public class Main {
                 }
                 HashMap<String, String> solusi = new HashMap<>();
                 solusi = Matrix.preSolusiGauss(mat);
-                System.out.println(Matrix.displaySolusiGauss(solusi));
+                String displaySolusi;
+                displaySolusi = Matrix.displaySolusiGauss(solusi);
+                System.out.println(displaySolusi.replace("null",""));
 
                 // RES DIGUNAKAN UNTUK MENYIMPAN HASIL SOLUSI SPL
 //                System.out.println(res);
