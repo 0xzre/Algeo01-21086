@@ -276,7 +276,7 @@ public class Matrix {
             nolPojok = false;
         }
 
-        while((i<this.rows-1) && nolSebelahPojok){
+        while((i<this.cols-1) && nolSebelahPojok){
             if((this.matrix[this.rows-1][i])  != 0.0d){
                 nolSebelahPojok = false;
             }
@@ -285,7 +285,7 @@ public class Matrix {
 
         if(nolPojok && nolSebelahPojok){
             jumlahSolusi = 2; // SOLUSI TAK HINGGA
-        }else if(nolPojok && !nolPojok){
+        }else if(nolSebelahPojok && !nolPojok){
             jumlahSolusi = 0; // SOLUSI TAK ADA
         }else{
             jumlahSolusi = 1; // SOLUSI UNIK
@@ -368,15 +368,15 @@ public class Matrix {
     }
 
     public static HashMap<String, String> solusiGaussJordan(Matrix m) {
-        int jumlahSolusi;
+        int jumlahsolusi;
         HashMap<String, String> solusi = new HashMap<>();
 
         m.gaussJordan();
-        jumlahSolusi = m.jumlahSolusi();
+        jumlahsolusi = m.jumlahSolusi();
 
-        if (jumlahSolusi == 0) {
+        if (jumlahsolusi == 0) {
             return solusi;
-        } else if (jumlahSolusi == 1) {
+        } else if (jumlahsolusi == 1) {
             for (int i = m.rows - 1; i >= 0; i--) {
                 double elemen = m.matrix[i][m.cols - 1];
                 String string = String.format("%.2f", elemen);

@@ -214,14 +214,12 @@ public class Main {
                 System.out.println("---------------------------------------------------------");
                 System.out.println("Dengan metode Eliminasi Gauss, diperoleh solusi SPL:  ");
                 // PANGGIL FUNGSI GAUSS
-                for(i = 0; i < mat.rows; i++){
-                    System.out.printf("X%d = %f\n",i+1,mat.matrix[i][mat.cols-1]);
-                }
                 HashMap<String, String> solusi = new HashMap<>();
                 solusi = Matrix.preSolusiGauss(mat);
-                String displaySolusi;
+                String displaySolusi, displaySolusi1;
                 displaySolusi = Matrix.displaySolusiGauss(solusi);
-                System.out.println(displaySolusi.replace("null",""));
+                displaySolusi1 = displaySolusi.replace("null","");
+                System.out.println(displaySolusi1);
 
                 // RES DIGUNAKAN UNTUK MENYIMPAN HASIL SOLUSI SPL
 //                System.out.println(res);
@@ -240,14 +238,12 @@ public class Main {
                 System.out.println("Dengan metode Eliminasi Gauss-Jordan, diperoleh solusi SPL:  ");
                 
                 // PANGGIL FUNGSI GAUSS-JORDAN
-                for(i = 0; i < mat.rows; i++){
-                    System.out.printf("X%d = %f\n",i+1,mat.matrix[i][mat.cols-1]);
-                }
                 HashMap<String, String> solusi = new HashMap<>();
                 solusi = Matrix.preSolusiGauss(mat);
-                String displaySolusi;
+                String displaySolusi, displaySolusi1;
                 displaySolusi = Matrix.displaySolusiGauss(solusi);
-                System.out.println(displaySolusi.replace("null",""));
+                displaySolusi1 = displaySolusi.replace("null","");
+                System.out.println(displaySolusi1);
 
                 // RES DIGUNAKAN UNTUK MENYIMPAN HASIL SOLUSI SPL
 //                System.out.println(res);
