@@ -216,10 +216,10 @@ public class Main {
                 // PANGGIL FUNGSI GAUSS
                 HashMap<String, String> solusi = new HashMap<>();
                 solusi = Matrix.preSolusiGauss(mat);
-                String displaySolusi, displaySolusi1;
+                String displaySolusi;
                 displaySolusi = Matrix.displaySolusiGauss(solusi);
-                displaySolusi1 = displaySolusi.replace("null","");
-                System.out.println(displaySolusi1);
+                res = displaySolusi.replace("null","");
+                System.out.println(res);
 
                 // RES DIGUNAKAN UNTUK MENYIMPAN HASIL SOLUSI SPL
 //                System.out.println(res);
@@ -240,10 +240,10 @@ public class Main {
                 // PANGGIL FUNGSI GAUSS-JORDAN
                 HashMap<String, String> solusi = new HashMap<>();
                 solusi = Matrix.preSolusiGauss(mat);
-                String displaySolusi, displaySolusi1;
+                String displaySolusi;
                 displaySolusi = Matrix.displaySolusiGauss(solusi);
-                displaySolusi1 = displaySolusi.replace("null","");
-                System.out.println(displaySolusi1);
+                res = displaySolusi.replace("null","");
+                System.out.println(res);
 
                 // RES DIGUNAKAN UNTUK MENYIMPAN HASIL SOLUSI SPL
 //                System.out.println(res);
