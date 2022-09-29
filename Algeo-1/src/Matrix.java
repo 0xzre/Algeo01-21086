@@ -395,7 +395,7 @@ public class Matrix {
             string = "SPL tidak memiliki solusi";
         }else{
             for(int i = 0; i< solusi.size(); i++){
-                string = string.concat("X"+(i+1)+"="+solusi.get("X"+(i+1))+" ");
+                string = string.concat("X"+(i+1)+"="+solusi.get("X"+(i+1)+" "));
             }
         }
         return string;
@@ -413,7 +413,7 @@ public class Matrix {
                 }
             }
             if(rowZero || (this.matrix[i][j] != 1)){
-                solusiParametrik.put("X"+(j+1), variabel+"");
+                solusiParametrik.put("X"+(j+1), " ");
                 if(variabel == 'z'){
                     variabel -= 25;
                 }
@@ -442,6 +442,7 @@ public class Matrix {
 
         for(i=0; i<countRowsNotZero; i++){
             j=0;
+            j=0;
             while(this.matrix[i][j] != 1){
                 j++;
             }
@@ -453,10 +454,10 @@ public class Matrix {
                     if(solusiParametrik.get("X"+(j+1)) != null && solusiParametrik.get("X" + (j+1)).equals("")){
                         if(k != this.cols-1){
                             if(this.matrix[i][k] > 0){
-                                solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + "-" + String.format("%.2f", this.matrix[i][k]) + solusiParametrik.get("X"+(k+1)));
+                                solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + "-" + String.format("%.2f", this.matrix[i][k]) + variabel + solusiParametrik.get("X"+(k+1)));
                             }
                             else if (this.matrix[i][k] < 0) {
-                                solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + String.format("%.2f", (-1)*this.matrix[i][k]) + solusiParametrik.get("X"+(k+1)));
+                                solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + String.format("%.2f", (-1)*this.matrix[i][k]) + variabel + solusiParametrik.get("X"+(k+1)));
                             }
                         }else{
                             if(this.matrix[i][k] > 0 || this.matrix[i][k] < 0){
@@ -466,10 +467,10 @@ public class Matrix {
                     }else{
                         if(k != this.cols-1){
                             if(this.matrix[i][k] > 0){
-                                solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + "-" + String.format("%.2f", this.matrix[i][k]) + solusiParametrik.get("X" + (k+1)));
+                                solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + "-" + String.format("%.2f", this.matrix[i][k]) + variabel + solusiParametrik.get("X" + (k+1)));
                             }
                             else if (this.matrix[i][k] < 0) {
-                                solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + "+" + String.format("%.2f", (-1)*this.matrix[i][k] + solusiParametrik.get("X" + (k+1))));
+                                solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + "+" + String.format("%.2f", (-1)*this.matrix[i][k] + variabel + solusiParametrik.get("X" + (k+1))));
                             }
                         }else{
                             if(this.matrix[i][k] > 0){
