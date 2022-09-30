@@ -1,0 +1,4 @@
+1.0 0.0 2.0 -3.0 7.0
+0.0 1.0 -1.0 4.0 5.0
+0.0 0.0 0.0 0.0 0.0
+Dengan menggunakan Metode Eliminasi Gauss, diperoleh solusi SPL-nya: X1=-2.00t+3.00s+7.00 X2=1.00t-4.00s+5.00 X3=t X4=s 

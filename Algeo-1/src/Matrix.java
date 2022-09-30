@@ -71,7 +71,7 @@ public class Matrix {
                 }
             }
             input.close();
-            System.out.println("Matriks (file:"+FileName+".txt) berhasil dibaca.");
+            System.out.println("Matriks (file:"+FileName+") berhasil dibaca.");
         }catch(FileNotFoundException e){
             System.out.println("File tidak ditemukan.");
         }
@@ -902,7 +902,7 @@ public class Matrix {
                 det *= -1;
             }
 
-            System.out.printf("Determinan matriks :%.2f\n", det);
+//            System.out.printf("Determinan matriks :%.2f\n", det);
 
         }
         return det;
