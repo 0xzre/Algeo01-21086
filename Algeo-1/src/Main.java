@@ -28,7 +28,7 @@ public class Main {
             Scanner input = new Scanner(System.in);
             System.out.println("---------------------------------------------------------");
             System.out.println("                      TUBES ALGEO-01                     ");
-            System.out.println("                     KELOMPOK SERINGAI                   ");
+            System.out.println("  SISTEM PERSAMAAN LINIER, DETERMINAN, DAN APLIKASINYA   ");
             System.out.println("---------------------------------------------------------");
             System.out.println("                        Menu Utama                       ");
             System.out.println("---------------------------------------------------------");
