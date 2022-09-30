@@ -42,14 +42,14 @@ public class Matrix {
             File file = new File(dir);
             Scanner input = new Scanner(file);
             while(input.hasNextLine()){
-                nRows += 1;
+                nRows ++;
                 input.nextLine();
             }
             input.close();
             input = new Scanner(file);
             Scanner num = new Scanner(input.nextLine());
             while(num.hasNextDouble()){
-                nCols += 1;
+                nCols ++;
                 num.nextDouble();
             }
             num.close();
@@ -272,16 +272,16 @@ public class Matrix {
 
     public void gauss(){ // METODE GAUSS
         //Inget bentuk augmented
-        if(isMatriksNol()){
-            Boolean allZero = true;
-            System.out.println("Nilai semua elemen 0, masukan input yang valid!\n");
-            while(allZero){
-                readMatrixCLI(this.rows, this.cols);
-                if(!isMatriksNol()){
-                    allZero=false;
-                }
-            }
-        }
+//        if(isMatriksNol()){
+//            Boolean allZero = true;
+//            System.out.println("Nilai semua elemen 0, masukkan input yang valid!\n");
+//            while(allZero){
+//                readMatrixCLI(this.rows, this.cols);
+//                if(!isMatriksNol()){
+//                    allZero=false;
+//                }
+//            }
+//        }
         int i,j,colNotZero;
         /* Cek elemen [0][0] apakah nilai 0 jika iya swap dengan baris lain */   
         if(firstZeroInRow(0) == 0){
