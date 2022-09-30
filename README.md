@@ -270,7 +270,7 @@ Bagi setiap elemen di baris ke-2 dengan 1.00
 ---------------------------------------------------------
 ```
 
-Di akhir proses eliminasi Gauss-Jordan, akan dihasilkan sebuah matriks eselon baris tereduksi dan menghasilkan sebuah solusi SPL, sebagai berikut:
+Di akhir proses eliminasi Gauss-Jordan, akan dihasilkan sebuah matriks eselon baris tereduksi dan sebuah solusi SPL, sebagai berikut:
 ```
 ---------------------------------------------------------
 Dengan metode Eliminasi Gauss-Jordan, diperoleh solusi SPL:
@@ -435,4 +435,122 @@ Metode Kaidah Cramer tidak dapat diterapkan
 ```
 
 Apabila masukan via file (*.txt), maka penulisan matriks A dan B harus dilakukan secara augmented seperti yang dilakukan pada metode Gauss dan Gauss-Jordan.
+
+## DETERMINAN MATRIKS
+Apabila pengguna memasukkan angka 1 (Sistem Persamaan Linier), maka akan muncul **pilihan metode** yang dapat digunakan sesuai kebutuhan pengguna. Masing-masing pilihan berkaitan dengan metode penyelesaian Sistem Persamaan Linier(SPL).
+```
+---------------------------------------------------------
+                           Menu
+                       2.Determinan
+---------------------------------------------------------
+                      Pilihan Metode:
+1. Metode Eliminasi Gauss
+2. Metode Ekspansi Kofaktor
+3. Kembali ke Menu Utama
+---------------------------------------------------------
+Masukkan pilihan metode Anda:
+
+```
+
+### Metode Eliminasi Gauss
+Metode perhitungan determinan ini sebenarnya menggunakan operasi baris elementer (metode Gauss, tetapi diagonal utama matriks tidak perlu bernilai 1). Matriks akan dioperasikan sehingga berbentuk segitiga atas (seluruh elemen matriks di bawah diagonal utama bernilai 0). Perhitungan determinan akan dilakukan dengan mengalikan seluruh elemen diagonal utama matriks hasil OBE.
+
+Pada metode Eliminasi Gauss, untuk masukan via CLI, pengguna akan diminta untuk memasukkan nilai tiap elemen baris dan kolom pada matriks augmented (matriks harus berupa matriks persegi, ukuran baris = ukuran kolom), program yang akan muncul sebagai berikut:
+```
+---------------------------------------------------------
+                         Sumber
+                   1. Masukan dari CLI
+---------------------------------------------------------
+Masukkan ukuran matriks persegi (NxN) N:
+3
+Masukkan matriks:
+Masukkan nilai untuk baris ke-1 kolom ke-1:
+4
+Masukkan nilai untuk baris ke-1 kolom ke-2:
+2
+Masukkan nilai untuk baris ke-1 kolom ke-3:
+8
+Masukkan nilai untuk baris ke-2 kolom ke-1:
+2
+Masukkan nilai untuk baris ke-2 kolom ke-2:
+1
+Masukkan nilai untuk baris ke-2 kolom ke-3:
+5
+Masukkan nilai untuk baris ke-3 kolom ke-1:
+3
+Masukkan nilai untuk baris ke-3 kolom ke-2:
+2
+Masukkan nilai untuk baris ke-3 kolom ke-3:
+4
+Matriks berhasil dibaca.
+---------------------------------------------------------
+```
+
+Di akhir proses eliminasi Gauss, akan dihasilkan nilai determinan matriks, sebagai berikut:
+```
+---------------------------------------------------------
+Matriks yang dibaca:
+4.000000 2.000000 8.000000
+2.000000 1.000000 5.000000
+3.000000 2.000000 4.000000
+---------------------------------------------------------
+Dengan metode Eliminasi Gauss,
+diperoleh nilai determinan:
+-2.0
+---------------------------------------------------------
+```
+
+Apabila masukan via file (*.txt), maka penulisan matriks A harus dilakukan secara augmented (dengan syarat, matriks A merupakan matriks persegi, ukuran baris = ukuran kolom) seperti yang dilakukan pada metode-metode sebelumnya.
+
+### Metode Kofaktor
+Metode perhitungan determinan ini menggunakan minor dan kofaktor pada matriks masukan.Perhitungan determinan akan menggunakan elemen pada baris pertama yang masing-masing akan dikalikan dengan kofaktor-nya. Masing-masing kofaktor akan dihitung dengan mencari minornya yang kemudian determinannya akan dihitung pula menggunakan fungsi determinan metode kofaktor (rekursi).
+
+Pada metode Kofaktor, untuk masukan via CLI, pengguna akan diminta untuk memasukkan nilai tiap elemen baris dan kolom pada matriks augmented (matriks harus berupa matriks persegi, ukuran baris = ukuran kolom), program yang akan muncul sebagai berikut:
+```
+---------------------------------------------------------
+                         Sumber
+                   1. Masukan dari CLI
+---------------------------------------------------------
+Masukkan ukuran matriks persegi (NxN) N:
+3
+Masukkan matriks:
+Masukkan nilai untuk baris ke-1 kolom ke-1:
+2
+Masukkan nilai untuk baris ke-1 kolom ke-2:
+0
+Masukkan nilai untuk baris ke-1 kolom ke-3:
+1
+Masukkan nilai untuk baris ke-2 kolom ke-1:
+3
+Masukkan nilai untuk baris ke-2 kolom ke-2:
+1
+Masukkan nilai untuk baris ke-2 kolom ke-3:
+2
+Masukkan nilai untuk baris ke-3 kolom ke-1:
+4
+Masukkan nilai untuk baris ke-3 kolom ke-2:
+2
+Masukkan nilai untuk baris ke-3 kolom ke-3:
+3
+Matriks berhasil dibaca.
+---------------------------------------------------------
+```
+
+Di akhir proses metode kofaktor, akan dihasilkan nilai determinan matriks, sebagai berikut:
+```
+---------------------------------------------------------
+Matriks yang dibaca:
+2.000000 0.000000 1.000000
+3.000000 1.000000 2.000000
+4.000000 2.000000 3.000000
+---------------------------------------------------------
+Dengan metode Ekspansi Kofaktor,
+diperoleh nilai determinan:
+0.0
+---------------------------------------------------------
+```
+
+Apabila masukan via file (*.txt), maka penulisan matriks A harus dilakukan secara augmented (dengan syarat, matriks A merupakan matriks persegi, ukuran baris = ukuran kolom) seperti yang dilakukan pada metode-metode sebelumnya.
+
+
 
