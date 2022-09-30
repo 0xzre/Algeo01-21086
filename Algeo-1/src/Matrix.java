@@ -471,9 +471,9 @@ public class Matrix {
             this.matrix[row][i] /= n;
         }
         corrZero();
-        // System.out.printf("Bagi setiap elemen di baris ke-%d dengan %.2f\n", (row+1), n);
-        // displayMatrix();
-        // System.out.println();
+        System.out.printf("Bagi setiap elemen di baris ke-%d dengan %.2f\n", (row+1), n);
+        displayMatrix();
+        System.out.println();
     }
 
     public Matrix multiplyMatrix(Matrix m1, Matrix m2){ // MENGALIKAN 2 BUAH MATRIX
@@ -950,4 +950,5 @@ public class Matrix {
         }
         return string;
     }
+
 }
