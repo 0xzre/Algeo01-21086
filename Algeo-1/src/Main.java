@@ -1012,13 +1012,13 @@ public class Main {
             output.close();
             System.out.println("---------------------------------------------------------");
             System.out.println("File " +namaFile+ " berhasil disimpan.");                      
+            }
             System.out.println("---------------------------------------------------------");
             System.out.println("               Operasi Interpolasi Bicubic               ");
             System.out.println("                         SELESAI                         ");
             System.out.println("                  Kembali ke Menu Utama                  ");
             System.out.println("---------------------------------------------------------");
             MainMenu();
-            }
 
         }catch (Exception e){
             System.out.println("Masukkan menu tidak valid, silahkan ulangi.");

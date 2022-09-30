@@ -755,7 +755,7 @@ Apabila pengguna memasukkan angka 4 (Interpolasi Polinom), maka akan muncul **pi
 Misalkan untuk studi kasus:
 x|0.1|0.3|0.5|0.7|0.9|1.1|1.3
 -|-|-|-|-|-|-|-
-f(x)|0.003|0.067|0.148|0.248|0.370|0.518|0.697
+y|0.003|0.067|0.148|0.248|0.370|0.518|0.697
 
 Pada menu interpolasi polinom, untuk masukan via CLI, pengguna akan diminta untuk memasukkan banyak nilai sampel, serta ordinat dan , program yang akan muncul sebagai berikut:
 ```
