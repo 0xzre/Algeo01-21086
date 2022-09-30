@@ -214,12 +214,15 @@ public class Main {
                 System.out.println("---------------------------------------------------------");
                 System.out.println("Dengan metode Eliminasi Gauss, diperoleh solusi SPL:  ");
                 // PANGGIL FUNGSI GAUSS
-                for(i = 0; i < mat.rows; i++){
-                    System.out.printf("X%d = %f\n",i+1,mat.matrix[i][mat.cols-1]);
-                }
+                HashMap<String, String> solusi = new HashMap<>();
+                solusi = Matrix.preSolusiGauss(mat);
+                String displaySolusi;
+                displaySolusi = Matrix.displaySolusiGauss(solusi);
+                res = displaySolusi.replace("null","");
+                System.out.println(res);
 
                 // RES DIGUNAKAN UNTUK MENYIMPAN HASIL SOLUSI SPL
-                System.out.println(res);
+//                System.out.println(res);
                 System.out.println("---------------------------------------------------------");
                 System.out.println("Hasil ingin disimpan? (y/n):    ");
                 simpan = input.next().charAt(0);
@@ -235,12 +238,15 @@ public class Main {
                 System.out.println("Dengan metode Eliminasi Gauss-Jordan, diperoleh solusi SPL:  ");
                 
                 // PANGGIL FUNGSI GAUSS-JORDAN
-                for(i = 0; i < mat.rows; i++){
-                    System.out.printf("X%d = %f\n",i+1,mat.matrix[i][mat.cols-1]);
-                }
+                HashMap<String, String> solusi = new HashMap<>();
+                solusi = Matrix.preSolusiGauss(mat);
+                String displaySolusi;
+                displaySolusi = Matrix.displaySolusiGauss(solusi);
+                res = displaySolusi.replace("null","");
+                System.out.println(res);
 
                 // RES DIGUNAKAN UNTUK MENYIMPAN HASIL SOLUSI SPL
-                System.out.println(res);
+//                System.out.println(res);
                 System.out.println("---------------------------------------------------------");
                 System.out.println("Hasil ingin disimpan? (y/n):    ");
                 simpan = input.next().charAt(0);
@@ -615,7 +621,7 @@ public class Main {
             // OPERASI MATRIKS BALIKAN TARUH DISINI
             if(metode==1 && (sumber==1 || sumber==2)){
                 // MENCARI MATRIKS BALIKAN DENGAN ELIMINASI GAUSS
-                if(mat.isZero(mat.inverseOBE(), mat.epsilon)){
+                if(!mat.isZero(mat.inverseOBE(), mat.epsilon)){
                     System.out.println("---------------------------------------------------------");
                     System.out.println("Dengan metode Eliminasi Gauss,  ");
                     System.out.println("diperoleh matriks balikan:     ");
@@ -627,7 +633,7 @@ public class Main {
 
                 }
                 else{
-                    System.out.println("determinan matriks adalah 0,\nmatriks tidak memiliki matriks balikan\n---------------------------------------------------------");
+                    System.out.println("Bagian kiri matriks yang telah dioperasikan Gauss-Jordan tidak dapat membentuk matriks Identitas\nMaka inverse tidak ada");
                 }
 
                 // MENYIMPAN FILE
@@ -707,6 +713,7 @@ public class Main {
             double[] solusiInterpolasi = new double[1];
             Matrix xy = new Matrix(0, 0);
             
+            
             int n= 0;
 
             System.out.println("---------------------------------------------------------");
@@ -740,8 +747,12 @@ public class Main {
                     System.out.println("                 2. Masukan dari file .txt               ");
                     System.out.println("---------------------------------------------------------");
                     System.out.println("Masukkan nama file (.txt) dalam folder test: ");
+
                     namaFile = input.next();
+                    
                     mat.readMatrixFILE(namaFile);
+                    n = mat.rows;
+                    
                     // NILAI TITIK
                     break;
                 default:
@@ -870,6 +881,11 @@ public class Main {
             String namaFile = null;
             Matrix mat = new Matrix(0,0);
             Scanner input = new Scanner(System.in);
+            Matrix m = new Matrix(4, 4);
+            Matrix matX = new Matrix(16, 16);
+            Matrix a = new Matrix(4, 4);
+            int i,j,k,l;
+            double u =0,v= 0,sum = 0;
 
             System.out.println("---------------------------------------------------------");
             System.out.println("                           Menu                          ");
@@ -893,21 +909,23 @@ public class Main {
                     System.out.println("Masukkan nama file (.txt) dalam folder test: ");
                     namaFile = input.next();
                     mat.readMatrixFILE(namaFile);
-                    // NILAI TITIK
-                    break;
-                default:
-                    System.out.println("Masukan sumber tidak valid, silahkan ulangi.");
-                    subMenuInterBic();
-            }
 
-            // OPERASI INTERPOLASI BICUBIC TARUH DISINI
-                /* Bicubic  */
-            Matrix m = new Matrix(4, 4);
-            Matrix matX = new Matrix(16, 16);
-            Matrix a = new Matrix(4, 4);
-            int i,j,k,l;
-            double u,v,sum = 0;
-          
+                    u = (int)mat.matrix[mat.rows-1][0];
+                    v = (int)(mat.matrix[mat.rows-1][1]);
+                    mat = mat.extendMatrix(-1, 0);
+
+                // NILAI TITIK
+                    break;
+            
+            default:
+                System.out.println("Masukan sumber tidak valid, silahkan ulangi.");
+                subMenuInterBic();
+        }
+
+        // OPERASI INTERPOLASI BICUBIC TARUH DISINI
+            /* Bicubic  */
+        
+        
             for(i = 0; i < 4; i++){
                 for(j = 0; j < 4; j++){
                     System.out.printf("Masukkan nilai f(%d,%d) = ", (i-1), (j-1));
@@ -916,10 +934,11 @@ public class Main {
             }
 
             System.out.println("\nUntuk mencari nilai f(a,b) dengan interpolasi...");
-            System.out.printf("Masukkan a = ");
-            u = input.nextDouble();
-            System.out.printf("Masukkan b = ");
-            v = input.nextDouble();
+            if (sumber == 1)
+                {System.out.printf("Masukkan a = ");
+                u = input.nextDouble();
+                System.out.printf("Masukkan b = ");
+                v = input.nextDouble();}
 
             for(i = 0 ; i < 4; i++){
                 for(j = 0 ; j < 4; j++){
@@ -952,7 +971,7 @@ public class Main {
                 }
             }
 
-            System.out.printf("\nMaka f(%f,%f) = %f",u,v,sum);
+            System.out.printf("\nMaka f(%f,%f) = %f\n",u,v,sum);
 
             // MENYIMPAN FILE
             System.out.println("Hasil ingin disimpan? (y/n):    ");
