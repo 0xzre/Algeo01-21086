@@ -407,7 +407,7 @@ public class Matrix {
         return res;
     }
 
-    public static void splGauss(Matrix m, String namaFile) { //MENYELESAIKAN SPL DENGAN GAUSS
+    public static String splGauss(Matrix m, String namaFile) { //MENYELESAIKAN SPL DENGAN GAUSS
         boolean solusi0 = false;
         Matrix mNew = new Matrix(m.rows,m.cols);
         mNew = mNew.copyMatrix(m);
@@ -451,6 +451,7 @@ public class Matrix {
         }
         if (solusi0){
             System.out.println("SPL tidak Memiliki Solusi");
+            return "SPL tidak Memiliki Solusi";
         }
         else{
             String output = "";
@@ -473,10 +474,11 @@ public class Matrix {
                 }
             }
             System.out.println(output);
+            return output;
         }
     }
 
-    public static void splGaussJordan(Matrix m, String namaFile) { //MENYELESAIKAN SPL DENGAN GAUSS JORDAN
+    public static String splGaussJordan(Matrix m, String namaFile) { //MENYELESAIKAN SPL DENGAN GAUSS JORDAN
         String variabel = "abcdefghijklmnopqrstuvwxyz";
         boolean solusi0 = false;
         Matrix mNew = new Matrix(m.rows,m.cols);
@@ -522,6 +524,7 @@ public class Matrix {
         }
         if (solusi0){
             System.out.println("SPL tidak Memiliki Solusi");
+            return "SPL tidak Memiliki Solusi";
         }
         else{
             String output = "";
@@ -544,6 +547,7 @@ public class Matrix {
                 }
             }
             System.out.println(output);
+            return output;
         }
     }
 
@@ -1166,3 +1170,4 @@ public class Matrix {
     }
 
 }
+

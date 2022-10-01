@@ -1,0 +1,7 @@
+1.0 0.0 0.0 4.999999999999998
+0.0 1.0 0.0 3.0000000000000004
+0.0 0.0 1.0 0.9999999999999994
+Dengan menggunakan Metode Eliminasi Gauss, diperoleh solusi SPL-nya: X1 = 5.00
+X2 = 3.00
+X3 = 1.00
+
