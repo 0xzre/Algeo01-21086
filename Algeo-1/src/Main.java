@@ -784,7 +784,6 @@ public class Main {
                     for(i = 0; i < n; i++){
                         
                         xy.matrix[i][0] = mat.matrix[i][0];
-                   
                         xy.matrix[i][1] = mat.matrix[i][1];
                         
                     }
@@ -877,7 +876,7 @@ public class Main {
                 }
 
                 String strong = "";
-                
+//                System.out.printf("f(x) =");
 
             
                 for(i = n-1; i >= 0; i--){

@@ -1,4 +1,4 @@
-1.0 3.0 2.0 1.0
-5.0 7.0 8.0 1.0
-7.0 6.0 2.0 5.0
-Dengan menggunakan Metode Matriks Balikan, diperoleh solusi SPL-nya: 
+1.0 0.0 -1.0 -2.0
+0.0 1.0 2.0 3.0
+0.0 0.0 0.0 0.0
+Dengan menggunakan Metode Eliminasi Gauss, diperoleh solusi SPL-nya: X1=1.00s -2.00 X2=-2.00s+3.00 X3=s 

@@ -406,7 +406,7 @@ public class Matrix {
                     if(this.matrix[j][firstNonZeroInRow(i)] != 0){
                         pengali = this.matrix[j][firstNonZeroInRow(i)]/this.matrix[i][firstNonZeroInRow(i)];
                         addMultiplyRow(j, i, (-1)*pengali);
-                         System.out.printf("\nKurangi baris ke-%d dengan %f kali baris ke-%d\n", (j+1), pengali , (i+1));
+                         System.out.printf("Kurangi baris ke-%d dengan %f kali baris ke-%d\n", (j+1), pengali , (i+1));
                          displayMatrix();
 
                     }
