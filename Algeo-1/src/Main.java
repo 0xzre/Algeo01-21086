@@ -217,11 +217,7 @@ public class Main {
                 System.out.println("---------------------------------------------------------");
                 System.out.println("Dengan metode Eliminasi Gauss, diperoleh solusi SPL:  ");
                 // PANGGIL FUNGSI GAUSS
-                HashMap<String, String> solusi = new HashMap<>();
-                solusi = Matrix.preSolusiGauss(mat);
-                String displaySolusi;
-                displaySolusi = Matrix.displaySolusiGauss(solusi);
-                res = displaySolusi.replace("null","");
+                Matrix.splGauss(mat, res);
                 System.out.println(res);
 
                 // RES DIGUNAKAN UNTUK MENYIMPAN HASIL SOLUSI SPL
@@ -241,11 +237,7 @@ public class Main {
                 System.out.println("Dengan metode Eliminasi Gauss-Jordan, diperoleh solusi SPL:  ");
                 
                 // PANGGIL FUNGSI GAUSS-JORDAN
-                HashMap<String, String> solusi = new HashMap<>();
-                solusi = Matrix.preSolusiGauss(mat);
-                String displaySolusi;
-                displaySolusi = Matrix.displaySolusiGauss(solusi);
-                res = displaySolusi.replace("null","");
+                Matrix.splGaussJordan(mat, res);
                 System.out.println(res);
 
                 // RES DIGUNAKAN UNTUK MENYIMPAN HASIL SOLUSI SPL

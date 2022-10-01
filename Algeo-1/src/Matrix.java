@@ -119,26 +119,14 @@ public class Matrix {
         }
     }
 
-    public void createMatrix(int rows, int cols){ // MEMBENTUK MATRIX DENGAN MASUKAN nROWS dan nCOLS
-        int i, j;
-        for(i=0; i<this.rows; i++){
-            for(j=0; j<this.cols; j++){
-                this.matrix[i][j] = 0;
+    public Matrix copyMatrix(Matrix a){
+        Matrix result = new Matrix(a.rows, a.cols);
+        for (int i=0;i<a.rows;i++){
+            for (int j=0;j<a.cols;j++){
+                result.matrix[i][j] = a.matrix[i][j];
             }
         }
-    }
-
-    public Matrix copyMatrix(){ // MENYALIN ISI SEBUAH MATRIX
-        Matrix mOut = new Matrix(this.rows, this.cols);
-        int i, j;
-        mOut.rows = this.rows;
-        mOut.cols = this.cols;
-        for(i=0; i<this.rows; i++){
-            for(j=0; j<this.cols; j++){
-                mOut.matrix[i][j] = this.matrix[i][j];
-            }
-        }
-        return mOut;
+        return result;
     }
 
     public Matrix extendMatrix(int nRows, int nCols){ // MEMPERBESAR UKURAN MATRIX
@@ -197,23 +185,6 @@ public class Matrix {
         }
         return false;
     }
-
-    public boolean isIdentity(){
-        boolean iden = true;
-        int i,j;
-        for(i = 0; i < this.rows; i++){
-            for(j = 0; j < this.cols; j++){
-                if(j != i && !isZero(this.matrix[i][j], epsilon)){
-                    return false;
-                }
-                else if(j == i && !isZero(this.matrix[i][j]-1, 0.0001)){
-                    return false;
-                }
-            }
-        }
-        return iden;
-    }
-
     
     public boolean isAtLeastColZero(){ // APAKAH ADA NILAI 0 DALAM SUATU KOLOM
         int i;
@@ -238,23 +209,6 @@ public class Matrix {
                 }
             }
         }
-    }
-
-    public boolean isSegitigaAtas() { // MENGECEK APAKAH SEBUAH MATRIX ADALAH SEGITIGA ATAS
-        boolean cek = true;
-        int i, j;
-        if (this.rows < 2 || this.cols < 2) {
-            return false;
-        } else {
-            for (i = 1; i < this.rows; i++) {
-                for (j = 0; j < i; j++) {
-                    if (this.matrix[i][j] != 0) {
-                        cek = false;
-                    }
-                }
-            }
-        }
-        return cek;
     }
 
     public void reduceMatrix(double M[][], int i, int j){ // MEMPERKECIL UKURAN MATRIX
@@ -300,31 +254,16 @@ public class Matrix {
         return (this.rows == this.cols);
     }
 
-    /* PRIMITIF UNTUK GAUSS */
-
-    int jumlahSolusi(){ // MENGHITUNG JUMLAH SOLUSI DARI SEBUAH SPL GAUSS
-        int i = 0;
-        int jumlahSolusi;
-        boolean nolPojok = true;
-        boolean nolSebelahPojok = true;
-        if((this.matrix[this.rows-1][this.cols-1]) != 0.0d){
-            nolPojok = false;
-        }
-        while((i<this.cols-1) && nolSebelahPojok){
-            if((this.matrix[this.rows-1][i])  != 0.0d){
-                nolSebelahPojok = false;
+    public static boolean IsEmpty (double[] m) {
+        for (int i = 0; i < m.length; i++) {
+            if (m[i] != 0) {
+                return false;
             }
-            i++;
         }
-        if(nolPojok && nolSebelahPojok){
-            jumlahSolusi = 2; // SOLUSI TAK HINGGA
-        }else if(nolSebelahPojok && !nolPojok){
-            jumlahSolusi = 0; // SOLUSI TAK ADA
-        }else{
-            jumlahSolusi = 1; // SOLUSI UNIK
-        }
-        return jumlahSolusi;
+        return true;
     }
+
+    /* PRIMITIF UNTUK GAUSS */
 
     public void gauss(){ // METODE GAUSS
         //Inget bentuk augmented
@@ -358,7 +297,7 @@ public class Matrix {
         /* Udah didapat matriks eselon augmented */
     }
 
-    public void gaussNoDisplay(){
+    public void gaussNoDisplay(){ // METODE GAUSS 2
         
         //Inget bentuk augmented
     
@@ -388,12 +327,6 @@ public class Matrix {
         
     }
 
-    public static HashMap<String, String> preSolusiGauss(Matrix mat){
-        // mat.gaussNoDisplay();
-
-        return solusiGaussJordan(mat);
-    }
-
     public void gaussJordan(){ // METODE GAUSS JORDAN
         gauss();
         System.out.println();
@@ -418,118 +351,202 @@ public class Matrix {
 //        displayMatrix();
     }
 
-    public static HashMap<String, String> solusiGaussJordan(Matrix m) { // MENENTUKAN SOLUSI SPL GAUSS JORDAN
-        int jumlahsolusi;
-        HashMap<String, String> solusi = new HashMap<>();
-
-        // m.gaussJordan();
-        jumlahsolusi = m.jumlahSolusi();
-        if (jumlahsolusi == 0) {
-            return solusi;
-        } else if (jumlahsolusi == 1) {
-            for (int i = m.rows - 1; i >= 0; i--) {
-                double elemen = m.matrix[i][m.cols - 1];
-                String string = String.format("%.2f", elemen);
-                solusi.put("X" + (i + 1), string);
-            }
-            return solusi;
-        } else {
-            solusi = m.toParametrik();
-            return solusi;
-        }
-    }
-
-    public static String displaySolusiGauss(HashMap<String, String> solusi){ // MENAMPILKAN SOLUSI SPL GAUSS & GAUSS-JORDAN
-        String string = new String();
-        if(solusi.isEmpty()){
-            string = "SPL tidak memiliki solusi";
-        }else{
-            for(int i = 0; i< solusi.size(); i++){
-                string = string.concat("X"+(i+1)+"="+solusi.get("X"+(i+1))+" ");
-            }
-        }
-        return string;
-    }
-    HashMap<String, String> toParametrik(){ // MENCETAK SOLUSI PARAMETRIK SUATU MATRIX
-        int i,j;
-        HashMap<String, String> solusiParametrik = new HashMap<>();
-        char variabel = 's';
-        for(j=this.cols-2; j>=0; j--){
-            boolean rowZero = true;
-            for(i=this.rows-1; i>=0; i--){
-                if(this.matrix[i][j] != 0){
-                    rowZero = false;
-                    break;
-                }
-            }
-            if(rowZero || (this.matrix[i][j] != 1)){
-                solusiParametrik.put("X"+(j+1), variabel+"");
-                if(variabel == 'z'){
-                    variabel -= 25;
+    public static String stringSPLGauss(double[] m){ //MENCETAK SOLUSI SPL
+        String variabel = "abcdefghijklmnopqrstuvwxyz";
+        String res = "";
+        for (int i=1;i<m.length;i++){
+            if(m[i]!=0){
+                if (res==""){
+                    if(m[i]==1){
+                        res = variabel.substring(i-1, i);
+                    }
+                    else if(m[i]==-1){
+                        res = "-" + variabel.substring(i-1, i);
+                    }
+                    else{
+                        res = String.format("%.2f", m[i]) + variabel.substring(i-1, i);
+                    }
                 }
                 else{
-                    variabel++;
+                    if (m[i] > 0) {
+                        if (m[i]==1) {
+                            res += " + " + variabel.substring(i-1, i);
+                        }
+                        else {
+                            res += " + " + String.format("%.2f", m[i]) + variabel.substring(i-1, i);
+                        }
+                    }
+                    else {
+                        if (m[i]==-1) {
+                            res += " - " + variabel.substring(i-1, i);
+                        } else {
+                            res += " - " + String.format("%.2f", m[i]*(-1)) + variabel.substring(i-1, i);
+                        }
+                    }
                 }
             }
         }
-        int countRowsNotZero = 0;
-        i = 0;
-        j = 0;
-        boolean zero = true;
-        while(i<this.rows){
-            zero = true;
-            while(zero && j<this.cols){
-                if(this.matrix[i][j] != 0){
-                    countRowsNotZero++;
-                    zero = false;
+        if(m[0]!=0){
+            if(res==""){
+                res = String.format("%.2f", m[0]);
+            }
+            else{
+                if(m[0]>0){
+                    res += " + " + String.format("%.2f", m[0]);
                 }
-                j++;
+                else{
+                    res += " - " + String.format("%.2f", m[0]*(-1));
+                }
             }
-            i++;
         }
-        for(i=0; i<countRowsNotZero; i++){
-            j=0;
-            while(this.matrix[i][j] != 1){
-                j++;
+        else{
+            if(res==""){
+                res = "0";
             }
-            solusiParametrik.put("X"+(j+1), "");
-            if(j != this.cols-2){
-                for(int k=j+1; k<this.cols; k++){
-                    if(solusiParametrik.get("X"+(j+1)) != null && solusiParametrik.get("X"+(j+1)).equals("")){
-                        if(k != this.cols-1){
-                            if(this.matrix[i][k] > 0){
-                                solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + "-" + String.format("%.2f", this.matrix[i][k]) + solusiParametrik.get("X"+(k+1)));
+        }
+        return res;
+    }
+
+    public static void splGauss(Matrix m, String namaFile) { //MENYELESAIKAN SPL DENGAN GAUSS
+        String variabel = "abcdefghijklmnopqrstuvwxyz";
+        boolean solusi0 = false;
+        Matrix mNew = new Matrix(m.rows,m.cols);
+        mNew = mNew.copyMatrix(m);
+        m.gaussNoDisplay();
+        double[][] solusi = new double[27][27];
+        int indeks = 1;
+        for (int i=m.rows-1;i>=0;i--){
+            int found = -1;
+            double[] hasil = new double[27];
+            for (int j=0;j<m.cols;j++){
+                if(m.matrix[i][j]!=0){
+                    if(j==m.cols-1){
+                        hasil[0] += m.matrix[i][j];
+                    }
+                    else{
+                        if(IsEmpty(solusi[j])){
+                            if(found!=-1){
+                                solusi[j][indeks] = 1;
+                                hasil[indeks] = (-1)*m.matrix[i][j];
+                                indeks+=1;
                             }
-                            else if (this.matrix[i][k] < 0) {
-                                solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + String.format("%.2f", (-1)*this.matrix[i][k]) + solusiParametrik.get("X"+(k+1)));
-                            }
-                        }else{
-                            if(this.matrix[i][k] > 0 || this.matrix[i][k] < 0){
-                                solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + String.format("%.2f", this.matrix[i][k]));
+                            else{
+                                found = j;
                             }
                         }
-                    }else{
-                        if(k != this.cols-1){
-                            if(this.matrix[i][k] > 0){
-                                solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + "-" + String.format("%.2f", this.matrix[i][k]) + solusiParametrik.get("X" + (k+1)));
-                            }
-                            else if (this.matrix[i][k] < 0) {
-                                solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + "+" + String.format("%.2f", (-1)*this.matrix[i][k]) + solusiParametrik.get("X" + (k+1)));
-                            }
-                        }else{
-                            if(this.matrix[i][k] > 0){
-                                solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + "+" + String.format("%.2f", this.matrix[i][k]));
-                            }else if(this.matrix[i][k] < 0){
-                                solusiParametrik.replace("X" + (j+1), solusiParametrik.get("X" + (j+1)) + " " + String.format("%.2f", this.matrix[i][k]));
+                        else{
+                            for (int k=0;k<27;k++){
+                                hasil[k] = hasil[k] - solusi[j][k]*m.matrix[i][j];
                             }
                         }
                     }
                 }
-            }else{
-                solusiParametrik.replace("X" + (j+1), "" + String.format("%.2f", this.matrix[i][this.cols-1]));
+            }
+            if(found==-1){
+                if(m.matrix[i][m.cols-1]!=0){
+                    solusi0 = true;
+                }
+            }
+            else{
+                solusi[found] = hasil;
             }
         }
-        return solusiParametrik;
+        if (solusi0){
+            System.out.println("SPL tidak Memiliki Solusi");
+        }
+        else{
+            String output = "";
+            for (int i=0;i<m.cols-1;i++){
+                if(stringSPLGauss(solusi[i])!="0"){
+                    output += "X" + (i+1) + " = " + stringSPLGauss(solusi[i]) + "\n";
+                }
+                else{
+                    for (int k=0;k<mNew.rows;k++){
+                        if(mNew.matrix[k][i]!=0){
+                            output += "X" + (i+1) + " = " + stringSPLGauss(solusi[i]) + "\n";
+                            break;
+                        }
+                        else if(k==mNew.rows-1){
+                            solusi[i][indeks]=1;
+                            indeks++;
+                            output += "X" + (i+1) + " = " + stringSPLGauss(solusi[i]) + "\n";
+                        }
+                    }
+                }
+            }
+            System.out.println(output);
+        }
+    }
+
+    public static void splGaussJordan(Matrix m, String namaFile) { //MENYELESAIKAN SPL DENGAN GAUSS JORDAN
+        String variabel = "abcdefghijklmnopqrstuvwxyz";
+        boolean solusi0 = false;
+        Matrix mNew = new Matrix(m.rows,m.cols);
+        mNew = mNew.copyMatrix(m);
+        m.gauss();
+        double[][] solusi = new double[27][27];
+        int indeks = 1;
+        for (int i=m.rows-1;i>=0;i--){
+            int found = -1;
+            double[] hasil = new double[27];
+            for (int j=0;j<m.cols;j++){
+                if(m.matrix[i][j]!=0){
+                    if(j==m.cols-1){
+                        hasil[0] += m.matrix[i][j];
+                    }
+                    else{
+                        if(IsEmpty(solusi[j])){
+                            if(found!=-1){
+                                solusi[j][indeks] = 1;
+                                hasil[indeks] = (-1)*m.matrix[i][j];
+                                indeks+=1;
+                            }
+                            else{
+                                found = j;
+                            }
+                        }
+                        else{
+                            for (int k=0;k<27;k++){
+                                hasil[k] = hasil[k] - solusi[j][k]*m.matrix[i][j];
+                            }
+                        }
+                    }
+                }
+            }
+            if(found==-1){
+                if(m.matrix[i][m.cols-1]!=0){
+                    solusi0 = true;
+                }
+            }
+            else{
+                solusi[found] = hasil;
+            }
+        }
+        if (solusi0){
+            System.out.println("SPL tidak Memiliki Solusi");
+        }
+        else{
+            String output = "";
+            for (int i=0;i<m.cols-1;i++){
+                if(stringSPLGauss(solusi[i])!="0"){
+                    output += "X" + (i+1) + " = " + stringSPLGauss(solusi[i]) + "\n";
+                }
+                else{
+                    for (int k=0;k<mNew.rows;k++){
+                        if(mNew.matrix[k][i]!=0){
+                            output += "X" + (i+1) + " = " + stringSPLGauss(solusi[i]) + "\n";
+                            break;
+                        }
+                        else if(k==mNew.rows-1){
+                            solusi[i][indeks]=1;
+                            indeks++;
+                            output += "X" + (i+1) + " = " + stringSPLGauss(solusi[i]) + "\n";
+                        }
+                    }
+                }
+            }
+            System.out.println(output);
+        }
     }
 
     /*  OPERASI OBE */
@@ -580,7 +597,7 @@ public class Matrix {
         // System.out.println();
     }
 
-    public Matrix multiplyMatrix(Matrix m1, Matrix m2){
+    public Matrix multiplyMatrix(Matrix m1, Matrix m2){ // MENGALIKAN 2 BUAH MATRIKS
         int i,j,k;
         double sum;
         Matrix m3 = new Matrix(m1.rows,m2.cols);
@@ -887,21 +904,6 @@ public class Matrix {
             
             
             
-    }
-
-    public void inverseSPL(){ // MENCARI SOLUSI SPL DENGAN MATRIX BALIKAN
-        Matrix y = new Matrix(this.rows, 1);
-        int i;
-        for(i = 0; i < this.rows; i++){
-                y.matrix[i][0] = this.matrix[i][this.cols-1];
-        }
-        Matrix newMat = this.extendMatrix(0, -1);
-        newMat.inverseOBE();
-        Matrix solusi =  multiplyMatrix(newMat, y);
-        System.out.println("\nSolusi dari SPL tersebut adalah...");
-        for(i = 0; i< newMat.cols; i++){
-            System.out.printf("X%d = %f\n",i+1,solusi.matrix[i][0]);
-        }
     }
 
     public boolean isInverseUrut(){ // MENGECEK APAKAH SUATU MATRIKS BALIKAN TELAH BERURUTAN
