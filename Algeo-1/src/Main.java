@@ -218,10 +218,8 @@ public class Main {
                 System.out.println("Dengan metode Eliminasi Gauss, diperoleh solusi SPL:  ");
                 // PANGGIL FUNGSI GAUSS
                 Matrix.splGauss(mat, res);
-                System.out.println(res);
 
                 // RES DIGUNAKAN UNTUK MENYIMPAN HASIL SOLUSI SPL
-//                System.out.println(res);
                 System.out.println("---------------------------------------------------------");
                 System.out.println("Hasil ingin disimpan? (y/n):    ");
                 simpan = input.next().charAt(0);
@@ -238,10 +236,8 @@ public class Main {
                 
                 // PANGGIL FUNGSI GAUSS-JORDAN
                 Matrix.splGaussJordan(mat, res);
-                System.out.println(res);
 
                 // RES DIGUNAKAN UNTUK MENYIMPAN HASIL SOLUSI SPL
-//                System.out.println(res);
                 System.out.println("---------------------------------------------------------");
                 System.out.println("Hasil ingin disimpan? (y/n):    ");
                 simpan = input.next().charAt(0);

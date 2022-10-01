@@ -281,8 +281,11 @@ SPL tidak memiliki solusi
 Apabila sebuah sistem persamaan linier memiliki solusi tak hingga/banyak, maka program akan menuliskan solusinya, sebagai berikut:
 ```
 ---------------------------------------------------------
-Dengan metode Eliminasi Gauss-Jordan, diperoleh solusi SPL:
-X1=-2.00t+3.00s+7.00 X2=1.00t-4.00s+5.00 X3=t X4=s
+Dengan metode Eliminasi Gauss, diperoleh solusi SPL:
+x1 = -2.00a + 3.00b + 7.00
+x2 = a - 4.00b + 5.00
+x3 = a
+x4 = b
 ---------------------------------------------------------
 ```
 

@@ -408,7 +408,6 @@ public class Matrix {
     }
 
     public static void splGauss(Matrix m, String namaFile) { //MENYELESAIKAN SPL DENGAN GAUSS
-        String variabel = "abcdefghijklmnopqrstuvwxyz";
         boolean solusi0 = false;
         Matrix mNew = new Matrix(m.rows,m.cols);
         mNew = mNew.copyMatrix(m);
