@@ -876,7 +876,7 @@ public class Main {
                 }
 
                 String strong = "";
-                System.out.printf("f(x) =");
+//                System.out.printf("f(x) =");
 
             
                 for(i = n-1; i >= 0; i--){
