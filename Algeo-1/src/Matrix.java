@@ -317,7 +317,6 @@ public class Matrix {
                         addMultiplyRow(j, i, (-1)*pengali);
                          System.out.printf("\nKurangi baris ke-%d dengan %f kali baris ke-%d\n", (j+1), pengali , (i+1));
                          displayMatrix();
-                         System.out.println();
 
                     }
                 }
@@ -512,7 +511,7 @@ public class Matrix {
                     if(this.matrix[i][colNotZero] != 0){
                         pengali = this.matrix[i][colNotZero] / this.matrix[a][colNotZero];
                         addMultiplyRow(i,a, (-1)*pengali);
-                         System.out.printf("\nKurangi baris ke-%d dengan %f kali baris ke-%d\n", (i+1), pengali , (colNotZero+1));
+                         System.out.printf("Kurangi baris ke-%d dengan %f kali baris ke-%d\n", (i+1), pengali , (colNotZero+1));
                          displayMatrix();
                          System.out.println();
                     }
