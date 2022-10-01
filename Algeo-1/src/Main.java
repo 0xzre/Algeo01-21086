@@ -776,6 +776,7 @@ public class Main {
                     namaFile = input.next();
                     
                     mat.readMatrixFILE(namaFile);
+                    mat.displayMatrix();
                     n = mat.rows;
 
                     solusiInterpolasi = new double[n];
@@ -783,11 +784,10 @@ public class Main {
                     for(i = 0; i < n; i++){
                         
                         xy.matrix[i][0] = mat.matrix[i][0];
-                        System.out.printf("Masukkan Y%d = ",i+1);
                         xy.matrix[i][1] = mat.matrix[i][1];
-                        System.out.println("---------------------------------------------------------");
+                        
                     }
-                    
+                    System.out.println("---------------------------------------------------------");
                     // NILAI TITIK
                     break;
                 default:
