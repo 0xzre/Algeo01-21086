@@ -217,7 +217,7 @@ public class Main {
                 System.out.println("---------------------------------------------------------");
                 System.out.println("Dengan metode Eliminasi Gauss, diperoleh solusi SPL:  ");
                 // PANGGIL FUNGSI GAUSS
-                Matrix.splGauss(mat, res);
+                res = Matrix.splGauss(mat, res);
 
                 // RES DIGUNAKAN UNTUK MENYIMPAN HASIL SOLUSI SPL
                 System.out.println("---------------------------------------------------------");
@@ -235,7 +235,8 @@ public class Main {
                 System.out.println("Dengan metode Eliminasi Gauss-Jordan, diperoleh solusi SPL:  ");
                 
                 // PANGGIL FUNGSI GAUSS-JORDAN
-                Matrix.splGaussJordan(mat, res);
+                res = Matrix.splGaussJordan(mat, res);
+
 
                 // RES DIGUNAKAN UNTUK MENYIMPAN HASIL SOLUSI SPL
                 System.out.println("---------------------------------------------------------");
@@ -359,16 +360,16 @@ public class Main {
                     output.write(string);
                 }
                 if (metode == 1){
-                    output.write("Dengan menggunakan Metode Eliminasi Gauss, diperoleh solusi SPL-nya: " + res +"\n");
+                    output.write("Dengan menggunakan Metode Eliminasi Gauss, diperoleh solusi SPL-nya: \n" + res +"\n");
                 }
                 else if (metode == 2){
-                    output.write("Dengan menggunakan Metode Eliminasi Gauss Jordan, diperoleh solusi SPL-nya: " + res + "\n");
+                    output.write("Dengan menggunakan Metode Eliminasi Gauss Jordan, diperoleh solusi SPL-nya: \n" + res + "\n");
                 }
                 else if (metode == 3){
-                    output.write("Dengan menggunakan Metode Matriks Balikan, diperoleh solusi SPL-nya: " + res + "\n");
+                    output.write("Dengan menggunakan Metode Matriks Balikan, diperoleh solusi SPL-nya: \n" + res + "\n");
                 }
                 else if (metode == 4){
-                    output.write("Dengan menggunakan Metode Kaidah Cramer, diperoleh solusi SPL-nya: " + res + "\n");
+                    output.write("Dengan menggunakan Metode Kaidah Cramer, diperoleh solusi SPL-nya: \n" + res + "\n");
                 }
                 output.close();
                 System.out.println("---------------------------------------------------------");
@@ -518,10 +519,10 @@ public class Main {
                     output.write(string);
                 }
                 if (metode == 1){
-                    output.write("Dengan menggunakan Metode Eliminasi Gauss, diperoleh nilai determinan matriks: " + res + "\n");
+                    output.write("Dengan menggunakan Metode Eliminasi Gauss, diperoleh nilai determinan matriks: \n" + res + "\n");
                 }
                 else if (metode == 2){
-                    output.write("Dengan menggunakan Metode Ekspansi Kofaktor, diperoleh nilai determinan matriks: " + res + "\n");
+                    output.write("Dengan menggunakan Metode Ekspansi Kofaktor, diperoleh nilai determinan matriks: \n" + res + "\n");
                 }
                 output.close();
                 System.out.println("---------------------------------------------------------");
@@ -696,10 +697,10 @@ public class Main {
                     output.write(string);
                 }
                 if (metode == 1){
-                    output.write("Dengan menggunakan Metode Eliminasi Gauss, diperoleh matriks balikannya: " + res +"\n");
+                    output.write("Dengan menggunakan Metode Eliminasi Gauss, diperoleh matriks balikannya: \n" + res +"\n");
                 }
                 else if (metode == 2){
-                    output.write("Dengan menggunakan Metode Ekspansi Kofaktor, diperoleh matriks balikannya: " + res + "\n");
+                    output.write("Dengan menggunakan Metode Ekspansi Kofaktor, diperoleh matriks balikannya: \n" + res + "\n");
                 }
                 output.close();
                 System.out.println("---------------------------------------------------------");
