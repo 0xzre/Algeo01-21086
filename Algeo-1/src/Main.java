@@ -877,20 +877,21 @@ public class Main {
                 }
 
                 String strong = "";
-                System.out.printf("f(x) =");
+                
 
             
                 for(i = n-1; i >= 0; i--){
 
-                    if(i == 0){
+                    if(i == 0 && !(m.isZero(solusiInterpolasi[0], m.epsilon))){
                         strong += " " + Double.toString(solusiInterpolasi[0]) ;
                     }
 
-                    else if(i == 1){
+                    else if(i == 1 && !(m.isZero(solusiInterpolasi[i], m.epsilon))){
                         strong += " "+ Double.toString(solusiInterpolasi[1]) + "x +";
                     }
 
                     else{
+                        if(!(m.isZero(solusiInterpolasi[i], m.epsilon)))
                         strong += " " + Double.toString(solusiInterpolasi[i]) + "x^" + Integer.toString(i) +" +";
                     }
 
