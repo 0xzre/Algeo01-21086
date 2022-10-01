@@ -412,7 +412,7 @@ public class Matrix {
         boolean solusi0 = false;
         Matrix mNew = new Matrix(m.rows,m.cols);
         mNew = mNew.copyMatrix(m);
-        m.gaussNoDisplay();
+        // m.gaussNoDisplay();
         double[][] solusi = new double[27][27];
         int indeks = 1;
         for (int i=m.rows-1;i>=0;i--){
