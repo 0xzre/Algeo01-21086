@@ -408,6 +408,7 @@ public class Matrix {
                         addMultiplyRow(j, i, (-1)*pengali);
                          System.out.printf("Kurangi baris ke-%d dengan %f kali baris ke-%d\n", (j+1), pengali , (i+1));
                          displayMatrix();
+                         System.out.println();
 
                     }
                 }
@@ -587,16 +588,15 @@ public class Matrix {
         for ( i = 0; i < m3.rows; i++){
             for (j = 0; j < m3.cols; j++){
                 sum = 0;
-                for ( k = 0; k < m3.cols; k++){
+                for ( k = 0; k < m1.cols; k++){
                     sum += (m1.matrix[i][k]) * (m2.matrix[k][j]);
                 }
             
                 m3.matrix[i][j] = sum;
-                System.out.printf("\n%f", sum);
             }
         }
         m3.corrZero();
-        m3.displayMatrix();
+        // m3.displayMatrix();
         return m3;
     }
     

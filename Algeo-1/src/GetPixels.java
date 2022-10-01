@@ -37,7 +37,7 @@ public class GetPixels {
       System.out.println("RGB values at each pixel are stored in the specified file");
 
       //Inputing the rgb value to each rgb matrix
-      File fileRGB = new File("gambar.txt");
+      File fileRGB = new File("../test/output/gambar.txt");
       Scanner input = new Scanner(fileRGB);
       
       Matrix alphaMat = new Matrix(img.getHeight(), img.getWidth());
@@ -57,6 +57,6 @@ public class GetPixels {
 
       input.close();
 
-      alphaMat.displayMatrix();
+      
    }
 }

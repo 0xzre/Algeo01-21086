@@ -1,5 +1,8 @@
 import java.sql.SQLOutput;
 import java.util.*;
+
+import javax.sound.sampled.SourceDataLine;
+
 import java.io.*;
 import java.lang.*;
 
@@ -1161,7 +1164,7 @@ public class Main {
                             }
 
                         }
-                        System.out.println("---------------------------------------------------------");
+                        
                     }
                     
 
@@ -1171,9 +1174,7 @@ public class Main {
                     subMenuRLB();
             }
 
-            // OPERASI REGRESI LINIER BERGANDA TARUH DISINI        
-
-            Matrix yNEE = new Matrix(peubahX + 1, 1);
+            // OPERASI REGRESI LINIER BERGANDA TARUH DISINI     
             Matrix matRLB = new Matrix(peubahX + 1, peubahX + 1);
             double yTaksir = 0;
 
@@ -1187,30 +1188,29 @@ public class Main {
                     }
                 }
             }
+            matRLB = matRLB.extendMatrix(0, 1);
 
-
-            matRLB.inverseOBE();
-            /* Sudah didapatkan inverse di matRLB */
-
-            /* Membuat sisi kanan NEE */
             for (i = 0; i < peubahX + 1; i++) {
-                yNEE.matrix[i][0] = 0;
                 for (j = 0; j < nSampel; j++) {
-                    yNEE.matrix[i][0] += x.matrix[j][i] * y.matrix[j][0];
+                    matRLB.matrix[i][matRLB.cols-1] += x.matrix[j][i] * y.matrix[j][0];
                 }
             }
-
-            Matrix solusi = matRLB.multiplyMatrix(matRLB, yNEE);
+            
+            matRLB.gaussJordan();
+            Matrix solusi = new Matrix(peubahX+1,1);
+            for(i = 0; i < matRLB.rows ; i++){
+                solusi.matrix[i][0] = matRLB.matrix[i][matRLB.cols-1];
+            }
             System.out.println("---------------------------------------------------------");
             System.out.println("Maka didapatkan persamaan..\n");
             System.out.printf("f(x) =");
 
             for (i = 0; i < peubahX + 1; i++) {
                 if( i == 0){
-                    System.out.printf(" %f +", solusi.matrix[i][0]);
+                    System.out.printf(" %f ", solusi.matrix[i][0]);
                 }
                 else{
-                    System.out.printf(" %fX%d", solusi.matrix[i][0], i);
+                    System.out.printf("+ (%f*X%d)", solusi.matrix[i][0], i);
                 }
                 
             }
@@ -1236,7 +1236,12 @@ public class Main {
 
             System.out.printf("y =");
             for (i = 0; i < peubahX + 1; i++) {
-                System.out.printf(" %f x %f", solusi.matrix[i][0], xTaksir[i]);
+                if( i == 0){
+                    System.out.printf(" %f", solusi.matrix[i][0]);
+                }
+                else{
+                    System.out.printf(" (%f) x (%f)", solusi.matrix[i][0], xTaksir[i]);
+                }
                 if (i != peubahX) {
                     System.out.printf(" +");
                 }
@@ -1270,12 +1275,12 @@ public class Main {
                 strong += Double.toString(solusi.matrix[0][0]) + " ";
                 
                 if (peubahX+1 >= 2){
-                    strong += "+ " + Double.toString(solusi.matrix[1][0]) + "x1 " ;
+                    strong += "+ (" + Double.toString(solusi.matrix[1][0]) + "*x1) " ;
                 }
 
                 if ( peubahX+1 >= 3){
                     for(i = 2; i < peubahX+1; i++){
-                        strong += " + " + Double.toString(solusi.matrix[i][0]) + "x"+ Integer.toString(i)+ " " ;
+                        strong += " + (" + Double.toString(solusi.matrix[i][0]) + "*x"+ Integer.toString(i)+ ") " ;
                     }
                 }
 
