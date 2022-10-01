@@ -28,7 +28,7 @@ public class Main {
             Scanner input = new Scanner(System.in);
             System.out.println("---------------------------------------------------------");
             System.out.println("                      TUBES ALGEO-01                     ");
-            System.out.println("                     KELOMPOK SERINGAI                   ");
+            System.out.println("  SISTEM PERSAMAAN LINIER, DETERMINAN, DAN APLIKASINYA   ");
             System.out.println("---------------------------------------------------------");
             System.out.println("                        Menu Utama                       ");
             System.out.println("---------------------------------------------------------");
@@ -1034,15 +1034,14 @@ public class Main {
             output.write(strong/* TULIS DISINI BOSSS OUTPUT bicubb NYA*/);
             output.close();
             System.out.println("---------------------------------------------------------");
-            System.out.println("File " +namaFile+ " berhasil disimpan.");      
-        }                
+            System.out.println("File " +namaFile+ " berhasil disimpan.");                      
+            }
             System.out.println("---------------------------------------------------------");
             System.out.println("               Operasi Interpolasi Bicubic               ");
             System.out.println("                         SELESAI                         ");
             System.out.println("                  Kembali ke Menu Utama                  ");
             System.out.println("---------------------------------------------------------");
             MainMenu();
-            
 
         }catch (Exception e){
             System.out.println("Masukkan menu tidak valid, silahkan ulangi.");

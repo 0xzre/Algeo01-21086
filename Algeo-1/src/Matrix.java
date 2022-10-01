@@ -3,7 +3,7 @@ import java.io.*;
 
 public class Matrix {
 
-    /* Atribut Matrix */
+    /* ATRIBUT MATRIX */
     double[][] matrix;
     int rows;
     int cols;
@@ -19,7 +19,7 @@ public class Matrix {
     }
 
     /* PRIMITIF */
-    public void readMatrixCLI(int rows, int cols){
+    public void readMatrixCLI(int rows, int cols){ // MEMBACA MASUKAN MATRIX VIA CLI
         int i,j;
         double ElType;
         Scanner input = new Scanner(System.in);
@@ -34,37 +34,30 @@ public class Matrix {
         }
     }
 
-    public void readMatrixFILE(String FileName){
+    public void readMatrixFILE(String FileName){ // MEMBACA MASUKAN MATRIX VIA FILE (.txt)
         try{
             int i,j;
             int nRows=0, nCols=0;
             String dir = "../test/input/" + FileName;
             File file = new File(dir);
             Scanner input = new Scanner(file);
-
             while(input.hasNextLine()){
-                nRows += 1;
+                nRows ++;
                 input.nextLine();
             }
             input.close();
-
             input = new Scanner(file);
             Scanner num = new Scanner(input.nextLine());
-
             while(num.hasNextDouble()){
-                nCols += 1;
+                nCols ++;
                 num.nextDouble();
             }
             num.close();
             input.close();
-
             input = new Scanner(file);
-
             this.rows = nRows;
             this.cols = nCols;
-
             matrix = new double[nRows][nCols];
-
             for(i=0; i<nRows; i++){
                 for(j=0; j<nCols; j++){
                     this.matrix[i][j] = input.nextDouble();
@@ -116,7 +109,7 @@ public class Matrix {
     // public void readMatrixTXT(String file){
     // }
 
-    public void displayMatrix(){
+    public void displayMatrix(){ // MENCETAK MATRIX KE LAYAR
         int i, j;
         for(i=0;i<this.rows;i++){
             for(j=0;j<this.cols;j++){
@@ -126,7 +119,7 @@ public class Matrix {
         }
     }
 
-    public void createMatrix(int rows, int cols){
+    public void createMatrix(int rows, int cols){ // MEMBENTUK MATRIX DENGAN MASUKAN nROWS dan nCOLS
         int i, j;
         for(i=0; i<this.rows; i++){
             for(j=0; j<this.cols; j++){
@@ -135,7 +128,7 @@ public class Matrix {
         }
     }
 
-    public Matrix copyMatrix(){
+    public Matrix copyMatrix(){ // MENYALIN ISI SEBUAH MATRIX
         Matrix mOut = new Matrix(this.rows, this.cols);
         int i, j;
         mOut.rows = this.rows;
@@ -148,24 +141,21 @@ public class Matrix {
         return mOut;
     }
 
-    public Matrix extendMatrix(int nRows, int nCols){
+    public Matrix extendMatrix(int nRows, int nCols){ // MEMPERBESAR UKURAN MATRIX
         Matrix mOut = new Matrix(this.rows + nRows, this.cols + nCols);
         int i, j;
-
         if(this.rows <= mOut.rows && this.cols <= mOut.cols ){
             for (i = 0; i < this.rows; i++) {
                 for (j = 0; j < this.cols; j++) {
                     mOut.matrix[i][j] = this.matrix[i][j];
                 }
             }
-
             for(i=this.rows; i<mOut.rows; i++){
                 for(j=this.cols; j<mOut.cols; j++){
                     mOut.matrix[i][j] = 0;
                 }
             }
         }
-
         else{
             for (i = 0; i < mOut.rows; i++) {
                 for (j = 0; j < mOut.cols; j++) {
@@ -173,15 +163,11 @@ public class Matrix {
                 }
             }
         }
-        
-        
         return mOut;
     }
 
-    /*Mengecek apakah pada row  */
-    public boolean isRowsZero(int i){
+    public boolean isRowsZero(int i){ // MENGECEK APAKAH SEBUAH BARIS BERISI 0
         boolean rowsZero = true;
-        
         int j;
         for(j=0; j<this.cols; j++){
             if(!isZero(matrix[i][j], epsilon)){
@@ -191,9 +177,8 @@ public class Matrix {
         return rowsZero;
     }
 
-    public boolean isColsZero(int j){
+    public boolean isColsZero(int j){ // MENGECEK APAKAH SEBUAH KOLOM BERISI 0
         boolean colsZero = true;
-        
         int i;
         for(i=0; i<this.rows; i++){
             if(!isZero(matrix[i][j], epsilon)){
@@ -203,7 +188,7 @@ public class Matrix {
         return colsZero;
     }
 
-    public boolean isAtLeastRowZero(){
+    public boolean isAtLeastRowZero(){ // APAKAH ADA NILAI 0 DALAM SUATU BARIS
         int i;
         for(i = 0; i < this.rows; i++){
             if(isRowsZero(i)){
@@ -229,7 +214,8 @@ public class Matrix {
         return iden;
     }
 
-    public boolean isAtLeastColZero(){
+    
+    public boolean isAtLeastColZero(){ // APAKAH ADA NILAI 0 DALAM SUATU KOLOM
         int i;
         for(i = 0; i < this.cols; i++){
             if(isColsZero(i)){
@@ -239,11 +225,11 @@ public class Matrix {
         return false;
     }
 
-    public boolean isZero(double value, double threshold){
+    public boolean isZero(double value, double threshold){ // MENGECEK SEBUAH NILAI APAKAH 0
         return value >= -threshold && value <= threshold;
     }
 
-    public void corrZero(){
+    public void corrZero(){ // MEMPERBAIKI NILAI -0 DENGAN SEBUAH RANGE
         int i,j;
         for(i = 0; i < this.rows; i++){
             for(j = 0; j < this.cols; j++){
@@ -254,7 +240,7 @@ public class Matrix {
         }
     }
 
-    public boolean isSegitigaAtas() {
+    public boolean isSegitigaAtas() { // MENGECEK APAKAH SEBUAH MATRIX ADALAH SEGITIGA ATAS
         boolean cek = true;
         int i, j;
         if (this.rows < 2 || this.cols < 2) {
@@ -271,7 +257,7 @@ public class Matrix {
         return cek;
     }
 
-    public void reduceMatrix(double M[][], int i, int j){
+    public void reduceMatrix(double M[][], int i, int j){ // MEMPERKECIL UKURAN MATRIX
         int k,l,m,n;
         double T[][];
         T = new double[this.rows][this.cols];
@@ -289,7 +275,6 @@ public class Matrix {
             k += 1;
             m += 1;
         }
-
         l=0;
         n=0;
         while(n<this.cols){
@@ -311,16 +296,13 @@ public class Matrix {
         }
     }
 
-    boolean isSquare(){
+    boolean isSquare(){ // MENGECEK APAKAH SEBUAH MATRIX ADALAH MATRIX PERSEGI (nROWS=nCOLS)
         return (this.rows == this.cols);
     }
 
-
-    
-
     /* PRIMITIF UNTUK GAUSS */
 
-    int jumlahSolusi(){
+    int jumlahSolusi(){ // MENGHITUNG JUMLAH SOLUSI DARI SEBUAH SPL GAUSS
         int i = 0;
         int jumlahSolusi;
         boolean nolPojok = true;
@@ -328,14 +310,12 @@ public class Matrix {
         if((this.matrix[this.rows-1][this.cols-1]) != 0.0d){
             nolPojok = false;
         }
-
         while((i<this.cols-1) && nolSebelahPojok){
             if((this.matrix[this.rows-1][i])  != 0.0d){
                 nolSebelahPojok = false;
             }
             i++;
         }
-
         if(nolPojok && nolSebelahPojok){
             jumlahSolusi = 2; // SOLUSI TAK HINGGA
         }else if(nolSebelahPojok && !nolPojok){
@@ -343,13 +323,10 @@ public class Matrix {
         }else{
             jumlahSolusi = 1; // SOLUSI UNIK
         }
-
         return jumlahSolusi;
-
     }
 
-    public void gauss(){
-        
+    public void gauss(){ // METODE GAUSS
         //Inget bentuk augmented
         
 
@@ -366,27 +343,19 @@ public class Matrix {
 
         
         int i,j,colNotZero;
-
         /* Cek elemen [0][0] apakah nilai 0 jika iya swap dengan baris lain */   
         if(firstZeroInRow(0) == 0){
             swapWithZeroRow(0, 0);
-
         }
-        
         OBE(0);
-
         // Apakah dijamin kebentuk matriks segitiga(kalo gaada baris 0 semua)??
-
         /* Membuat menjadi nilai 1 di kolom palinng kiri non 0 di baris */
         for(i = 0; i < this.rows; i++){{
             if(firstNonZeroInRow(i) != -1 && firstNonZeroInRow(i) != this.cols-1){
                 divideRow(i, this.matrix[i][firstNonZeroInRow(i)]);
             }
         }}
-
-        /* Udah didapat matriks eselon augmented */   
-        
-        
+        /* Udah didapat matriks eselon augmented */
     }
 
     public void gaussNoDisplay(){
@@ -425,11 +394,10 @@ public class Matrix {
         return solusiGaussJordan(mat);
     }
 
-    public void gaussJordan(){
+    public void gaussJordan(){ // METODE GAUSS JORDAN
         gauss();
         System.out.println();
         // System.out.println("Penyulihan Jordan");
-
         int i,notZero,j;
         double pengali;
         for(i = this.rows-1; i >= 0; i--){
@@ -440,7 +408,6 @@ public class Matrix {
                         addMultiplyRow(j, i, (-1)*pengali);
                          System.out.printf("\nKurangi baris ke-%d dengan %f kali baris ke-%d\n", (j+1), pengali , (i+1));
                          displayMatrix();
-                         System.out.println();
 
                     }
                 }
@@ -450,13 +417,12 @@ public class Matrix {
 //        displayMatrix();
     }
 
-    public static HashMap<String, String> solusiGaussJordan(Matrix m) {
+    public static HashMap<String, String> solusiGaussJordan(Matrix m) { // MENENTUKAN SOLUSI SPL GAUSS JORDAN
         int jumlahsolusi;
         HashMap<String, String> solusi = new HashMap<>();
 
         // m.gaussJordan();
         jumlahsolusi = m.jumlahSolusi();
-
         if (jumlahsolusi == 0) {
             return solusi;
         } else if (jumlahsolusi == 1) {
@@ -472,7 +438,7 @@ public class Matrix {
         }
     }
 
-    public static String displaySolusiGauss(HashMap<String, String> solusi){
+    public static String displaySolusiGauss(HashMap<String, String> solusi){ // MENAMPILKAN SOLUSI SPL GAUSS & GAUSS-JORDAN
         String string = new String();
         if(solusi.isEmpty()){
             string = "SPL tidak memiliki solusi";
@@ -483,7 +449,7 @@ public class Matrix {
         }
         return string;
     }
-    HashMap<String, String> toParametrik(){
+    HashMap<String, String> toParametrik(){ // MENCETAK SOLUSI PARAMETRIK SUATU MATRIX
         int i,j;
         HashMap<String, String> solusiParametrik = new HashMap<>();
         char variabel = 's';
@@ -505,12 +471,10 @@ public class Matrix {
                 }
             }
         }
-
         int countRowsNotZero = 0;
         i = 0;
         j = 0;
         boolean zero = true;
-
         while(i<this.rows){
             zero = true;
             while(zero && j<this.cols){
@@ -522,14 +486,12 @@ public class Matrix {
             }
             i++;
         }
-
         for(i=0; i<countRowsNotZero; i++){
             j=0;
             while(this.matrix[i][j] != 1){
                 j++;
             }
             solusiParametrik.put("X"+(j+1), "");
-
             if(j != this.cols-2){
                 for(int k=j+1; k<this.cols; k++){
                     if(solusiParametrik.get("X"+(j+1)) != null && solusiParametrik.get("X"+(j+1)).equals("")){
@@ -569,10 +531,9 @@ public class Matrix {
         return solusiParametrik;
     }
 
+    /*  OPERASI OBE */
 
-    /*  Operasi OBE */
-
-    public void addMultiplyRow (int row1, int row2, double n ) {
+    public void addMultiplyRow (int row1, int row2, double n ) { // MENAMBAHKAN SUATU BARIS DENGAN KELIPATAN BARIS LAIN
         /* Menambahkan suatu baris awal row1 dengan kelipatan n dari baris row2  */
         int i;
         for(i = 0; i < this.cols; i++){
@@ -583,7 +544,7 @@ public class Matrix {
         }
     }
 
-    public void swapRow(int row1, int row2){
+    public void swapRow(int row1, int row2){ // MENUKAR 2 BARIS TERTENTU
         /* Menukarkan 2 baris */
         int i;
         double temp;
@@ -594,7 +555,7 @@ public class Matrix {
         }
     }
 
-    public void divideRow(int row, Double n){
+    public void divideRow(int row, Double n){ // MEMBAGI SEBUAH BARIS DENGAN KONSTANTA N
         /* Membagi baris dengan suatu bilangan n */
         int i;
         for( i = 0 ; i < this.cols; i++){
@@ -639,29 +600,19 @@ public class Matrix {
         return m3;
     }
     
-    
-
-    
-    public void OBE(int a){ //input a = 0 sebagai awal
-
+    public void OBE(int a){ // METODE OPERASI BARIS ELEMENTER
+        //input a = 0 sebagai awal
         /* Prekondisi : Baris pertama matriks bukan baris nol, atau baris pertama merupakan baris dengan nilai non nol terkiri yang ada di matriks, solusinya pake swap matrix */
-        
-
         /* Matriks akan dioperasikan sehingga menjadi segitiga atas */
         int i,colNotZero,j;
         double pengali;
-        
-        // REkurens
+        // Rekurens
         if(a < this.rows){ //soalnya gaboleh operasiin paling kanan
             colNotZero = firstNonZeroInRow(a);
-            
             if(colNotZero != -1 && colNotZero != this.cols-1){
                 for(i=a+1; i<this.rows; i++){
-
                     // for(j = a; j < this.rows; j++){
-    
                     // }
-    
                     // System.out.println("Oke");
                     if(this.matrix[i][colNotZero] != 0){
                         pengali = this.matrix[i][colNotZero] / this.matrix[a][colNotZero];
@@ -670,32 +621,21 @@ public class Matrix {
                         displayMatrix();
                         System.out.println();
                     }
-    
-                    
                 }
             }
-
             corrZero();
             if(!isAllRowBelowZero(a)){
                 if(colNotZero == this.cols-1 || colNotZero == -1){
-                    
-                    
                     swapWithZeroRow(a, 0);;
-                    
                     // displayMatrix();
                     OBE(a);
                 }
-                
-                //REkursyi
+                //Rekursi
                 else{
                     OBE(a+1);
                 }
             }
-            
-            
-        }      
-    
-    
+        }
     }
 
     public void OBENoDisplay(int a){ //input a = 0 sebagai awal
@@ -754,9 +694,8 @@ public class Matrix {
     
     }
 
-    public int firstZeroInRow(int i){
+    public int firstZeroInRow(int i){ // MENGEMBALIKAN INDEKS 0 PERTAMA DALAM SUATU BARIS
         /* Mengembalikan nilai indeks pertama elemen 0 pada baris */
-        
         int j;
         for(j = 0; j < this.cols; j++){
             if (isZero(this.matrix[i][j], epsilon)){
@@ -766,9 +705,8 @@ public class Matrix {
         return -1; /* Kasus tidak ditemukan nilai 0 maka return -1 */
     }
 
-    public int lastZeroInRow(int i){
+    public int lastZeroInRow(int i){ // MENGEMBALIKAN INDEKS 0 TERAKHIR DALAM SUATU BARIS
         /* Mengembalikan nilai indeks pertama elemen 0 pada baris */
-        
         int j;
         int last = -1;
         for(j = 0; j < this.cols; j++){
@@ -780,24 +718,19 @@ public class Matrix {
         return last; /* Kasus tidak ditemukan nilai 0 maka return -1 */
     }
 
-    public int firstNonZeroInRow(int i){
+    public int firstNonZeroInRow(int i){ // MENGEMBALIKAN INDEKS BUKAN 0 PERTAMA DALAM SUATU BARIS
         /* Mengembalikan nilai indeks pertama elemen non 0 pada baris */
-        
         int j;
         for(j = 0; j < this.cols; j++){
-            
             if (!isZero(this.matrix[i][j], epsilon)){
-
                 return j;
-                
             } 
         }
         return -1; /* Kasus tidak ditemukan nilai selain 0 maka return -1 */
     }
 
-    public boolean isAllRowBelowZero(int i){
+    public boolean isAllRowBelowZero(int i){ // MENGECEK NILAI 0 DI BAWAH SUATU ELEMEN INDEKS
         /* Mengembalikan nilai indeks pertama elemen 0 pada baris */
-        
         int j;
         for(j = i+1; j < this.rows; j++){
             if (!isRowsZero(j)){
@@ -807,8 +740,9 @@ public class Matrix {
         return true; /* Kasus tidak ditemukan nilai 0 maka return -1 */
     }
 
-    public void swapWithZeroRow(int i ,int j){ // i buat nandain baris yang mau diswap utama dan j buat indeks kolom yang bernilai 0
-        /* Prekondisu sudah diketahui bahwa elemen i j bernilai 0 sehingga harus diswap agar tidak menimbulkan Nan atau Infinity */
+    public void swapWithZeroRow(int i ,int j){ // MENUKAR DENGAN BARIS BERISI NILAI 0
+        // i buat nandain baris yang mau diswap utama dan j buat indeks kolom yang bernilai 0
+        /* Prekondisi sudah diketahui bahwa elemen i j bernilai 0 sehingga harus diswap agar tidak menimbulkan Nan atau Infinity */
         int init = i;
         int k;
          //Kasus penanganan buat swap baris [0]
@@ -818,7 +752,6 @@ public class Matrix {
                     i = k; // Buat pembanding nyari yang paling kiri
                 }
             }
-            
         if(init != i){ //Nampilinn kalo ada pertukaran aja
             System.out.printf("Tukar baris ke-%d dengan baris ke-%d\n", (init+1),(i+1));
             displayMatrix();
@@ -843,11 +776,9 @@ public class Matrix {
             // System.out.printf("Tukar baris ke-%d dengan baris ke-%d\n", (init+1),(i+1));
             // displayMatrix();
         }
-        
-        
     }
 
-    public boolean isMatriksNol(){
+    public boolean isMatriksNol(){ // MENGECEK APAKAH SEMUA ELEMEN BERNILAI NOL
         /* Mengecek appakah semua elemen nol */
         int i,j;
         for(i = 0; i < this.rows; i++){
@@ -860,10 +791,9 @@ public class Matrix {
         return true;
     }
 
-    public void swapDown(int i){
+    public void swapDown(int i){ // MENUKAR SUATU BARIS DENGAN BARIS DI BAWAHNYA
         int j;
         int last  = i;
-
         for(j = this.rows-1; j > i ; j--){
             if(!isRowAugZero(j) ){
                 swapRow(i, j);
@@ -873,10 +803,9 @@ public class Matrix {
         if (last != i){
             System.out.printf("Tukar baris ke-%d dan baris ke-%d\n", i, last);
         }
-        
     }
 
-    public boolean isRowAugZero(int i){
+    public boolean isRowAugZero(int i){ // MENGECEK APAKAH SUATU BARIS BERISI 0
         int j;
         for(j = 0; j < this.cols-1; j++){
             if(!isZero(matrix[i][j], epsilon)){
@@ -886,7 +815,7 @@ public class Matrix {
         return true;
     }
 
-    public boolean isRowZeroInv(int i){
+    public boolean isRowZeroInv(int i){//apakah hasil gjordan menghasilkan identitas di kiri
         int j;
         for(j = 0; j < (this.cols/2); j++){
             
@@ -898,7 +827,7 @@ public class Matrix {
         return true;
     }
 
-    public double inverseOBE(){
+    public double inverseOBE(){//cari balikan dengan OBE
         /* Prekondisi matriks adalah persegi */
 
             
@@ -913,17 +842,11 @@ public class Matrix {
             int i,j;
             for(i = 0; i < invMat.rows ; i++){
                 invMat.matrix[i][this.cols+i] = 1;
-                
             }
-
             // System.out.println("Metode Matriks Balikan OBE :");
             invMat.displayMatrix();
-            System.out.println();
-
             invMat.gaussJordan();
-
             if(!invMat.isInverseUrut()){
-                
                 for(i = 0; i < this.rows; i++){
                     if(isZero(invMat.matrix[i][i], epsilon) ){
                         for(j = i+1; j < this.rows; j++){
@@ -935,7 +858,6 @@ public class Matrix {
                         }
                     }
                 }
-
             }
             Matrix zer = new Matrix(0, 0);
 
@@ -967,27 +889,22 @@ public class Matrix {
             
     }
 
-    public void inverseSPL(){
-        
+    public void inverseSPL(){ // MENCARI SOLUSI SPL DENGAN MATRIX BALIKAN
         Matrix y = new Matrix(this.rows, 1);
         int i;
         for(i = 0; i < this.rows; i++){
                 y.matrix[i][0] = this.matrix[i][this.cols-1];
         }
-
         Matrix newMat = this.extendMatrix(0, -1);
-
         newMat.inverseOBE();
-
         Matrix solusi =  multiplyMatrix(newMat, y);
-
         System.out.println("\nSolusi dari SPL tersebut adalah...");
         for(i = 0; i< newMat.cols; i++){
             System.out.printf("X%d = %f\n",i+1,solusi.matrix[i][0]);
         }
     }
 
-    public boolean isInverseUrut(){
+    public boolean isInverseUrut(){ // MENGECEK APAKAH SUATU MATRIKS BALIKAN TELAH BERURUTAN
         int i;
         for(i = 0; i < this.rows; i++){
             if(isZero(this.matrix[i][i], epsilon)){
@@ -997,70 +914,54 @@ public class Matrix {
         return true;
     }
 
-    public boolean OBEdet(int a, boolean evenSwap){ //input a = 0 sebagai awal
-
+    public boolean OBEdet(int a, boolean evenSwap){ // MENERAPKAN OBE UNTUK MENCARI DETERMINAN MATRIX
+        //input a = 0 sebagai awal
         /* Prekondisi : Baris pertama matriks bukan baris nol, atau baris pertama merupakan baris dengan nilai non nol terkiri yang ada di matriks, solusinya pake swap matrix */
-        
-
         /* Matriks akan dioperasikan sehingga menjadi segitiga atas */
         int i,colNotZero,j;
         double pengali;
-        
         // REkurens
         if(a < this.rows){ //soalnya gaboleh operasiin paling kanan
             colNotZero = firstNonZeroInRow(a);
-            if(colNotZero != -1 && colNotZero != this.cols){
-                for(i=a+1; i<this.rows; i++){
-
+            if(colNotZero != -1 && colNotZero != this.cols) {
+                for (i = a + 1; i < this.rows; i++) {
                     // for(j = a; j < this.rows; j++){
-    
                     // }
-    
                     // System.out.println("Oke");
-                    if(this.matrix[i][colNotZero] != 0){
+                    if (this.matrix[i][colNotZero] != 0) {
                         pengali = this.matrix[i][colNotZero] / this.matrix[a][colNotZero];
-                        addMultiplyRow(i,a, (-1)*pengali);
+                        addMultiplyRow(i, a, (-1) * pengali);
                         // System.out.printf("\nKurangi baris ke-%d dengan %f kali baris ke-%d\n", (i+1), pengali , (colNotZero+1));
                         // displayMatrix();
                         // System.out.println();
-
-                        if(a == this.cols-1){
+                        if (a == this.cols - 1) {
                             return evenSwap;
                         }
-                         //apakah det dikali -1 atau 1
+                        //apakah det dikali -1 atau 1
                     }
-    
-                    
                 }
             }
-
             if(colNotZero == this.cols){
                 swapDown(a);
                 evenSwap = OBEdet(a, !evenSwap);
             }
-            
-            //REkursyi
+            //Rekursi
             else{
                 evenSwap = OBEdet(a+1, evenSwap);
             }
-            
         }      
         return evenSwap;
-    
-    
     }
 
 
-    public double determinanOBE(){
+    public double determinanOBE(){ // MENERAPKAN OBE UNTUK MENCARI DETERMINAN MATRIX
         /* Prekondisi matriks persegi */
         int i,j;
         double det = 1;
         boolean evenSwap;
-        
         if(this.isAtLeastColZero() || this.isAtLeastRowZero()){
             return 0;
         }
-
         else{
 
             if(firstZeroInRow(0) == 0){
@@ -1068,9 +969,7 @@ public class Matrix {
                 det *= -1; // Kemungkinan swap pertama
     
             }
-
             evenSwap = this.OBEdet(0,true);
-
             if(!this.isInverseUrut()){
                 
                 for(i = 0; i < this.rows; i++){
@@ -1085,31 +984,26 @@ public class Matrix {
                         }
                     }
                 }
-
             }
-
             for(i = 0; i < this.rows; i++){
                 det *= this.matrix[i][i];
             }
-
             if(!evenSwap){
                 det *= -1;
             }
-
 //            System.out.printf("Determinan matriks :%.2f\n", det);
-
         }
         return det;
     }
+
     // FUNGSI KOFAKTOR DAN CRAMER
-    void kofaktor(){
+    void kofaktor(){ // METODE OPERASI KOFAKTOR
         int i,j;
         double temp;
         double[][] mNew;
         mNew = new double[this.rows-1][this.cols-1];
         Matrix m1 = new Matrix((this.rows-1),(this.cols-1));
         Matrix m2 = new Matrix((this.rows),(this.cols));
-
         if((this.rows == 2) && (this.cols ==2)){
             temp = this.matrix[0][0];
             this.matrix[0][0] = this.matrix[1][1];
@@ -1123,7 +1017,6 @@ public class Matrix {
                     this.reduceMatrix(mNew,i,j);
                     m1.copyMatrixInverse(mNew);
                     m2.matrix[i][j] = m1.determinanKofaktor();
-
                     if((i+j)%2 != 0){
                         m2.matrix[i][j] = -(m2.matrix[i][j]);
                     }
@@ -1136,7 +1029,8 @@ public class Matrix {
             }
         }
     }
-    public double determinanKofaktor(){
+
+    public double determinanKofaktor(){ // MENCARI NILAI DETERMINAN DENGAN KOFAKTOR
         double det=0;
         int i,j,k,x,y;
         Matrix matrixNew = new Matrix((this.rows-1),(this.cols-1));
@@ -1171,7 +1065,7 @@ public class Matrix {
     }
 
 
-    void transpose(){
+    void transpose(){ // MELAKUKAN TRANSPOSE MATRIX
         int i,j;
         double[][] mNew;
         mNew = new double[this.rows][this.cols];
@@ -1187,12 +1081,12 @@ public class Matrix {
         }
     }
 
-    void adjoin(){
+    void adjoin(){ // MENCARI MATRIX ADJOIN
         this.kofaktor();
         this.transpose();
     }
 
-    void copyMatrixInverse(double M[][]){
+    void copyMatrixInverse(double M[][]){ // MELAKUKAN COPY MATRIX INVERSE
         int i,j;
         for(i=0; i<this.rows; i++){
             for(j=0; j<this.cols; j++){
@@ -1201,7 +1095,7 @@ public class Matrix {
         }
     }
 
-    void invers(){
+    void invers(){ // MELAKUKAN INVERS TERHADAP SUATU MATRIX
         int i,j;
         double[][] mNew;
         mNew = new double[this.rows][this.cols];
@@ -1217,19 +1111,17 @@ public class Matrix {
         }
     }
 
-    String Cramer(double m[][]){
+    String Cramer(double m[][]){ // METODE CRAMER
         int i, j;
         double mNew[][] = new double[this.rows][this.cols];
         double det1 = this.determinanKofaktor();
         double det2, res;
         String output = "";
-
         for(i=0; i<this.rows; i++){
             for(j=0; j<this.cols; j++){
                 mNew[i][j] = this.matrix[i][j]; // membuat matriks baru hasil copy matrix asli
             }
         }
-
         if(det1 != 0){
             for(j=0; j<this.cols; j++){
                 for(i=0; i<this.rows; i++){
@@ -1252,12 +1144,11 @@ public class Matrix {
         return output; // mengembalikan String output
     }
 
-    String multiplyInvers(double M[][]){
+    String multiplyInvers(double M[][]){ //METODE MATRIX BALIKAN UNTUK SPL (MENGALIKAN A^-1 DENGAN MATRIX B)
         // MENGALIKAN MATRIKS M DENGAN MATRIKS
         int i,j;
         double res;
         String string = "";
-
         this.invers();
         for(i=0; i<this.rows; i++){
             res = 0;
@@ -1274,7 +1165,4 @@ public class Matrix {
         return string;
     }
 
-   
-
 }
-
