@@ -76,6 +76,43 @@ public class Matrix {
             System.out.println("File tidak ditemukan.");
         }
     }
+
+    public void readMatrixFILEBicubic(String FileName){
+        try{
+            int i,j;
+            int nRows=5, nCols=4;
+            String dir = "../test/input/" + FileName;
+            File file = new File(dir);
+            Scanner input = new Scanner(file);
+            
+
+            this.rows = 5;
+            this.cols = 4;
+
+            matrix = new double[nRows][nCols];
+
+            
+
+            for(i=0; i<nRows; i++){
+                for(j=0; j<nCols; j++){
+                    if(i != 4 || j < 2){
+                        this.matrix[i][j] = input.nextDouble();
+                    }
+                    else{
+                        this.matrix[i][j] = 0;
+                    }
+                    
+                    
+                }
+            }
+            
+
+            input.close();
+            System.out.println("Matriks (file:"+FileName+") berhasil dibaca.");
+        }catch(FileNotFoundException e){
+            System.out.println("File tidak ditemukan.");
+        }
+    }
     // public void readMatrixTXT(String file){
     // }
 
@@ -174,6 +211,22 @@ public class Matrix {
             }
         }
         return false;
+    }
+
+    public boolean isIdentity(){
+        boolean iden = true;
+        int i,j;
+        for(i = 0; i < this.rows; i++){
+            for(j = 0; j < this.cols; j++){
+                if(j != i && !isZero(this.matrix[i][j], epsilon)){
+                    return false;
+                }
+                else if(j == i && !isZero(this.matrix[i][j]-1, 0.0001)){
+                    return false;
+                }
+            }
+        }
+        return iden;
     }
 
     public boolean isAtLeastColZero(){
@@ -300,16 +353,16 @@ public class Matrix {
         //Inget bentuk augmented
         
 
-        if(isMatriksNol()){
-            Boolean allZero = true;
-            System.out.println("Nilai semua elemen 0, masukan input yang valid!\n");
-            while(allZero){
-                readMatrixCLI(this.rows, this.cols);
-                if(!isMatriksNol()){
-                    allZero=false;
-                }
-            }
-        }
+        // if(isMatriksNol()){
+        //     Boolean allZero = true;
+        //     System.out.println("Nilai semua elemen 0, masukan input yang valid!\n");
+        //     while(allZero){
+        //         readMatrixCLI(this.rows, this.cols);
+        //         if(!isMatriksNol()){
+        //             allZero=false;
+        //         }
+        //     }
+        // }
 
         
         int i,j,colNotZero;
@@ -336,8 +389,38 @@ public class Matrix {
         
     }
 
+    public void gaussNoDisplay(){
+        
+        //Inget bentuk augmented
+    
+
+        
+        int i,j,colNotZero;
+
+        /* Cek elemen [0][0] apakah nilai 0 jika iya swap dengan baris lain */   
+        if(firstZeroInRow(0) == 0){
+            swapWithZeroRowNoDisplay(0, 0);
+
+        }
+        
+        OBENoDisplay(0);
+
+        // Apakah dijamin kebentuk matriks segitiga(kalo gaada baris 0 semua)??
+
+        /* Membuat menjadi nilai 1 di kolom palinng kiri non 0 di baris */
+        for(i = 0; i < this.rows; i++){{
+            if(firstNonZeroInRow(i) != -1 && firstNonZeroInRow(i) != this.cols-1){
+                divideRowNoDisplay(i, this.matrix[i][firstNonZeroInRow(i)]);
+            }
+        }}
+
+        /* Udah didapat matriks eselon augmented */   
+        
+        
+    }
+
     public static HashMap<String, String> preSolusiGauss(Matrix mat){
-        mat.gauss();
+        // mat.gaussNoDisplay();
 
         return solusiGaussJordan(mat);
     }
@@ -371,7 +454,7 @@ public class Matrix {
         int jumlahsolusi;
         HashMap<String, String> solusi = new HashMap<>();
 
-        m.gaussJordan();
+        // m.gaussJordan();
         jumlahsolusi = m.jumlahSolusi();
 
         if (jumlahsolusi == 0) {
@@ -523,23 +606,36 @@ public class Matrix {
         System.out.println();
     }
 
+    public void divideRowNoDisplay(int row, Double n){
+        /* Membagi baris dengan suatu bilangan n */
+        int i;
+        for( i = 0 ; i < this.cols; i++){
+            this.matrix[row][i] /= n;
+        }
+        corrZero();
+        // System.out.printf("Bagi setiap elemen di baris ke-%d dengan %.2f\n", (row+1), n);
+        // displayMatrix();
+        // System.out.println();
+    }
+
     public Matrix multiplyMatrix(Matrix m1, Matrix m2){
         int i,j,k;
         double sum;
         Matrix m3 = new Matrix(m1.rows,m2.cols);
         
-        for ( i = 0; i < m1.rows; i++){
-            for (j = 0; j < m2.cols; j++){
+        for ( i = 0; i < m3.rows; i++){
+            for (j = 0; j < m3.cols; j++){
                 sum = 0;
-                for ( k = 0; k < m2.rows; k++){
-                    sum += m1.matrix[i][k] * m2.matrix[k][j];
+                for ( k = 0; k < m3.cols; k++){
+                    sum += (m1.matrix[i][k]) * (m2.matrix[k][j]);
                 }
-            if(isZero(sum, epsilon)){
-                sum = 0;
-            }
-            m3.matrix[i][j] = sum;
+            
+                m3.matrix[i][j] = sum;
+                System.out.printf("\n%f", sum);
             }
         }
+        m3.corrZero();
+        m3.displayMatrix();
         return m3;
     }
     
@@ -570,9 +666,9 @@ public class Matrix {
                     if(this.matrix[i][colNotZero] != 0){
                         pengali = this.matrix[i][colNotZero] / this.matrix[a][colNotZero];
                         addMultiplyRow(i,a, (-1)*pengali);
-                         System.out.printf("\nKurangi baris ke-%d dengan %f kali baris ke-%d\n", (i+1), pengali , (colNotZero+1));
-                         displayMatrix();
-                         System.out.println();
+                        System.out.printf("Kurangi baris ke-%d dengan %f kali baris ke-%d\n", (i+1), pengali , (colNotZero+1));
+                        displayMatrix();
+                        System.out.println();
                     }
     
                     
@@ -602,6 +698,61 @@ public class Matrix {
     
     }
 
+    public void OBENoDisplay(int a){ //input a = 0 sebagai awal
+
+        /* Prekondisi : Baris pertama matriks bukan baris nol, atau baris pertama merupakan baris dengan nilai non nol terkiri yang ada di matriks, solusinya pake swap matrix */
+        
+
+        /* Matriks akan dioperasikan sehingga menjadi segitiga atas */
+        int i,colNotZero,j;
+        double pengali;
+        
+        // REkurens
+        if(a < this.rows){ //soalnya gaboleh operasiin paling kanan
+            colNotZero = firstNonZeroInRow(a);
+            
+            if(colNotZero != -1 && colNotZero != this.cols-1){
+                for(i=a+1; i<this.rows; i++){
+
+                    // for(j = a; j < this.rows; j++){
+    
+                    // }
+    
+                    // System.out.println("Oke");
+                    if(this.matrix[i][colNotZero] != 0){
+                        pengali = this.matrix[i][colNotZero] / this.matrix[a][colNotZero];
+                        addMultiplyRow(i,a, (-1)*pengali);
+                        //  System.out.printf("\nKurangi baris ke-%d dengan %f kali baris ke-%d\n", (i+1), pengali , (colNotZero+1));
+                        //  displayMatrix();
+                        //  System.out.println();
+                    }
+    
+                    
+                }
+            }
+
+            corrZero();
+            if(!isAllRowBelowZero(a)){
+                if(colNotZero == this.cols-1 || colNotZero == -1){
+                    
+                    
+                    swapWithZeroRow(a, 0);;
+                    
+                    // displayMatrix();
+                    OBE(a);
+                }
+                
+                //REkursyi
+                else{
+                    OBE(a+1);
+                }
+            }
+            
+            
+        }      
+    
+    
+    }
 
     public int firstZeroInRow(int i){
         /* Mengembalikan nilai indeks pertama elemen 0 pada baris */
@@ -669,6 +820,26 @@ public class Matrix {
             }
             
         if(init != i){ //Nampilinn kalo ada pertukaran aja
+            System.out.printf("Tukar baris ke-%d dengan baris ke-%d\n", (init+1),(i+1));
+            displayMatrix();
+        }
+        
+        
+    }
+
+    public void swapWithZeroRowNoDisplay(int i ,int j){ // i buat nandain baris yang mau diswap utama dan j buat indeks kolom yang bernilai 0
+        /* Prekondisu sudah diketahui bahwa elemen i j bernilai 0 sehingga harus diswap agar tidak menimbulkan Nan atau Infinity */
+        int init = i;
+        int k;
+         //Kasus penanganan buat swap baris [0]
+            for(k = i; k < this.rows ; k++){
+                if(lastZeroInRow(k) < lastZeroInRow(i) || firstZeroInRow(k) == -1 ){
+                    swapRow(k, i);
+                    i = k; // Buat pembanding nyari yang paling kiri
+                }
+            }
+            
+        if(init != i){ //Nampilinn kalo ada pertukaran aja
             // System.out.printf("Tukar baris ke-%d dengan baris ke-%d\n", (init+1),(i+1));
             // displayMatrix();
         }
@@ -681,7 +852,7 @@ public class Matrix {
         int i,j;
         for(i = 0; i < this.rows; i++){
             for(j = 0; j < this.cols; j++){
-                if(this.matrix[i][j] != 0){
+                if(!isZero(this.matrix[i][j], epsilon)){
                     return false;
                 }
             }
@@ -700,7 +871,7 @@ public class Matrix {
             }
         }
         if (last != i){
-            // System.out.printf("Tukar baris ke-%d dan baris ke-%d\n", i, last);
+            System.out.printf("Tukar baris ke-%d dan baris ke-%d\n", i, last);
         }
         
     }
@@ -715,17 +886,29 @@ public class Matrix {
         return true;
     }
 
+    public boolean isRowZeroInv(int i){
+        int j;
+        for(j = 0; j < (this.cols/2); j++){
+            
+            if(!isZero(this.matrix[i][j], epsilon)){
+                return false;
+            }
+            
+        }
+        return true;
+    }
+
     public double inverseOBE(){
         /* Prekondisi matriks adalah persegi */
 
-        
+            
             double det = 0;
             if(firstZeroInRow(0) == 0){
                 swapWithZeroRow(0, 0);
                 det = -1;
             }
             
-            Matrix invMat = extendMatrix(0, this.cols);
+            Matrix invMat = this.extendMatrix(0, this.cols);
             
             int i,j;
             for(i = 0; i < invMat.rows ; i++){
@@ -735,6 +918,7 @@ public class Matrix {
 
             // System.out.println("Metode Matriks Balikan OBE :");
             invMat.displayMatrix();
+            System.out.println();
 
             invMat.gaussJordan();
 
@@ -745,30 +929,40 @@ public class Matrix {
                         for(j = i+1; j < this.rows; j++){
                             if(!isZero(invMat.matrix[j][i], epsilon) ){
                                 invMat.swapRow(i, j);
-                                // System.out.printf("\nBaris ke-%d ditukar dengan baris ke-%d\n", i,j);
-                                // invMat.displayMatrix();
+                                System.out.printf("\nBaris ke-%d ditukar dengan baris ke-%d\n", i,j);
+                                invMat.displayMatrix();
                             }
                         }
                     }
                 }
 
             }
+            Matrix zer = new Matrix(0, 0);
 
-            
-            
-            /* Mengopi sisi kanan dari matriks balikan ke matriks balikan baru */
+            if(invMat.isRowZeroInv(invMat.rows-1)){
+                this.matrix = zer.matrix;
+                this.cols = zer.cols;
+                this.rows = zer.rows;
+            }
 
-            for(i = 0; i < this.rows; i++){
+            else{/* Mengopi sisi kanan dari matriks balikan ke matriks balikan baru */
+                for(i = 0; i < this.rows; i++){
                 for(j = 0; j < this.cols; j++){
                     this.matrix[i][j] = invMat.matrix[i][j+this.cols];
                 }
             }
 
+            }
+            
+            
+            
             // System.out.println("\nDidapatkan Matriks Balikan :");
             // this.displayMatrix();
             
-            Matrix temp = this;
+            Matrix temp = new Matrix(0, 0);
+            temp.matrix = matrix;
             return temp.determinanOBE();
+            
             
             
     }

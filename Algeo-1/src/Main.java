@@ -164,9 +164,9 @@ public class Main {
                     break;
                 case 3:
                     subMenuSPL();
-                default:
-                    System.out.println("Masukan sumber tidak valid, silahkan ulangi.");
-                    subMenuSPL();
+            default:
+                System.out.println("Masukan sumber tidak valid, silahkan ulangi.");
+                subMenuSPL();
             }
             System.out.println("---------------------------------------------------------");
             System.out.println("Matriks yang dibaca: ");
@@ -479,7 +479,10 @@ public class Main {
                 System.out.println("---------------------------------------------------------");
                 System.out.println("Dengan metode Eliminasi Gauss,  ");
                 System.out.println("diperoleh nilai determinan:     ");
-                res = mat.determinanOBE();;
+                res = mat.determinanOBE();
+                if(mat.isZero(res, mat.epsilon)){
+                    res = 0;
+                }
                 System.out.println(res);
                 System.out.println("---------------------------------------------------------");
 
@@ -494,6 +497,9 @@ public class Main {
                 System.out.println("Dengan metode Ekspansi Kofaktor,");
                 System.out.println("diperoleh nilai determinan:     ");
                 res = mat.determinanKofaktor();
+                if(mat.isZero(res, mat.epsilon)){
+                    res = 0;
+                }
                 System.out.println(res);
                 System.out.println("---------------------------------------------------------");
                 // MENYIMPAN FILE
@@ -545,11 +551,14 @@ public class Main {
     public static void subMenuInv(){
         try{
             int metode, ukuran;
+            int i,j;
             int sumber =0;
             char simpan =0;
             String namaFile = null;
             Matrix mat = new Matrix(0,0);
             Matrix res = new Matrix(0,0);
+            Matrix temp = new Matrix(0,0);
+          
             Scanner input  = new Scanner(System.in);
 
             System.out.println("---------------------------------------------------------");
@@ -617,24 +626,38 @@ public class Main {
             System.out.println("---------------------------------------------------------");
             System.out.println("Matriks yang dibaca: ");
             mat.displayMatrix();
+            // temp.cols = mat.cols;
+            // temp.rows = mat.rows;
+            // temp.matrix = mat.matrix;
+            
 
             // OPERASI MATRIKS BALIKAN TARUH DISINI
             if(metode==1 && (sumber==1 || sumber==2)){
                 // MENCARI MATRIKS BALIKAN DENGAN ELIMINASI GAUSS
-                if(!mat.isZero(mat.inverseOBE(), mat.epsilon)){
-                    System.out.println("---------------------------------------------------------");
+                System.out.println("---------------------------------------------------------");
+                System.out.println("Eliminasi Gauss-Jordan");
+                System.out.println("---------------------------------------------------------\n");
+                mat.inverseOBE();
+                // Matrix toa = (mat.multiplyMatrix(temp,mat ));
+                // toa.displayMatrix();
+                // System.out.printf("%d %d", toa.rows,toa.cols);
+                if(!mat.isMatriksNol()){
                     System.out.println("Dengan metode Eliminasi Gauss,  ");
                     System.out.println("diperoleh matriks balikan:     ");
                     mat.displayMatrix();
                     res = mat;
 
-                    System.out.println("---------------------------------------------------------");
-                    
-
                 }
                 else{
-                    System.out.println("Bagian kiri matriks yang telah dioperasikan Gauss-Jordan tidak dapat membentuk matriks Identitas\nMaka inverse tidak ada");
+                    System.out.println("\nBagian kiri matriks hasil operasi Gauss-Jordan tidak dapat membentuk matriks identitas, maka tidak memiliki balikan\n");
                 }
+
+                
+                System.out.println("---------------------------------------------------------");
+                
+
+            
+                
 
                 // MENYIMPAN FILE
                 System.out.println("Hasil ingin disimpan? (y/n):    ");
@@ -666,7 +689,7 @@ public class Main {
             }
 
             if(simpan == 'y'){
-                int i,j;
+                
                 System.out.println("Nama output file (*.txt):       ");
                 namaFile = input.next();
                 BufferedWriter output = new BufferedWriter(new FileWriter("../test/output/"+namaFile));
@@ -775,8 +798,10 @@ public class Main {
             }
             System.out.printf("\nMatriks koefisien dari persamaan derajat %d :\n", n);
             m.displayMatrix();
+            System.out.println();
 
             m.gaussJordan();
+            m.corrZero();
 
             for(i = 0; i < n; i++){
                 solusiInterpolasi[i] = m.matrix[i][m.cols-1];
@@ -787,16 +812,19 @@ public class Main {
             
             for(i = n-1; i >= 0; i--){
 
-                if(i == 0){
+                if(i == 0 && !(m.isZero(solusiInterpolasi[0], m.epsilon)) ){
                     System.out.printf(" %f", solusiInterpolasi[0]);
                 }
 
-                else if(i == 1){
+                else if(i == 1  && !(m.isZero(solusiInterpolasi[i], m.epsilon))){
                     System.out.printf(" %fx +", solusiInterpolasi[1]);
                 }
 
                 else{
-                    System.out.printf(" %fx^%d +", solusiInterpolasi[i],i);
+                    if( !(m.isZero(solusiInterpolasi[i], m.epsilon))){
+                        System.out.printf(" %fx^%d +", solusiInterpolasi[i],i);
+                    }
+                    
                 }
 
                 
@@ -882,9 +910,9 @@ public class Main {
             int sumber;
             char simpan =0;
             String namaFile = null;
-            Matrix mat = new Matrix(0,0);
+            Matrix mat = new Matrix(4,4);
             Scanner input = new Scanner(System.in);
-            Matrix m = new Matrix(4, 4);
+            
             Matrix matX = new Matrix(16, 16);
             Matrix a = new Matrix(4, 4);
             int i,j,k,l;
@@ -903,6 +931,12 @@ public class Main {
                     System.out.println("                    1. Masukan dari CLI                  ");
                     System.out.println("---------------------------------------------------------");
                     // MEMINTA MASUKAN TITIK DAN CREATE TITIK
+                    for(i = 0; i < 4; i++){
+                        for(j = 0; j < 4; j++){
+                            System.out.printf("Masukkan nilai f(%d,%d) = ", (i-1), (j-1));
+                            mat.matrix[i][j] = input.nextDouble();
+                        }
+                    }
                     break;
                 case 2:
                     System.out.println("---------------------------------------------------------");
@@ -911,11 +945,15 @@ public class Main {
                     System.out.println("---------------------------------------------------------");
                     System.out.println("Masukkan nama file (.txt) dalam folder test: ");
                     namaFile = input.next();
-                    mat.readMatrixFILE(namaFile);
-
-                    u = (int)mat.matrix[mat.rows-1][0];
-                    v = (int)(mat.matrix[mat.rows-1][1]);
+                    // System.out.println("cek input txt111");
+                    mat.readMatrixFILEBicubic(namaFile);
+                    
+                    
+                    
+                    u = mat.matrix[mat.rows-1][0];
+                    v = mat.matrix[mat.rows-1][1];
                     mat = mat.extendMatrix(-1, 0);
+                    
 
                 // NILAI TITIK
                     break;
@@ -929,96 +967,82 @@ public class Main {
             /* Bicubic  */
         
         
-            for(i = 0; i < 4; i++){
-                for(j = 0; j < 4; j++){
-                    System.out.printf("Masukkan nilai f(%d,%d) = ", (i-1), (j-1));
-                    m.matrix[i][j] = input.nextDouble();
+        
+        System.out.println("---------------------------------------------------------");
+
+
+        
+        if (sumber == 1)
+            {
+            System.out.println("\nUntuk mencari nilai f(a,b) dengan interpolasi...");    
+            System.out.printf("Masukkan a = ");
+            u = input.nextDouble();
+            System.out.printf("Masukkan b = ");
+            v = input.nextDouble();
+            System.out.println("---------------------------------------------------------");
+        }
+
+        for(i = 0 ; i < 4; i++){
+            for(j = 0 ; j < 4; j++){
+                for(k = 0; k < 4; k++){
+                    for(l = 0; l < 4; l++){
+                        matX.matrix[(i)*4 +(j)][(k)*4 +(l)] = Math.pow((j -1 ),l )*Math.pow(i -1, k);
+                    }
                 }
             }
-            System.out.println("---------------------------------------------------------");
+        }
+        Matrix matXAkhir = matX.extendMatrix(0, 1);
 
+        for(i = 0 ; i < 4; i++){
+            for(j = 0 ; j < 4; j++){
+            matXAkhir.matrix[i*4 + j][16] = mat.matrix[i][j];
+            }
+        }
 
+        matXAkhir.gaussJordan();
+
+        for(i = 0 ; i < 4; i++){
+            for(j = 0 ; j < 4; j++){
+            a.matrix[j][i] = matXAkhir.matrix[i*4 + j][16];
+            }
+        }
+
+        for(i = 0 ; i < 4; i++){
+            for(j = 0 ; j < 4; j++){
+                sum += a.matrix[j][i] * Math.pow(u, j) * Math.pow(v, i);
+            }
+        }
+        System.out.println("---------------------------------------------------------");
+        System.out.printf("Maka f(%f,%f) = %f\n",u,v,sum);
+        System.out.println("---------------------------------------------------------");
+
+        // MENYIMPAN FILE
+        System.out.println("Hasil ingin disimpan? (y/n):    ");
+        simpan = input.next().charAt(0);
+        System.out.println("---------------------------------------------------------");
+
+        if(simpan == 'y'){
+            System.out.println("Nama output file (*.txt):       ");
+            namaFile = input.next();
+            BufferedWriter output = new BufferedWriter(new FileWriter("../test/output/"+namaFile));
             
-            if (sumber == 1)
-                {
-                System.out.println("\nUntuk mencari nilai f(a,b) dengan interpolasi...");    
-                System.out.printf("Masukkan a = ");
-                u = input.nextDouble();
-                System.out.printf("Masukkan b = ");
-                v = input.nextDouble();
-                System.out.println("---------------------------------------------------------");
-            }
 
-            for(i = 0 ; i < 4; i++){
-                for(j = 0 ; j < 4; j++){
-                    for(k = 0; k < 4; k++){
-                        for(l = 0; l < 4; l++){
-                            matX.matrix[(i)*4 +(j)][(k)*4 +(l)] = Math.pow((j -1 ),l )*Math.pow(i -1, k);
-                        }
-                    }
-                }
-            }
-            Matrix matXAkhir = matX.extendMatrix(0, 1);
-
-            for(i = 0 ; i < 4; i++){
-                for(j = 0 ; j < 4; j++){
-                matXAkhir.matrix[i*4 + j][16] = m.matrix[i][j];
-                }
-            }
-
-            matXAkhir.gaussJordan();
-
-            for(i = 0 ; i < 4; i++){
-                for(j = 0 ; j < 4; j++){
-                a.matrix[j][i] = matXAkhir.matrix[i*4 + j][16];
-                }
-            }
-
-            for(i = 0 ; i < 4; i++){
-                for(j = 0 ; j < 4; j++){
-                    sum += a.matrix[j][i] * Math.pow(u, j) * Math.pow(v, i);
-                }
-            }
-            System.out.println("---------------------------------------------------------");
-            System.out.printf("Maka f(%f,%f) = %f\n",u,v,sum);
-            System.out.println("---------------------------------------------------------");
-
-            // MENYIMPAN FILE
-            System.out.println("Hasil ingin disimpan? (y/n):    ");
-            simpan = input.next().charAt(0);
-            System.out.println("---------------------------------------------------------");
-
-            if(simpan == 'y'){
-                System.out.println("Nama output file (*.txt):       ");
-                namaFile = input.next();
-                BufferedWriter output = new BufferedWriter(new FileWriter("../test/output/"+namaFile));
-                for(i=0; i<mat.rows; i++){
-                    String string = "";
-                    for(j=0; j<mat.cols; j++){
-                        if(j!=0){
-                            string += " ";
-                        }
-                        string += Double.toString(mat.matrix[i][j]);
-                    }
-                    string += "\n";
-                    output.write(string);
-                }
-
-                String strong = "";
-                strong += ("f(" + Double.toString(u) +","+ Double.toString(v) + ") = " + Double.toString(sum));
+            String strong = "";
+            strong += ("f(" + Double.toString(u) +","+ Double.toString(v) + ") = " + Double.toString(sum));
 
 
-                output.write(strong/* TULIS DISINI BOSSS OUTPUT bicubb NYA*/);
+            output.write(strong/* TULIS DISINI BOSSS OUTPUT bicubb NYA*/);
             output.close();
             System.out.println("---------------------------------------------------------");
-            System.out.println("File " +namaFile+ " berhasil disimpan.");                      
+            System.out.println("File " +namaFile+ " berhasil disimpan.");      
+        }                
             System.out.println("---------------------------------------------------------");
             System.out.println("               Operasi Interpolasi Bicubic               ");
             System.out.println("                         SELESAI                         ");
             System.out.println("                  Kembali ke Menu Utama                  ");
             System.out.println("---------------------------------------------------------");
             MainMenu();
-            }
+            
 
         }catch (Exception e){
             System.out.println("Masukkan menu tidak valid, silahkan ulangi.");
@@ -1100,6 +1124,37 @@ public class Main {
                     namaFile = input.next();
                     mat.readMatrixFILE(namaFile);
                     // NILAI TITIK
+                    
+                    nSampel = mat.rows;
+                    
+                    peubahX = mat.cols-1;
+                    System.out.println("---------------------------------------------------------");
+
+                    x = new Matrix(nSampel, peubahX + 1);
+                    y = new Matrix(nSampel, 1);
+                    xTaksir = new double[peubahX + 1];
+
+
+                    for (i = 0; i < nSampel; i++) {
+                        for (j = 0; j < peubahX + 2; j++) {
+                            if (j == 0) {
+                                x.matrix[i][0] = 1;
+                            } else {
+                                if (j == peubahX + 1) {
+                                    // System.out.printf("Masukkan nilai y untuk sampel %d : ", i + 1);
+                                    y.matrix[i][0] = mat.matrix[i][mat.cols-1];
+                                } else {
+                                    // System.out.printf("Masukkan nilai X%d untuk sampel %d : ", j, i + 1);
+                                    x.matrix[i][j] = mat.matrix[i][j-1];
+                                }
+
+                            }
+
+                        }
+                        System.out.println("---------------------------------------------------------");
+                    }
+                    
+
                     break;
                 default:
                     System.out.println("Masukan sumber tidak valid, silahkan ulangi.");
@@ -1150,6 +1205,20 @@ public class Main {
                 
             }
             System.out.println("\n");
+
+            if(sumber ==2){
+                System.out.println("Masukkan nilai-nilai X yang akan ditaksir...\n");
+                    for (i = 0; i < peubahX + 1; i++) {
+                        if (i == 0) {
+                            xTaksir[0] = 1;
+                        } else {
+                            System.out.printf("Nilai X%d : ", i);
+                            xTaksir[i] = input.nextDouble();
+                        }
+
+                    }
+                    System.out.println("---------------------------------------------------------");
+            }
 
             for (i = 0; i < peubahX + 1; i++) {
                 yTaksir += xTaksir[i] * solusi.matrix[i][0];
