@@ -854,20 +854,10 @@ public class Main {
                 System.out.println("Nama output file (*.txt):       ");
                 namaFile = input.next();
                 BufferedWriter output = new BufferedWriter(new FileWriter("../test/output/"+namaFile));
-                for(i=0; i<mat.rows; i++){
-                    String string = "";
-                    for(j=0; j<mat.cols; j++){
-                        if(j!=0){
-                            string += " ";
-                        }
-                        string += Double.toString(mat.matrix[i][j]);
-                    }
-                    string += "\n";
-                    output.write(string);
-                }
+                
 
                 String strong = "";
-//                System.out.printf("f(x) =");
+                strong += "f(x) =";
 
             
                 for(i = n-1; i >= 0; i--){
@@ -888,6 +878,8 @@ public class Main {
                     
                     
                 }
+
+                strong += "\nf(" + Double.toString(xTaksir) + ") = " + Double.toString(sum);
 
 
                 output.write(strong/* TULIS DISINI BOSSS OUTPUT INTERPOLASI NYA*/);
@@ -1194,12 +1186,26 @@ public class Main {
             System.out.printf("f(x) =");
 
             for (i = 0; i < peubahX + 1; i++) {
-                if( i == 0){
-                    System.out.printf(" %f ", solusi.matrix[i][0]);
+                
+                if(!matRLB.isZero(solusi.matrix[0][0],mat.epsilon)){
+                    if( i == 0){
+                        System.out.printf(" %f ", solusi.matrix[i][0]);
+                    }
+                    else{
+                        System.out.printf("+ (%f*X%d) ", solusi.matrix[i][0], i);
+                    }
                 }
+
+                
                 else{
-                    System.out.printf("+ (%f*X%d)", solusi.matrix[i][0], i);
+                    if( i == 0){
+                        System.out.printf(" %f ", solusi.matrix[i][0]);
+                    }
+                    else{
+                        System.out.printf("+ (%f*X%d) ", solusi.matrix[i][0], i);
+                    }
                 }
+                
                 
             }
             System.out.println("\n");
@@ -1245,18 +1251,6 @@ public class Main {
                 System.out.println("Nama output file (*.txt):       ");
                 namaFile = input.next();
                 BufferedWriter output = new BufferedWriter(new FileWriter("../test/output/"+namaFile));
-                for(i=0; i<mat.rows; i++){
-                    String string = "";
-                    for(j=0; j<mat.cols; j++){
-                        if(j!=0){
-                            string += " ";
-                        }
-                        string += Double.toString(mat.matrix[i][j]);
-                    }
-                    string += "\n";
-                    output.write(string);
-                }
-
                 String strong = "";
                 strong += ("f(x) = ");
 
@@ -1273,6 +1267,11 @@ public class Main {
                 }
 
                 strong += "\nf(Xk) = " + Double.toString(yTaksir); 
+
+                strong += "\nDengan ...";
+                for(i = 0; i < peubahX; i++){
+                    strong += "\nX" + (i+1) + " = " + xTaksir[i+1];
+                }
 
 
                 output.write(strong/* TULIS DISINI BOSSS OUTPUT INTERPOLASI NYA*/);
@@ -1320,6 +1319,8 @@ public class Main {
         System.out.println("                     telah menggunakan                   ");
         System.out.println("                  Kalkulator Matriks Kami                ");
         System.out.println("---------------------------------------------------------");
+        Scanner input = new Scanner(System.in);
+        String ahay = input.nextLine();
         System.exit(0);
     }
 
