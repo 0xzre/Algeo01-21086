@@ -339,9 +339,9 @@ public class Matrix {
                     if(this.matrix[j][firstNonZeroInRow(i)] != 0){
                         pengali = this.matrix[j][firstNonZeroInRow(i)]/this.matrix[i][firstNonZeroInRow(i)];
                         addMultiplyRow(j, i, (-1)*pengali);
-                         System.out.printf("Kurangi baris ke-%d dengan %f kali baris ke-%d\n", (j+1), pengali , (i+1));
-                         displayMatrix();
-                         System.out.println();
+                        System.out.printf("Kurangi baris ke-%d dengan %f kali baris ke-%d\n", (j+1), pengali , (i+1));
+                        displayMatrix();
+                        System.out.println();
 
                     }
                 }
@@ -411,7 +411,6 @@ public class Matrix {
         boolean solusi0 = false;
         Matrix mNew = new Matrix(m.rows,m.cols);
         mNew = mNew.copyMatrix(m);
-        m.gaussNoDisplay();
         double[][] solusi = new double[27][27];
         int indeks = 1;
         for (int i=m.rows-1;i>=0;i--){
