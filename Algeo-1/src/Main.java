@@ -179,7 +179,7 @@ public class Main {
 
             // KHUSUS MATRIKS BALIKAN DAN CRAMER
             if((metode == 3 || metode ==4) && sumber == 2){
-                matA = new Matrix(mat.rows,mat.cols);
+                matA = new Matrix(mat.rows,mat.rows);
                 matB = new double[mat.rows][1];
                 for(i=0; i<mat.rows; i++){
                     for(j=0; j<mat.cols; j++){
@@ -685,6 +685,12 @@ public class Main {
                 System.out.println("Nama output file (*.txt):       ");
                 namaFile = input.next();
                 BufferedWriter output = new BufferedWriter(new FileWriter("../test/output/"+namaFile));
+                if (metode == 1){
+                    output.write("Dengan menggunakan Metode Eliminasi Gauss, diperoleh matriks balikannya: \n");
+                }
+                else if (metode == 2){
+                    output.write("Dengan menggunakan Metode Ekspansi Kofaktor, diperoleh matriks balikannya: \n");
+                }
                 for(i=0; i<mat.rows; i++){
                     String string = "";
                     for(j=0; j<mat.cols; j++){
@@ -695,12 +701,6 @@ public class Main {
                     }
                     string += "\n";
                     output.write(string);
-                }
-                if (metode == 1){
-                    output.write("Dengan menggunakan Metode Eliminasi Gauss, diperoleh matriks balikannya: \n" + res +"\n");
-                }
-                else if (metode == 2){
-                    output.write("Dengan menggunakan Metode Ekspansi Kofaktor, diperoleh matriks balikannya: \n" + res + "\n");
                 }
                 output.close();
                 System.out.println("---------------------------------------------------------");

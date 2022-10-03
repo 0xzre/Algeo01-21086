@@ -1,0 +1,4 @@
+Dengan menggunakan Metode Eliminasi Gauss, diperoleh matriks balikannya: 
+0.35000000000000003 -0.5499999999999999 0.4
+-0.15000000000000002 0.95 -0.6000000000000001
+0.1 -0.3 0.4

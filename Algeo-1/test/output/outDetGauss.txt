@@ -1,0 +1,5 @@
+4.0 2.0 8.0
+0.0 0.5 0.0
+0.0 0.0 1.0
+Dengan menggunakan Metode Eliminasi Gauss, diperoleh nilai determinan matriks: 
+-2.0
