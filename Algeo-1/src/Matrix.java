@@ -286,12 +286,15 @@ public class Matrix {
         if(firstZeroInRow(0) == 0){
             swapWithZeroRow(0, 0);
         }
-        OBE(0);
+        OBE();
         // Apakah dijamin kebentuk matriks segitiga(kalo gaada baris 0 semua)??
         /* Membuat menjadi nilai 1 di kolom palinng kiri non 0 di baris */
         for(i = 0; i < this.rows; i++){{
             if(firstNonZeroInRow(i) != -1 && firstNonZeroInRow(i) != this.cols-1){
-                divideRow(i, this.matrix[i][firstNonZeroInRow(i)]);
+                if(!isZero(this.matrix[i][firstNonZeroInRow(i)]-1, epsilon)){
+                    divideRow(i, this.matrix[i][firstNonZeroInRow(i)]);
+                }
+                
             }
         }}
         /* Udah didapat matriks eselon augmented */
@@ -311,7 +314,7 @@ public class Matrix {
 
         }
         
-        OBENoDisplay(0);
+        OBENoDisplay();
 
         // Apakah dijamin kebentuk matriks segitiga(kalo gaada baris 0 semua)??
 
@@ -483,7 +486,7 @@ public class Matrix {
         boolean solusi0 = false;
         Matrix mNew = new Matrix(m.rows,m.cols);
         mNew = mNew.copyMatrix(m);
-        m.gauss();
+        m.gaussNoDisplay();
         double[][] solusi = new double[27][27];
         int indeks = 1;
         for (int i=m.rows-1;i>=0;i--){
@@ -619,45 +622,49 @@ public class Matrix {
         return m3;
     }
     
-    public void OBE(int a){ // METODE OPERASI BARIS ELEMENTER
+    public void OBE(){ // METODE OPERASI BARIS ELEMENTER, gajadi pake rekursi soalnya java.lang.StackOverFlowError
         //input a = 0 sebagai awal
         /* Prekondisi : Baris pertama matriks bukan baris nol, atau baris pertama merupakan baris dengan nilai non nol terkiri yang ada di matriks, solusinya pake swap matrix */
         /* Matriks akan dioperasikan sehingga menjadi segitiga atas */
-        int i,colNotZero,j;
+        int i,colNotZero,j,k;
         double pengali;
-        // Rekurens
-        if(a < this.rows){ //soalnya gaboleh operasiin paling kanan
-            colNotZero = firstNonZeroInRow(a);
-            if(colNotZero != -1 && colNotZero != this.cols-1){
-                for(i=a+1; i<this.rows; i++){
-                    // for(j = a; j < this.rows; j++){
-                    // }
-                    // System.out.println("Oke");
-                    if(this.matrix[i][colNotZero] != 0){
-                        pengali = this.matrix[i][colNotZero] / this.matrix[a][colNotZero];
-                        addMultiplyRow(i,a, (-1)*pengali);
-                        System.out.printf("Kurangi baris ke-%d dengan %f kali baris ke-%d\n", (i+1), pengali , (colNotZero+1));
-                        displayMatrix();
-                        System.out.println();
+
+        for(j = 0; j < this.rows; j++){
+            if(j < this.rows){ //soalnya gaboleh operasiin paling kanan
+                colNotZero = firstNonZeroInRow(j);
+                if(colNotZero != -1 && colNotZero != this.cols-1){
+                    for(i=j+1; i<this.rows; i++){
+                        // for(j = a; j < this.rows; j++){
+                        // }
+                        // System.out.println("Oke");
+                        if(this.matrix[i][colNotZero] != 0){
+                            pengali = this.matrix[i][colNotZero] / this.matrix[j][colNotZero];
+                            addMultiplyRow(i,j, (-1)*pengali);
+                            System.out.printf("Kurangi baris ke-%d dengan %f kali baris ke-%d\n", (i+1), pengali , (colNotZero+1));
+                            displayMatrix();
+                            System.out.println();
+                        }
                     }
                 }
-            }
-            corrZero();
-            if(!isAllRowBelowZero(a)){
-                if(colNotZero == this.cols-1 || colNotZero == -1){
-                    swapWithZeroRow(a, 0);;
-                    // displayMatrix();
-                    OBE(a);
-                }
-                //Rekursi
-                else{
-                    OBE(a+1);
+                corrZero();
+                if(!isAllRowBelowZero(j)){
+                    if(colNotZero == this.cols-1 || colNotZero == -1){
+                        swapWithZeroRow(j, 0);;
+                        // displayMatrix();
+                        continue;
+                    }
+                    //Rekursi
+                    // else{
+                    //     OBE(a+1);
+                    // }
                 }
             }
         }
+        // Rekurens
+        
     }
 
-    public void OBENoDisplay(int a){ //input a = 0 sebagai awal
+    public void OBENoDisplay(){ //input a = 0 sebagai awal
 
         /* Prekondisi : Baris pertama matriks bukan baris nol, atau baris pertama merupakan baris dengan nilai non nol terkiri yang ada di matriks, solusinya pake swap matrix */
         
@@ -665,52 +672,51 @@ public class Matrix {
         /* Matriks akan dioperasikan sehingga menjadi segitiga atas */
         int i,colNotZero,j;
         double pengali;
+        for(j = 0; j < this.rows; j++){
+            // REkurens
+            if(j < this.rows){ //soalnya gaboleh operasiin paling kanan
+                colNotZero = firstNonZeroInRow(j);
+                
+                if(colNotZero != -1 && colNotZero != this.cols-1){
+                    for(i=j+1; i<this.rows; i++){
+
+                        // for(j = a; j < this.rows; j++){
         
-        // REkurens
-        if(a < this.rows){ //soalnya gaboleh operasiin paling kanan
-            colNotZero = firstNonZeroInRow(a);
-            
-            if(colNotZero != -1 && colNotZero != this.cols-1){
-                for(i=a+1; i<this.rows; i++){
-
-                    // for(j = a; j < this.rows; j++){
-    
-                    // }
-    
-                    // System.out.println("Oke");
-                    if(this.matrix[i][colNotZero] != 0){
-                        pengali = this.matrix[i][colNotZero] / this.matrix[a][colNotZero];
-                        addMultiplyRow(i,a, (-1)*pengali);
-                        //  System.out.printf("\nKurangi baris ke-%d dengan %f kali baris ke-%d\n", (i+1), pengali , (colNotZero+1));
-                        //  displayMatrix();
-                        //  System.out.println();
+                        // }
+        
+                        // System.out.println("Oke");
+                        if(this.matrix[i][colNotZero] != 0){
+                            pengali = this.matrix[i][colNotZero] / this.matrix[j][colNotZero];
+                            addMultiplyRow(i,j, (-1)*pengali);
+                            //  System.out.printf("\nKurangi baris ke-%d dengan %f kali baris ke-%d\n", (i+1), pengali , (colNotZero+1));
+                            //  displayMatrix();
+                            //  System.out.println();
+                        }
+        
+                        
                     }
-    
-                    
                 }
-            }
 
-            corrZero();
-            if(!isAllRowBelowZero(a)){
-                if(colNotZero == this.cols-1 || colNotZero == -1){
+                corrZero();
+                if(!isAllRowBelowZero(j)){
+                    if(colNotZero == this.cols-1 || colNotZero == -1){
+                        
+                        
+                        swapWithZeroRow(j, 0);;
+                        
+                        // displayMatrix();
+                        continue;
+                    }
                     
-                    
-                    swapWithZeroRow(a, 0);;
-                    
-                    // displayMatrix();
-                    OBE(a);
+                    //REkursyi
+                    // else{
+                    //     OBE(a+1);
+                    // }
                 }
                 
-                //REkursyi
-                else{
-                    OBE(a+1);
-                }
+                
             }
-            
-            
-        }      
-    
-    
+        }   
     }
 
     public int firstZeroInRow(int i){ // MENGEMBALIKAN INDEKS 0 PERTAMA DALAM SUATU BARIS
