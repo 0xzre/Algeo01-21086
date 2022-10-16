@@ -1089,3 +1089,5 @@ Masukkan pilihan menu Anda:
 
 pengguna akan langsung dikembalikan ke menu utama secara otomatis.
 
+<hr>
+Made with 🖤 by Seringai
