@@ -914,6 +914,87 @@ public class Matrix {
             
     }
 
+    public double inverseOBENoDisplay(){//cari balikan dengan OBE
+        /* Prekondisi matriks adalah persegi */
+
+            
+            double det = 0;
+            if(firstZeroInRow(0) == 0){
+                swapWithZeroRowNoDisplay(0, 0);
+                det = -1;
+            }
+            
+            Matrix invMat = this.extendMatrix(0, this.cols);
+            
+            int i,j;
+            for(i = 0; i < invMat.rows ; i++){
+                invMat.matrix[i][this.cols+i] = 1;
+            }
+            // System.out.println("Metode Matriks Balikan OBE :");
+            // invMat.displayMatrix();
+            invMat.gaussNoDisplay();
+
+            int notZero;
+        double pengali;
+        for(i = this.rows-1; i >= 0; i--){
+            if(firstNonZeroInRow(i) != -1 && firstNonZeroInRow(i) != this.cols-1){ //tidak boleh mbagi kolom augment paling kanan 
+                for(j = i-1; j >= 0; j--){
+                    if(this.matrix[j][firstNonZeroInRow(i)] != 0){
+                        pengali = this.matrix[j][firstNonZeroInRow(i)]/this.matrix[i][firstNonZeroInRow(i)];
+                        addMultiplyRow(j, i, (-1)*pengali);
+                        // System.out.printf("Kurangi baris ke-%d dengan %f kali baris ke-%d\n", (j+1), pengali , (i+1));
+                        // displayMatrix();
+                        // System.out.println();
+
+                    }
+                }
+            }
+        }
+
+
+            if(!invMat.isInverseUrut()){
+                for(i = 0; i < this.rows; i++){
+                    if(isZero(invMat.matrix[i][i], epsilon) ){
+                        for(j = i+1; j < this.rows; j++){
+                            if(!isZero(invMat.matrix[j][i], epsilon) ){
+                                invMat.swapRow(i, j);
+                                // System.out.printf("\nBaris ke-%d ditukar dengan baris ke-%d\n", i,j);
+                                // invMat.displayMatrix();
+                            }
+                        }
+                    }
+                }
+            }
+            Matrix zer = new Matrix(0, 0);
+
+            // if(invMat.isRowZeroInv(invMat.rows-1)){
+            //     this.matrix = zer.matrix;
+            //     this.cols = zer.cols;
+            //     this.rows = zer.rows;
+            // }
+
+            if(true){/* Mengopi sisi kanan dari matriks balikan ke matriks balikan baru */
+                for(i = 0; i < this.rows; i++){
+                for(j = 0; j < this.cols; j++){
+                    this.matrix[i][j] = invMat.matrix[i][j+this.cols];
+                }
+            }
+
+            }
+            
+            
+            
+            // System.out.println("\nDidapatkan Matriks Balikan :");
+            // this.displayMatrix();
+            
+            Matrix temp = new Matrix(0, 0);
+            temp.matrix = matrix;
+            return temp.determinanOBE();
+            
+            
+            
+    }
+
     public boolean isInverseUrut(){ // MENGECEK APAKAH SUATU MATRIKS BALIKAN TELAH BERURUTAN
         int i;
         for(i = 0; i < this.rows; i++){
